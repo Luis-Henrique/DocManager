@@ -12,6 +12,11 @@ namespace DocManager.Application.Services
 {
     public class DocumentTypeService
     {
-        
+        private readonly DocumentTypeRepository _documentTypeRepository;
+        public DocumentTypeService(DocumentTypeRepository documentTypeRepository)
+        {
+            this._documentTypeRepository = documentTypeRepository;
+        }
+
     }
 }

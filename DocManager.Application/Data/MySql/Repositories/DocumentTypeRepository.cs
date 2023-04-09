@@ -13,6 +13,12 @@ namespace DocManager.Application.Data.MySql.Repositories
 {
     public class DocumentTypeRepository
     {
+        private readonly MySqlContext _context;
+
+        public DocumentTypeRepository(MySqlContext ctt)
+        {
+            this._context = ctt;
+        }
 
     }
 }

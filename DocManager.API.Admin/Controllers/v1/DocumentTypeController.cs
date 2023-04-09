@@ -13,6 +13,12 @@ namespace DocManager.API.Admin.Controllers.v1
     [Route("api/v{version:apiVersion}/[controller]")]
     public class DocumentTypeController
     {
+        private readonly DocumentTypeService _documentTypeService;
+        public DocumentTypeController(DocumentTypeService repository)
+        {
+            this._documentTypeService = repository;
+        }
+
 
     }
 }
