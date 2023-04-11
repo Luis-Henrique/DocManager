@@ -10,7 +10,7 @@ namespace DocManager.Application.Data.MySql.Entities
     [Table("document")]
     public class DocumentEntity
     {
-
+        /*
         public DocumentEntity(DocumentPostRequest product)
         {
             this.Id = Guid.NewGuid();
@@ -75,6 +75,6 @@ namespace DocManager.Application.Data.MySql.Entities
         [Column("active")]
         public bool Active { get; set; }
 
-
+        */
     }
 }
