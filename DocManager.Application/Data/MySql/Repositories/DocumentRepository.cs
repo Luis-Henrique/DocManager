@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 using DocManager.Application.Contracts;
 using DocManager.Application.Data.MySql.Entities;
 using DocManager.Application.Helpers;
+using DocManager.Application.Contracts.Document.Request;
 using DocManager.Application.Contracts.Product.Request;
+using DocManager.Application.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DocManager.Application.Data.MySql.Repositories
 {
@@ -22,7 +25,7 @@ namespace DocManager.Application.Data.MySql.Repositories
         public async Task<DefaultResponse> CreateAsync(DocumentEntity entity)
         {
             string strQuery = @$"insert into document(id)
-                                          Values('{entity.Id}')";
+                                          Values('{entity.Id}', '{entity.Title}', '{entity.Description}', '{entity.DocumentType}', '{entity.Validity}', '{entity.Active}', '{entity.Active}', '{entity.CreationDate}', '{entity.UpdateDate}')";
 
             using (var cnx = _context.Connection())
             {
@@ -33,17 +36,15 @@ namespace DocManager.Application.Data.MySql.Repositories
             }
             return new DefaultResponse("", "Erro ao tentar criar Documento", true);
         }
-        public async Task<DefaultResponse> UpdateAsync(ProductEntity entity)
+        public async Task<DefaultResponse> UpdateAsync(DocumentEntity entity)
         {
-            string strQuery = $@"update product set name = '{entity.Name}', 
-                                                    active = {entity.Active},
-                                                    productCode = '{entity.ProductCode}', 
-                                                    productTypeId = '{entity.ProductTypeId}',
-                                                    categoryId = '{entity.CategoryId}',
-                                                    unityId = '{entity.UnityId}', 
-                                                    costPrice = {entity.CostPrice},
-                                                    percentage = {entity.Percentage},
-                                                    price = {entity.Price}
+            string strQuery = $@"update document set title = '{entity.Title}', 
+                                                    description = {entity.Description}, 
+                                                    documentTypeId = '{entity.DocumentTypeId}',
+                                                    validity = '{entity.Validity}',
+                                                    active = '{entity.Active}', 
+                                                    creationDate = {entity.CreationDate},
+                                                    updateDate = {entity.UpdateDate},
                                                     where id = '{entity.Id}'";
 
             using (var cnx = _context.Connection())
@@ -51,32 +52,35 @@ namespace DocManager.Application.Data.MySql.Repositories
                 var result = await cnx.ExecuteAsync(strQuery);
 
                 if (result > 0)
-                    return new DefaultResponse(entity.Id.ToString(), "Produto alterado com sucesso", false);
+                    return new DefaultResponse(entity.Id.ToString(), "Documento alterado com sucesso", false);
             }
 
-            return new DefaultResponse("", "Erro ao tentar alterada produto", true);
+            return new DefaultResponse("", "Erro ao tentar alterada documento", true);
         }
 
-        public async Task<DefaultResponse> DeleteAsync(Guid id)
+        /*public async Task<DefaultResponse> DeleteAsync(Guid id)
         {
-            string strQuery = $"delete from product where id = '{id}'";
+            string strQuery = $"delete from document where id = '{id}'";
             using (var cnx = _context.Connection())
             {
                 var result = await cnx.ExecuteAsync(strQuery);
                 if (result > 0)
-                    return new DefaultResponse(id.ToString(), "Produto excluída com sucesso", false);
+                    return new DefaultResponse(id.ToString(), "Documento excluído com sucesso", false);
             }
-            return new DefaultResponse("", "Erro ao tentar excluír produto", true);
+            return new DefaultResponse("", "Erro ao tentar excluir documrnto", true);
         }
 
-        public async Task<ProductEntity> GetProductByIdAsync(Guid id)
+        public async Task<DocumentEntity> GetDocumentByIdAsync(Guid id)
         {
-            string strQuery = $"select id, name, productCode, productTypeId, categoryId, unityId, costPrice, percentage, price, active from product where id = '{id}'";
+            string strQuery = $"select id, name, documentCode, documentTypeId, categoryId, unityId, costPrice, percentage, price, active from document where id = '{id}'";
             using (var cnx = _context.Connection())
             {
-                var result = await cnx.QueryFirstOrDefaultAsync<ProductEntity>(strQuery);
+                var result = await cnx.QueryFirstOrDefaultAsync<DocumentEntity>(strQuery);
                 return result;
             }
         }
+
+        */
+        
     }
 }
