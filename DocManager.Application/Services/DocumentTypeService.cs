@@ -1,4 +1,5 @@
-﻿using DocManager.Application.Contracts.Unity.Request;
+﻿using DocManager.Application.Contracts.Product.Request;
+using DocManager.Application.Contracts.Unity.Request;
 using DocManager.Application.Data.MySql.Entities;
 using DocManager.Application.Data.MySql.Repositories;
 using DocManager.Application.Errors;
@@ -17,6 +18,33 @@ namespace DocManager.Application.Services
         {
             this._documentTypeRepository = documentTypeRepository;
         }
+        public async Task<ResultData> PostAsync(DocumentTypePostRequest documentType)
+        {
+            var entity = new DocumentTypeEntity(documentType);
+            return Utils.SuccessData(await _documentTypeRepository.CreateAsync(entity));
+        }
 
+        public async Task<ResultData> PutAsync(DocumentTypePutRequest documentType)
+        {
+            var entity = new DocumentTypeEntity(documentType);
+            return Utils.SuccessData(await _documentTypeRepository.UpdateAsync(entity));
+        }
+            /*
+         public async Task<ResultData> GetAsync(Guid id)
+          {
+              var response = await _productRepository.GetProductByIdAsync(id);
+              return Utils.SuccessData(response);
+          }
+
+         public async Task<ResultData> DeleteAsync(Guid id)
+           {
+              var response = await _productRepository.DeleteAsync(id);
+              return Utils.SuccessData(response);
+           }
+
+         public Task PutAsync(DocumentPostRequest request)
+           {
+              throw new NotImplementedException();
+           }*/
     }
 }

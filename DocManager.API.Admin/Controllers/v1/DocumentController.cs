@@ -25,13 +25,13 @@ namespace SysManager.API.Admin.Controllers.v1
             return Utils.Convert(response);
         }
 
-        [HttpPost("update")]
-        public async Task<IActionResult> Post([FromBody] ProductPostRequest request)
+        [HttpPut("update")]
+        public async Task<IActionResult> Put([FromBody] DocumentPutRequest request)
         {
-            var response = await _productService.PostAsync(request);
+            var response = await _documentService.PutAsync(request);
             return Utils.Convert(response);
         }
-
+        /*
         [HttpPost("getById")]
         public async Task<IActionResult> Post([FromBody] ProductPostRequest request)
         {
@@ -44,6 +44,6 @@ namespace SysManager.API.Admin.Controllers.v1
         {
             var response = await _productService.PostAsync(request);
             return Utils.Convert(response);
-        }
+        }*/
     }
 }

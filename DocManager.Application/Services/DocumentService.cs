@@ -18,18 +18,18 @@ namespace DocManager.Application.Services
             this._documentRepository = documentRepository;
         }
 
-        public async Task<ResultData> PostAsync(DocumentPostRequest product)
+        public async Task<ResultData> PostAsync(DocumentPostRequest document)
         {
-            var entity = new DocumentEntity(product);
+            var entity = new DocumentEntity(document);
             return Utils.SuccessData(await _documentRepository.CreateAsync(entity));
         }
 
-        public async Task<ResultData> PutAsync(ProductPutRequest product)
+        public async Task<ResultData> PutAsync(DocumentPutRequest document)
         {
-            var entity = new ProductEntity(product);
-            return Utils.SuccessData(await _productRepository.UpdateAsync(entity));
+            var entity = new DocumentEntity(document);
+            return Utils.SuccessData(await _documentRepository.UpdateAsync(entity));
         }
-
+        /*
         public async Task<ResultData> GetAsync(Guid id)
         {
             var response = await _productRepository.GetProductByIdAsync(id);
@@ -42,6 +42,9 @@ namespace DocManager.Application.Services
             return Utils.SuccessData(response);
         }
 
-
+        public Task PutAsync(DocumentPostRequest request)
+        {
+            throw new NotImplementedException();
+        }*/
     }
 }
