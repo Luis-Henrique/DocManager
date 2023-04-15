@@ -33,15 +33,15 @@ namespace DocManager.API.Admin.Controllers.v1
             var response = await _documentTypeService.PutAsync(request);
             return Utils.Convert(response);
         }
-        /*
-        [HttpPost("getById")]
-        public async Task<IActionResult> Post([FromBody] ProductPostRequest request)
+        
+        [HttpDelete("delete")]
+        public async Task<IActionResult> Delete([FromBody] DocumentTypeDeleteRequest request)
         {
-            var response = await _productService.PostAsync(request);
+            var response = await _documentTypeService.DeleteAsync(request);
             return Utils.Convert(response);
         }
-
-        [HttpPost("delete")]
+        /*
+        [HttpPost("getById")]
         public async Task<IActionResult> Post([FromBody] ProductPostRequest request)
         {
             var response = await _productService.PostAsync(request);

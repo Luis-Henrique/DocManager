@@ -32,7 +32,7 @@ namespace DocManager.Application.Data.MySql.Repositories
                 if (result > 0)
                     return new DefaultResponse(entity.Id.ToString(), "Documento criado com sucesso", false);
             }
-            return new DefaultResponse("", "Erro ao tentar criar Documento", true);
+            return new DefaultResponse("", "Erro ao tentar criar documento", true);
         }
         public async Task<DefaultResponse> UpdateAsync(DocumentTypeEntity entity)
         {
@@ -51,20 +51,20 @@ namespace DocManager.Application.Data.MySql.Repositories
              }
 
              return new DefaultResponse("", "Erro ao tentar alterada o documento", true);
-         }/*
+         }
 
          public async Task<DefaultResponse> DeleteAsync(Guid id)
          {
-             string strQuery = $"delete from product where id = '{id}'";
+             string strQuery = $"delete from documentType where id = '{id}'";
              using (var cnx = _context.Connection())
              {
                  var result = await cnx.ExecuteAsync(strQuery);
                  if (result > 0)
-                     return new DefaultResponse(id.ToString(), "Produto excluída com sucesso", false);
+                     return new DefaultResponse(id.ToString(), "Documento excluído com sucesso", false);
              }
-             return new DefaultResponse("", "Erro ao tentar excluír produto", true);
+             return new DefaultResponse("", "Erro ao tentar excluír documento", true);
          }
-
+        /*
          public async Task<ProductEntity> GetProductByIdAsync(Guid id)
          {
              string strQuery = $"select id, name, productCode, productTypeId, categoryId, unityId, costPrice, percentage, price, active from product where id = '{id}'";
@@ -73,6 +73,6 @@ namespace DocManager.Application.Data.MySql.Repositories
                  var result = await cnx.QueryFirstOrDefaultAsync<ProductEntity>(strQuery);
                  return result;
              }*/
-        }
     }
+}
 }

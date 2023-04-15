@@ -58,7 +58,7 @@ namespace DocManager.Application.Data.MySql.Repositories
             return new DefaultResponse("", "Erro ao tentar alterada documento", true);
         }
 
-        /*public async Task<DefaultResponse> DeleteAsync(Guid id)
+       public async Task<DefaultResponse> DeleteAsync(Guid id)
         {
             string strQuery = $"delete from document where id = '{id}'";
             using (var cnx = _context.Connection())
@@ -67,20 +67,18 @@ namespace DocManager.Application.Data.MySql.Repositories
                 if (result > 0)
                     return new DefaultResponse(id.ToString(), "Documento excluído com sucesso", false);
             }
-            return new DefaultResponse("", "Erro ao tentar excluir documrnto", true);
+            return new DefaultResponse("", "Erro ao tentar excluir documento", true);
         }
-
-        public async Task<DocumentEntity> GetDocumentByIdAsync(Guid id)
-        {
-            string strQuery = $"select id, name, documentCode, documentTypeId, categoryId, unityId, costPrice, percentage, price, active from document where id = '{id}'";
-            using (var cnx = _context.Connection())
-            {
-                var result = await cnx.QueryFirstOrDefaultAsync<DocumentEntity>(strQuery);
-                return result;
-            }
-        }
-
-        */
-        
+        /*
+       public async Task<DocumentEntity> GetDocumentByIdAsync(Guid id)
+       {
+           string strQuery = $"select id, name, documentCode, documentTypeId, categoryId, unityId, costPrice, percentage, price, active from document where id = '{id}'";
+           using (var cnx = _context.Connection())
+           {
+               var result = await cnx.QueryFirstOrDefaultAsync<DocumentEntity>(strQuery);
+               return result;
+           }
+       }
+       */
     }
 }

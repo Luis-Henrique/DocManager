@@ -29,22 +29,22 @@ namespace DocManager.Application.Services
             var entity = new DocumentEntity(document);
             return Utils.SuccessData(await _documentRepository.UpdateAsync(entity));
         }
+
+        public async Task<ResultData> DeleteAsync(Guid id)
+        {
+            var response = await _documentRepository.DeleteAsync(id);
+            return Utils.SuccessData(response);
+        }
+
         /*
         public async Task<ResultData> GetAsync(Guid id)
         {
             var response = await _productRepository.GetProductByIdAsync(id);
             return Utils.SuccessData(response);
         }
-
-        public async Task<ResultData> DeleteAsync(Guid id)
-        {
-            var response = await _productRepository.DeleteAsync(id);
-            return Utils.SuccessData(response);
-        }
-
         public Task PutAsync(DocumentPostRequest request)
         {
             throw new NotImplementedException();
-        }*/
+        }/*
     }
 }
