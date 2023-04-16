@@ -64,15 +64,15 @@ namespace DocManager.Application.Data.MySql.Repositories
              }
              return new DefaultResponse("", "Erro ao tentar excluír documento", true);
          }
-        /*
-         public async Task<ProductEntity> GetProductByIdAsync(Guid id)
+       
+         public async Task<DocumentEntity> DocumentGetByIdAsync(Guid id)
          {
-             string strQuery = $"select id, name, productCode, productTypeId, categoryId, unityId, costPrice, percentage, price, active from product where id = '{id}'";
+             string strQuery = $"select id, name, Active, CreateDate, UpdateDate from document where id = '{id}'";
              using (var cnx = _context.Connection())
              {
-                 var result = await cnx.QueryFirstOrDefaultAsync<ProductEntity>(strQuery);
+                 var result = await cnx.QueryFirstOrDefaultAsync<DocumentEntity>(strQuery);
                  return result;
-             }*/
+             }
+         }
     }
-}
 }

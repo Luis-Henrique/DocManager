@@ -7,7 +7,6 @@ using DocManager.Application.Contracts;
 using DocManager.Application.Data.MySql.Entities;
 using DocManager.Application.Helpers;
 using DocManager.Application.Contracts.Document.Request;
-using DocManager.Application.Contracts.Product.Request;
 using DocManager.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -69,16 +68,16 @@ namespace DocManager.Application.Data.MySql.Repositories
             }
             return new DefaultResponse("", "Erro ao tentar excluir documento", true);
         }
-        /*
-       public async Task<DocumentEntity> GetDocumentByIdAsync(Guid id)
+        
+       public async Task<DocumentEntity> DocumentGetByIdAsync(Guid id)
        {
-           string strQuery = $"select id, name, documentCode, documentTypeId, categoryId, unityId, costPrice, percentage, price, active from document where id = '{id}'";
+           string strQuery = $"select id, title, description, documentTypeId, validity, active, creationDate, updateDate from document where id = '{id}'";
            using (var cnx = _context.Connection())
            {
                var result = await cnx.QueryFirstOrDefaultAsync<DocumentEntity>(strQuery);
                return result;
            }
        }
-       */
+       
     }
 }
