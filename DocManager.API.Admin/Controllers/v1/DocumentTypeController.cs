@@ -40,12 +40,12 @@ namespace DocManager.API.Admin.Controllers.v1
             var response = await _documentTypeService.DeleteAsync(request);
             return Utils.Convert(response);
         }
-        /*
-        [HttpPost("getById")]
-        public async Task<IActionResult> Post([FromBody] ProductPostRequest request)
+        
+        [HttpGetbyId("getById")]
+        public async Task<IActionResult> GetById([FromBody] DocumentGetByIdRequest request)
         {
-            var response = await _productService.PostAsync(request);
+            var response = await _documentService.GetByIdAsync(request);
             return Utils.Convert(response);
-        }*/
+        }
     }
 }

@@ -38,12 +38,12 @@ namespace SysManager.API.Admin.Controllers.v1
             var response = await _documentService.DeleteAsync(request);
             return Utils.Convert(response);
         }
-        /*
-        [HttpPost("getById")]
-        public async Task<IActionResult> Post([FromBody] ProductPostRequest request)
+        
+        [HttpGetById("getById")]
+        public async Task<IActionResult> GetById([FromBody] DocumentGetByIdRequest request)
         {
-            var response = await _productService.PostAsync(request);
+            var response = await _documentService.GetByIdAsync(request);
             return Utils.Convert(response);
-        }*/
+        }
     }
 }

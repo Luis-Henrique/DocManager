@@ -35,16 +35,16 @@ namespace DocManager.Application.Services
               var response = await _documentTypeRepository.DeleteAsync(id);
               return Utils.SuccessData(response);
            }
-         /*
-         public async Task<ResultData> GetAsync(Guid id)
+         
+         public async Task<ResultData> GetByIdAsync(Guid id)
          {
-              var response = await _productRepository.GetProductByIdAsync(id);
+              var response = await _documentRepository.DocumentGetByIdAsync(id);
               return Utils.SuccessData(response);
          }
 
-         public Task PutAsync(DocumentPostRequest request)
+         public Task PutAsync(DocumentGetByIdRequest request)
          {
             throw new NotImplementedException();
-         }*/
+         }
     }
 }
