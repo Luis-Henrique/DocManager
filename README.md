@@ -8,7 +8,8 @@
 - Inserção de documentos
 - Alteração de documentos
 - Deletar documentos
-- Busca de documentos
+- Busca de documentos 
+- Token de autorização do usuário
 
 ## Tecnologias Utilizadas
 
