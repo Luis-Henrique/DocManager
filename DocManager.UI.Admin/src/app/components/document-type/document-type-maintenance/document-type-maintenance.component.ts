@@ -4,11 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Guid } from 'guid-typescript';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { DocumentTypeView } from '../models/Document-type-view';
-import { DocumentTypePost } from '../models/Document-type-post';
-import { DocumentTypePut } from '../models/Document-type-put';
 import { DocumentTypeService } from 'src/app/services/Document-type-service';
 import { Utils } from 'src/app/utils/utils';
+import { DocumentTypeView } from '../models/Document-type-view';
+import { DocumentTypePost } from '../models/document-type-post'
+import { DocumentTypePut } from '../models/document-type-put'
 
 @Component({
 selector:'app-document-type-maintenance',
