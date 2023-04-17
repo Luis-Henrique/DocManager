@@ -1,4 +1,6 @@
-﻿using DocManager.Application.Contracts.Product.Request;
+﻿using DocManager.Application.Contracts.Document.Request;
+using DocManager.Application.Contracts.DocumentType.Request;
+using DocManager.Application.Contracts.Product.Request;
 using DocManager.Application.Data.MySql.Entities;
 using DocManager.Application.Data.MySql.Repositories;
 using DocManager.Application.Errors;
@@ -29,22 +31,23 @@ namespace DocManager.Application.Services
             var entity = new DocumentEntity(document);
             return Utils.SuccessData(await _documentRepository.UpdateAsync(entity));
         }
-        /*
-        public async Task<ResultData> GetAsync(Guid id)
-        {
-            var response = await _productRepository.GetProductByIdAsync(id);
-            return Utils.SuccessData(response);
-        }
 
         public async Task<ResultData> DeleteAsync(Guid id)
         {
-            var response = await _productRepository.DeleteAsync(id);
+            var response = await _documentRepository.DeleteAsync(id);
             return Utils.SuccessData(response);
         }
 
-        public Task PutAsync(DocumentPostRequest request)
+        
+        public async Task<ResultData> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
-        }*/
+            var response = await _documentRepository.DocumentGetByIdAsync(id);
+            return Utils.SuccessData(response);
+        }
+        public async Task<ResultData> GetFilterAsync(DocumentGetFilterRequest document)
+        {
+            var response = await _documentRepository.GetDocumentByFiltersync(document);
+            return Utils.SuccessData(response);
+        }
     }
 }

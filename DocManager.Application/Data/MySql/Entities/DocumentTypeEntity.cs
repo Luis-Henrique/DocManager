@@ -1,77 +1,51 @@
-﻿using DocManager.Application.Contracts.Unity.Request;
+﻿using DocManager.Application.Contracts.DocumentType.Request;
+using DocManager.Application.Contracts.Product.Request;
+using DocManager.Application.Contracts.Unity.Request;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
-namespace DocManager.Application.Data.MySql.Entities
+
+namespace DocManager.Application.Data.MySql.Repositories { 
+[Table("documentType")]
+public class DocumentTypeEntity
 {
-    
-    [Table("documenttype")]
-    public class DocumentTypeEntity
-    {
-        public DocumentTypeEntity(DocumentTypePostRequest request)
+        public DocumentTypeEntity(DocumentTypePostRequest document)
         {
             this.Id = Guid.NewGuid();
-            this.Title = product.Title;
-            this.Description = product.Description;
-            this.ProductTypeId = product.ProductTypeId;
-            this.CategoryId = product.CategoryId;
-            this.UnityId = product.UnityId;
-            this.CostPrice = product.CostPrice;
-            this.Percentage = product.Percentage;
-            this.Price = product.Price;
-            this.Active = product.Active;
-        }
-        public DocumentTypeEntity()
-        {
-            this.Id = product.Id;
-            this.Title = product.Title;
-            this.Description = product.Description;
-            this.ProductTypeId = product.ProductTypeId;
-            this.CategoryId = product.CategoryId;
-            this.UnityId = product.UnityId;
-            this.CostPrice = product.CostPrice;
-            this.Percentage = product.Percentage;
-            this.Price = product.Price;
-            this.Active = product.Active;
+            this.Name = document.Name;
+            this.Active = true;
+            this.CreatedDate = DateTime.Now;
         }
 
-        public DocumentTypeEntity(DocumentTypePutRequest request)
+        public DocumentTypeEntity(DocumentTypePutRequest document)
         {
-            
+            this.Id = document.Id;
+            this.Name = document.Name;
+            this.Active = document.Active;
+            this.UpdatedDate = DateTime.Now;
+        }
+
+        public DocumentTypeEntity()
+        {
+
         }
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Column("id")]
         public Guid Id { get; set; }
 
-        [Column("title")]
-        public string Title { get; set; }
+        [Column("name")]
+        public string Name { get; set; }
 
-        [Column("description")]
-        public string Description { get; set; }
-
-        [Column("productTypeId")]
-        public string ProductTypeId { get; set; }
-
-        [Column("categoryId")]
-        public string CategoryId { get; set; }
-
-        [Column("unityId")]
-        public string UnityId { get; set; }
-
-        [Column("coastPrice")]
-        public decimal CostPrice { get; set; }
-
-        [Column("percentage")]
-        public decimal Percentage { get; set; }
-
-        [Column("price")]
-        public decimal Price { get; set; }
 
         [Column("active")]
         public bool Active { get; set; }
+
+        [Column("createdDate")]
+        public DateTime CreatedDate { get; set; }
+
+        [Column("uptadedDate")]
+        public DateTime UpdatedDate{ get; set; }
     }
 }

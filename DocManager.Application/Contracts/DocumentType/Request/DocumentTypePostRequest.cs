@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DocManager.Application.Contracts.Unity.Request
+namespace DocManager.Application.Contracts.DocumentType.Request
 {
     public class DocumentTypePostRequest
     {
-
+        public string Name { get; set; }
     }
 }
