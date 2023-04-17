@@ -1,4 +1,6 @@
-﻿using DocManager.Application.Contracts.Product.Request;
+﻿using DocManager.Application.Contracts.Document.Request;
+using DocManager.Application.Contracts.DocumentType.Request;
+using DocManager.Application.Contracts.Product.Request;
 using DocManager.Application.Data.MySql.Entities;
 using DocManager.Application.Data.MySql.Repositories;
 using DocManager.Application.Errors;
@@ -42,9 +44,10 @@ namespace DocManager.Application.Services
             var response = await _documentRepository.DocumentGetByIdAsync(id);
             return Utils.SuccessData(response);
         }
-        public Task PutAsync(DocumentGetByIdRequest request)
+        public async Task<ResultData> GetFilterAsync(DocumentGetFilterRequest document)
         {
-            throw new NotImplementedException();
+            var response = await _documentRepository.GetDocumentByFiltersync(document);
+            return Utils.SuccessData(response);
         }
     }
 }

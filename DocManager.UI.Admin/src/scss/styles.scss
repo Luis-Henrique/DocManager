@@ -1,0 +1,186 @@
+/* You can add global styles to this file, and also import other style files */
+// If you want to override variables do it here
+@import "variables";
+
+$enable-ltr: true;
+$enable-rtl: true;
+
+// Import styles with default layout.
+@import "~@coreui/coreui/scss/coreui";
+
+// Import Chart.js custom tooltips styles
+@import "~@coreui/chartjs/scss/coreui-chartjs";
+
+// perfect scrollbar theming for use with [perfectScrollbar] directive
+//@import '~perfect-scrollbar/css/perfect-scrollbar.css';
+
+@import "layout";
+
+// Some temp fixes
+@import "fixes";
+
+// Prism.js
+@import "examples";
+
+// If you want to add something do it here
+@import "custom";
+
+
+
+
+:root {
+    --light: #d8dbe0;
+    --link-hover: rgb(24, 94, 82);
+    --cui-blue: #0d6efd;
+    --cui-indigo: #6610f2;
+    --cui-purple: #6f42c1;
+    --cui-pink: #d63384;
+    --cui-red: #dc3545;
+    --cui-orange: #fd7e14;
+    --cui-yellow: #ffc107;
+    --cui-green: #198754;
+    --cui-teal: #20c997;
+    --cui-cyan: #0dcaf0;
+    --cui-white: #fff;
+    --cui-gray: #8a93a2;
+    --cui-gray-dark: #636f83;
+ }
+  
+.full-control {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(#6f42c1, rgba(44, 56, 74, 0.95));
+    //background-color: var(--cui-input-bg, #fff);
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #b1b7c1;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+
+  .full-control:focus {
+    color: var(--cui-input-focus-color, rgba(44, 56, 74, 0.95));
+    background-color: var(--cui-input-focus-bg, #fff);
+    border-color: var(--cui-input-focus-border-color, #998fed);
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(50, 31, 219, 0.25);
+  }
+
+  .full-control:read-only {
+    background-color: var(--cui-input-focus-bg, #d9dbdf);
+  }
+
+
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 58px;
+    height: 30px;
+    margin-top: 3px;
+    margin-left: 10px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #d3d5da;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 23px;
+    width: 23px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #998fed;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #998fed;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+  /*
+  .full-control:select {
+
+    background: icon(cilCaretBottom) 96% / 15% no-repeat #eee;
+    background: url(cilCaretBottom) no-repeat right white;
+  }
+  */
+
+  .full-select {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+    -moz-padding-start: calc(0.75rem - 3px);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--cui-form-select-color, rgba(44, 56, 74, 0.95));
+    background-color: var(--cui-form-select-bg, #fff);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23636f83' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    border: 1px solid var(--cui-form-select-border-color, #b1b7c1);
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .full-select {
+      transition: none;
+    }
+  }
+
+  .full-select:focus {
+    border-color: var(--cui-form-select-focus-border-color, #998fed);
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(50, 31, 219, 0.25);
+  }

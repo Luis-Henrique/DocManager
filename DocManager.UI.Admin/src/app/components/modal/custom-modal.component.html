@@ -1,0 +1,13 @@
+
+<c-modal id="deleteModal" [visible]="showModal" backdrop="static">
+    <c-modal-header  class="modal-header bg-danger">
+      <h5 cModalTitle>{{title}}</h5>
+      <button (click)="modalClose()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>{{body}}</c-modal-body>
+    <c-modal-footer>
+      <button size="sm" active="active" class="me-1" (click)="modalCancel()" cButton color="light">Cancelar</button>
+      <button size="sm" active="active" class="me-1" (click)="modalConfirme()" cButton color="dark">Confirmar</button>
+    </c-modal-footer>
+  </c-modal>
+

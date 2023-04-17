@@ -9,6 +9,7 @@ using DocManager.Application.Helpers;
 using DocManager.Application.Contracts.Document.Request;
 using DocManager.Application.Services;
 using Microsoft.AspNetCore.Mvc;
+using DocManager.Application.Contracts.Product.Request;
 
 namespace DocManager.Application.Data.MySql.Repositories
 {
@@ -23,8 +24,8 @@ namespace DocManager.Application.Data.MySql.Repositories
 
         public async Task<DefaultResponse> CreateAsync(DocumentEntity entity)
         {
-            string strQuery = @$"insert into document(id)
-                                          Values('{entity.Id}', '{entity.Title}', '{entity.Description}', '{entity.DocumentType}', '{entity.Validity}', '{entity.Active}', '{entity.Active}', '{entity.CreationDate}', '{entity.UpdateDate}')";
+            string strQuery = @$"insert into documents(id, title, description, documentTypeId)
+                                          Values('{entity.Id}', '{entity.Title}', '{entity.Description}', '{entity.DocumentTypeId}')";
 
             using (var cnx = _context.Connection())
             {
@@ -37,13 +38,19 @@ namespace DocManager.Application.Data.MySql.Repositories
         }
         public async Task<DefaultResponse> UpdateAsync(DocumentEntity entity)
         {
-            string strQuery = $@"update document set title = '{entity.Title}', 
-                                                    description = {entity.Description}, 
+            int active = 0;
+
+            if(entity.Active == true)
+            {
+                active = 1;
+            } else
+            {
+                active = 0;
+            }
+            string strQuery = $@"update documents set title = '{entity.Title}', 
+                                                    description = '{entity.Description}', 
                                                     documentTypeId = '{entity.DocumentTypeId}',
-                                                    validity = '{entity.Validity}',
-                                                    active = '{entity.Active}', 
-                                                    creationDate = {entity.CreationDate},
-                                                    updateDate = {entity.UpdateDate},
+                                                    active = {active}
                                                     where id = '{entity.Id}'";
 
             using (var cnx = _context.Connection())
@@ -59,7 +66,7 @@ namespace DocManager.Application.Data.MySql.Repositories
 
        public async Task<DefaultResponse> DeleteAsync(Guid id)
         {
-            string strQuery = $"delete from document where id = '{id}'";
+            string strQuery = $"delete from documents where id = '{id}'";
             using (var cnx = _context.Connection())
             {
                 var result = await cnx.ExecuteAsync(strQuery);
@@ -71,13 +78,57 @@ namespace DocManager.Application.Data.MySql.Repositories
         
        public async Task<DocumentEntity> DocumentGetByIdAsync(Guid id)
        {
-           string strQuery = $"select id, title, description, documentTypeId, validity, active, creationDate, updateDate from document where id = '{id}'";
+           string strQuery = $"select * from documents where id = '{id}'";
            using (var cnx = _context.Connection())
            {
                var result = await cnx.QueryFirstOrDefaultAsync<DocumentEntity>(strQuery);
                return result;
            }
        }
-       
+
+        public async Task<PaginationResponse<DocumentEntity>> GetDocumentByFiltersync(DocumentGetFilterRequest filter)
+        {
+            using (var cnx = _context.Connection())
+            {
+                var _sql = new StringBuilder("select * from documents where 1=1");
+                var where = new StringBuilder();
+
+                if (!string.IsNullOrEmpty(filter.Title))
+                    where.Append(" AND title like '%" + filter.Title + "%'");
+
+                if (!string.IsNullOrEmpty(filter.DocumentTypeId))
+                    where.Append(" AND documentTypeId = '" + filter.DocumentTypeId + "'");
+
+                if (filter.Active.ToLower() != "todos")
+                {
+                    string _booleanFilter = "";
+                    if (filter.Active.ToLower() == "ativos")
+                        _booleanFilter = " AND active = true";
+                    else if (filter.Active.ToLower() == "inativos")
+                        _booleanFilter = " AND active = false";
+
+                    where.Append(_booleanFilter);
+                }
+
+                _sql.Append(where);
+
+                if (filter.page > 0 && filter.pageSize > 0)
+                    _sql.Append($" Limit {filter.pageSize * (filter.page - 1)}, {filter.pageSize}");
+
+                var result = await cnx.QueryAsync<DocumentEntity>(_sql.ToString());
+                var result2 = await cnx.QueryAsync<int>("select count(*) as count from documents where 1=1 " + where.ToString());
+                var totalRows = result2.FirstOrDefault();
+
+                return new PaginationResponse<DocumentEntity>
+                {
+                    Items = result.ToArray(),
+                    _pageSize = filter.pageSize,
+                    _page = filter.page,
+                    _total = totalRows
+                };
+
+            }
+        }
+
     }
 }

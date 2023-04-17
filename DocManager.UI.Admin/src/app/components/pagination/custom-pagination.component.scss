@@ -1,0 +1,55 @@
+ul.pagination{
+    display:flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+ul.pagination button{
+    margin: 0 5px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+
+}
+
+ul.pagination button.btn-first{
+    background-color: #727d8f;
+    color: white;
+}
+
+ul.pagination button.btn-last{
+    background-color: #727d8f;
+    color: white;
+}
+
+ul.pagination button.btn-prev,
+ul.pagination button.btn-next{
+    background-color: #321fdb;
+    color: white;
+}
+
+ul.pagination button.pages{
+    background-color: transparent;
+    border-bottom: 1px dashed #CCC;
+    color: #656868;
+    border-radius: 0;
+    -o-border-radius: 0;
+    -ms-border-radius: 0;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+}
+
+ul.pagination > li.active{
+    background-color: #f2f1f1;
+    border-radius: 5px 5px 0 0;
+    -o-border-radius: 5px 5px 0 0;
+    -ms-border-radius: 5px 5px 0 0;
+    -moz-border-radius: 5px 5px 0 0;
+    -webkit-border-radius: 5px 5px 0 0;
+}
+
+ul.pagination > li.disabled button{
+    opacity: 0.5;
+    cursor: not-allowed;
+}

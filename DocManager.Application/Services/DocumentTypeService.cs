@@ -1,4 +1,5 @@
-﻿using DocManager.Application.Contracts.Product.Request;
+﻿using DocManager.Application.Contracts.DocumentType.Request;
+using DocManager.Application.Contracts.Product.Request;
 using DocManager.Application.Contracts.Unity.Request;
 using DocManager.Application.Data.MySql.Entities;
 using DocManager.Application.Data.MySql.Repositories;
@@ -30,21 +31,22 @@ namespace DocManager.Application.Services
             return Utils.SuccessData(await _documentTypeRepository.UpdateAsync(entity));
         }
 
-         public async Task<ResultData> DeleteAsync(Guid id)
-           {
-              var response = await _documentTypeRepository.DeleteAsync(id);
-              return Utils.SuccessData(response);
-           }
-         
-         public async Task<ResultData> GetByIdAsync(Guid id)
-         {
-              var response = await _documentRepository.DocumentGetByIdAsync(id);
-              return Utils.SuccessData(response);
-         }
+        public async Task<ResultData> DeleteAsync(Guid id)
+        {
+            var response = await _documentTypeRepository.DeleteAsync(id);
+            return Utils.SuccessData(response);
+        }
 
-         public Task PutAsync(DocumentGetByIdRequest request)
-         {
-            throw new NotImplementedException();
-         }
+        public async Task<ResultData> GetByIdAsync(Guid id)
+        {
+            var response = await _documentTypeRepository.DocumentTypeGetByIdAsync(id);
+            return Utils.SuccessData(response);
+        }
+
+        public async Task<ResultData> GetFilterAsync(DocumentTypeGetFilterRequest document)
+        {
+            var response = await _documentTypeRepository.GetDocumentTypeByFiltersync(document);
+            return Utils.SuccessData(response);
+        }
     }
 }

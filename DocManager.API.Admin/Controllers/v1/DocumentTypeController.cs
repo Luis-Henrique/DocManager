@@ -6,6 +6,7 @@ using DocManager.Application.Services;
 using System;
 using System.Threading.Tasks;
 using DocManager.Application.Contracts.Product.Request;
+using DocManager.Application.Contracts.DocumentType.Request;
 
 namespace DocManager.API.Admin.Controllers.v1
 {
@@ -34,17 +35,24 @@ namespace DocManager.API.Admin.Controllers.v1
             return Utils.Convert(response);
         }
         
-        [HttpDelete("delete")]
-        public async Task<IActionResult> Delete([FromBody] DocumentTypeDeleteRequest request)
+        [HttpDelete("id/{id}")]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            var response = await _documentTypeService.DeleteAsync(request);
+            var response = await _documentTypeService.DeleteAsync(id);
             return Utils.Convert(response);
         }
-        
-        [HttpGetbyId("getById")]
-        public async Task<IActionResult> GetById([FromBody] DocumentGetByIdRequest request)
+
+        [HttpGet("getbyfilter")]
+        public async Task<IActionResult> GetByfilter([FromQuery] DocumentTypeGetFilterRequest request)
         {
-            var response = await _documentService.GetByIdAsync(request);
+            var response = await _documentTypeService.GetFilterAsync(request);
+            return Utils.Convert(response);
+        }
+
+        [HttpGet("id/{id}")]
+        public async Task<IActionResult> GetById([FromRoute] Guid id)
+        {
+            var response = await _documentTypeService.GetByIdAsync(id);
             return Utils.Convert(response);
         }
     }
