@@ -26,7 +26,7 @@ import { DocumentService } from '../../services/document-service';
 import { PagerService } from '../../services/page-service';
 import { CustomPaginationModule } from '../pagination/custom-pagination.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { DocumentTypeService } from 'src/app/services/Document-type-service';
+import { DocumentTypeService } from 'src/app/services/document-type-service';
 import { DocumentMaintenanceComponent } from './document-maintenance/document-maintenance.component';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { CustomModalModule } from '../modal/custom-modal.module';

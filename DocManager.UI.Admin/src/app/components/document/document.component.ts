@@ -7,9 +7,9 @@ import { DocumentFilter } from './models/document-filter';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Utils } from 'src/app/utils/utils';
-import { DocumentTypeService } from 'src/app/services/Document-type-service';
-import { DocumentTypeView } from '../document-type/models/Document-type-view';
-import { DocumentTypeFilter } from '../document-type/models/Document-type-filter';
+import { DocumentTypeService } from 'src/app/services/document-type-service';
+import { DocumentTypeView } from '../document-type/models/documenttype-view';
+import { DocumentTypeFilter } from '../document-type/models/document-type-filter';
 
 @Component({
   selector: 'app-document',

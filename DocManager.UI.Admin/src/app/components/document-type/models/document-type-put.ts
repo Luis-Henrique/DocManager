@@ -1,4 +1,4 @@
-import { DocumentTypeView } from "./Document-type-view";
+import { DocumentTypeView } from "./documenttype-view";
 
 export class DocumentTypePut{
     id: string='';
