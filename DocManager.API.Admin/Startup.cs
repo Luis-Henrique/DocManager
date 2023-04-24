@@ -30,18 +30,6 @@ namespace DocManager.API.Admin
             services.AddAuthentication("BasicAuthentication")
                       .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 
-
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowAllHeaders",
-                    builder =>
-                    {
-                        builder.AllowAnyOrigin()
-                               .AllowAnyHeader()
-                               .AllowAnyMethod();
-                    });
-            });
-
             BeforeConfigureServices(services);
             services.AddApiVersioning();
             services.AddScoped<UserService>();
@@ -63,6 +51,8 @@ namespace DocManager.API.Admin
             {
                 options.EnableEndpointRouting = false;
             });
+
+            services.AddCors();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -73,12 +63,13 @@ namespace DocManager.API.Admin
                 SupportedCultures = supportedCultures,
                 SupportedUICultures = supportedCultures
             });
-            
-            app.UseCors(CorsPolicy);
+            app.UseHttpsRedirection();
 
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseMvc();
+
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
         }
     }
 }
