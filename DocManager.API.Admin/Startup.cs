@@ -35,7 +35,7 @@ namespace DocManager.API.Admin
                 options.AddPolicy(name: CorsPolicy,
                                   builder =>
                                   {
-                                      builder.WithOrigins("https://front-doc-manager-deploy.vercel.app").AllowAnyMethod().AllowAnyHeader();
+                                        builder.WithOrigins("https://front-doc-manager-deploy.vercel.app").WithMethods("GET", "OPTIONS", "PATCH", "DELETE", "POST", "PUT").WithHeaders("X - CSRF - Token", "X - Requested - With", "Accept", "Accept - Version", "Content - Length", "Content - MD5", "Content - Type", "Date", "X - Api - Version", "Authorization");
                                   });
             });
 
