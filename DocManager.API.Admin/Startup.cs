@@ -30,7 +30,6 @@ namespace DocManager.API.Admin
             services.AddAuthentication("BasicAuthentication")
                       .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 
-
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAllHeaders",
@@ -73,8 +72,10 @@ namespace DocManager.API.Admin
                 SupportedCultures = supportedCultures,
                 SupportedUICultures = supportedCultures
             });
-            
+
             app.UseCors(CorsPolicy);
+
+            app.UseHttpsRedirection();
 
             app.UseAuthentication();
             app.UseAuthorization();
