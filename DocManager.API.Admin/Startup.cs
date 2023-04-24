@@ -9,6 +9,7 @@ using DocManager.Application.Data.MySql.Repositories;
 using DocManager.Application.Helpers;
 using DocManager.Application.Services;
 using System.Globalization;
+using Microsoft.Extensions.Options;
 
 namespace DocManager.API.Admin
 {
@@ -32,13 +33,13 @@ namespace DocManager.API.Admin
 
             services.AddCors(options =>
             {
-                options.AddPolicy(name: CorsPolicy,
-                                  builder =>
-                                  {
-                                      builder.AllowAnyOrigin()
-                                       .AllowAnyMethod()
-                                       .AllowAnyHeader();
-                                  });
+                options.AddPolicy("AllowAllHeaders",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                               .AllowAnyHeader()
+                               .AllowAnyMethod();
+                    });
             });
 
             BeforeConfigureServices(services);
