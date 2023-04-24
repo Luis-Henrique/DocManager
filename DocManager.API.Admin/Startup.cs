@@ -35,7 +35,7 @@ namespace DocManager.API.Admin
                 options.AddPolicy(name: CorsPolicy,
                                   builder =>
                                   {
-                                      builder.WithOrigins("https://front-doc-manager-deploy.vercel.app");
+                                      builder.WithOrigins("https://front-doc-manager-deploy.vercel.app").AllowAnyMethod().AllowAnyHeader();
                                   });
             });
 
@@ -79,4 +79,3 @@ namespace DocManager.API.Admin
         }
     }
 }
-
