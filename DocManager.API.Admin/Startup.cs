@@ -35,7 +35,7 @@ namespace DocManager.API.Admin
                 options.AddPolicy(name: CorsPolicy,
                                   builder =>
                                   {
-                                        builder.WithOrigins("https://agreeable-pebble-079856410.3.azurestaticapps.net").WithMethods("GET", "OPTIONS", "PATCH", "DELETE", "POST", "PUT").AllowAnyHeader();
+                                        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
                                   });
             });
 
