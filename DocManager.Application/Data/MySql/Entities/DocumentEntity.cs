@@ -19,6 +19,7 @@ namespace DocManager.Application.Data.MySql.Repositories
             this.DocumentTypeId = document.DocumentTypeId;
             this.Validity = document.Validity;
             this.Active = true;
+            this.Url = document.Url;
             this.CreatedDate = DateTime.Now;
         }
 
@@ -30,6 +31,7 @@ namespace DocManager.Application.Data.MySql.Repositories
             this.DocumentTypeId = document.DocumentTypeId;
             this.Validity = document.Validity;
             this.Active = document.Active;
+            this.Url = document.Url;
             this.UpdatedDate = DateTime.Now;
         }
 
@@ -56,6 +58,9 @@ namespace DocManager.Application.Data.MySql.Repositories
 
         [Column("active")]
         public bool Active { get; set; }
+
+        [Column("url")]
+        public string Url { get; set; }
 
         [Column("createdDate")]
         public DateTime CreatedDate { get; set; }

@@ -1,38 +1,37 @@
 <div class="bg-light min-vh-100 d-flex flex-row align-items-center">
     <c-container>
       <c-row class="justify-content-center">
-        <c-col md="8">
-          <c-card-group>
-            <c-card class="p-4">
+        <c-col md="8" >
+          <c-card-group class="">
+            <c-card class="p-4" style="height: 450px;">
               <c-card-body>
                 <form cForm>
-                  <h1>Login</h1>
-                  <p class="text-medium-emphasis">Entre com sua conta de usuário</p>
-                  <c-input-group class="mb-3">
-                    <span cInputGroupText>
-                      <svg cIcon name="cilUser"></svg>
-                    </span>
-                    <input autoComplete="username" cFormControl placeholder="Username" name="username" id="username"/>
+                  <c-input-group class="mb-2">
+                    <img src="./assets/img/logo/doc-manager-logo.svg" class="img-fluid" alt="Imagem responsiva">
                   </c-input-group>
-                  <c-input-group class="mb-4">
-                    <span cInputGroupText>
-                      <svg cIcon name="cilLockLocked"></svg>
-                    </span>
-                    <input
-                      autoComplete="current-password" cFormControl placeholder="Password" type="password" name="password" id="password"/>
-                  </c-input-group>
-                  <c-row>
-                    <c-col xs="6">
-                      <button cButton class="px-4" color="primary" (click)='login()'>
-                        Login
-                      </button>
-                    </c-col>
-                    <c-col class="text-right" xs="6">
-                      <button cButton class="px-0" color="link" routerLink="/recovery">
-                        Recuperar senha?
-                      </button>
-                    </c-col>
-                  </c-row>
+                  <c-card-body class="text-center">
+                    <h5 class="font-weight-bold" style="font-size: 20px;">Login</h5>
+                  </c-card-body>
+                  <div class="omrs-input-group">
+                    <label class="omrs-input-underlined">
+                      <input autoComplete="username" name="username" id="username" required>
+                      <span class="omrs-input-label">Email</span>
+                    </label>
+                  </div>
+                  <div class="omrs-input-group">
+                    <label class="omrs-input-underlined">
+                      <input autoComplete="current-password" type="password" name="password" id="password" required>
+                      <span class="omrs-input-label">Senha</span>
+                    </label>
+                  </div>
+                  <div class="d-grid gap-2">
+                    <button type="button" class="btn btn-dark" (click)='login()'>Login</button>
+                  </div>
+                  <div class="d-grid gap-2">
+                    <button cButton class="px-0" color="black" routerLink="/recovery">
+                      Recuperar senha?
+                    </button>
+                  </div>
                 </form>
               </c-card-body>
             </c-card>

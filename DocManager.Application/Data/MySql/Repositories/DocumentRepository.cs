@@ -24,8 +24,8 @@ namespace DocManager.Application.Data.MySql.Repositories
 
         public async Task<DefaultResponse> CreateAsync(DocumentEntity entity)
         {
-            string strQuery = @$"insert into documents(id, title, description, documentTypeId)
-                                          Values('{entity.Id}', '{entity.Title}', '{entity.Description}', '{entity.DocumentTypeId}')";
+            string strQuery = @$"insert into documents(id, title, description, documentTypeId, validity, url)
+                                          Values('{entity.Id}', '{entity.Title}', '{entity.Description}', '{entity.DocumentTypeId}', '{entity.Validity}', '{entity.Url}')";
 
             using (var cnx = _context.Connection())
             {
@@ -50,7 +50,9 @@ namespace DocManager.Application.Data.MySql.Repositories
             string strQuery = $@"update documents set title = '{entity.Title}', 
                                                     description = '{entity.Description}', 
                                                     documentTypeId = '{entity.DocumentTypeId}',
-                                                    active = {active}
+                                                    validity = '{entity.Validity}', 
+                                                    active = {active},
+                                                    url = '{entity.Url}'
                                                     where id = '{entity.Id}'";
 
             using (var cnx = _context.Connection())

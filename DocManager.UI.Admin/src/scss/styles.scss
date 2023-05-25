@@ -44,6 +44,15 @@ $enable-rtl: true;
     --cui-white: #fff;
     --cui-gray: #8a93a2;
     --cui-gray-dark: #636f83;
+    --omrs-color-ink-lowest-contrast: rgba(47, 60, 85, 0.18);
+    --omrs-color-ink-low-contrast: rgba(60, 60, 67, 0.3);
+    --omrs-color-ink-medium-contrast: rgba(19, 19, 21, 0.6);
+    --omrs-color-interaction: #1e4bd1;
+    --omrs-color-interaction-minus-two: rgba(73, 133, 224, 0.12);
+    --omrs-color-danger: #b50706;
+    --omrs-color-bg-low-contrast: #eff1f2;
+    --omrs-color-ink-high-contrast: #121212;
+    --omrs-color-bg-high-contrast: #ffffff;
  }
   
 .full-control {
@@ -182,5 +191,5 @@ $enable-rtl: true;
   .full-select:focus {
     border-color: var(--cui-form-select-focus-border-color, #998fed);
     outline: 0;
-    box-shadow: 0 0 0 0.25rem rgba(50, 31, 219, 0.25);
+    box-shadow: 0 0 0 0.25rem rgba(143, 27, 27, 0.25);
   }

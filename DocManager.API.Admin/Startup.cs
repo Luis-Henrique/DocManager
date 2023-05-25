@@ -9,7 +9,15 @@ using DocManager.Application.Data.MySql.Repositories;
 using DocManager.Application.Helpers;
 using DocManager.Application.Services;
 using System.Globalization;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Google.Protobuf.WellKnownTypes;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Newtonsoft.Json.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Net;
+using System.Security.Cryptography;
+using System;
 
 namespace DocManager.API.Admin
 {
@@ -29,7 +37,14 @@ namespace DocManager.API.Admin
 
             services.AddAuthentication("BasicAuthentication")
                       .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
-
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: CorsPolicy,
+                builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                });
+            });
             BeforeConfigureServices(services);
             services.AddApiVersioning();
             services.AddScoped<UserService>();
@@ -51,8 +66,6 @@ namespace DocManager.API.Admin
             {
                 options.EnableEndpointRouting = false;
             });
-
-            services.AddCors();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -63,13 +76,12 @@ namespace DocManager.API.Admin
                 SupportedCultures = supportedCultures,
                 SupportedUICultures = supportedCultures
             });
-            app.UseHttpsRedirection();
+            
+            app.UseCors(CorsPolicy);
 
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseMvc();
-
-            app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
         }
     }
 }

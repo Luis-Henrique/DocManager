@@ -32,8 +32,8 @@ namespace DocManager.Application.Data.MySql.Repositories
             {
                 active = 0;
             }
-            string strQuery = @$"insert into documenttype(id, name, active)
-                                          Values('{entity.Id}', '{entity.Name}',{active})";
+            string strQuery = @$"insert into documenttype(id, name, description, active)
+                                          Values('{entity.Id}', '{entity.Name}', '{entity.Description}',{active})";
 
             using (var cnx = _context.Connection())
             {
@@ -47,6 +47,7 @@ namespace DocManager.Application.Data.MySql.Repositories
         public async Task<DefaultResponse> UpdateAsync(DocumentTypeEntity entity)
         {
             string strQuery = $@"update documenttype set name = '{entity.Name}', 
+                                                    description = '{entity.Description}',
                                                     active = {entity.Active}
                                                     where id = '{entity.Id}'";
 

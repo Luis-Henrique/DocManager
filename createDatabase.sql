@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS docManager.user
 CREATE TABLE IF NOT EXISTS docManager.documentType (
   `id` CHAR(36) not null default 'uuid()' comment 'Identificador do registro',
   `name` varchar(100) not null comment 'Nome',
+  `description` varchar(100) not null comment 'Descrição',
   `active` bit NOT NULL default false comment 'Ativo ou inativo',
   `createdDate` datetime not null default NOW() comment 'data de criação do registro',
   `updatedDate` datetime null  comment 'data de atualização do registro',
@@ -41,6 +42,7 @@ CREATE TABLE IF NOT EXISTS docManager.documents
 `documentTypeId`  varchar(50) NOT NULL COMMENT 'tipo do documento',
 `validity` DateTime NOT NULL DEFAULT NOW() COMMENT 'data de vigencia do documento',
 `active` bit NOT NULL DEFAULT false COMMENT 'indicador se o documento esta ativo ou inativo',
+`url` varchar(100) NOT NULL DEFAULT false COMMENT 'link do documento',
 `creationDate` DateTime NOT NULL DEFAULT NOW() COMMENT 'data de criação do registro',
 `updateDate` DateTime NULL COMMENT 'data de atualização do registro',
 PRIMARY KEY(`id`),

@@ -4,7 +4,6 @@ import { AccountService } from 'src/app/services/account-service';
 import { AccountLoginView } from '../models/account-login-view';
 import { AccountToken } from '../models/account-token-view';
 
-
 @Component({
 selector:'app-login',
 templateUrl:'./login.component.html'
@@ -70,5 +69,4 @@ export class LoginComponent implements OnInit {
         idvAlert.innerHTML ='';
         colErrors.style.display = 'none';
       } 
-
 }

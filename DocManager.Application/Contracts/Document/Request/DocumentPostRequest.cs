@@ -10,5 +10,7 @@ namespace DocManager.Application.Contracts.Document.Request
         public string Description { get; set; }
         public string DocumentTypeId { get; set; }
         public DateTime Validity { get; set; }
+        public string Url { get; set; }
+
     }
 }

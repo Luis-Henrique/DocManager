@@ -81,10 +81,8 @@
                           <tr scope="row" *ngFor="let item of pagedItems">
                             <td>{{item.title}}</td>
                             <td>{{item.description}}</td>
-                            <td>
-                              <div class="checkbox" *ngFor = "let types  of listTypes">
-                                {{types.name}}
-                              </div> 
+                            <td *ngFor="let type of listTypes">
+                                {{type.name}}
                             </td>
                             <td>
                               <c-form-check sizing="lg" switch>
