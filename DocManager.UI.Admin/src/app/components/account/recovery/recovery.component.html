@@ -1,44 +1,27 @@
 <div class="bg-light min-vh-100 d-flex flex-row align-items-center">
   <c-container>
     <c-row class="justify-content-center">
-      <c-col lg="7" md="9" xl="6">
+      <c-col lg="7" md="9" xl="5">
         <c-card class="mx-4">
-          <c-card class="p-4" style="height: 540px;">
+          <c-card class="p-4" style="min-height: 450px !important; min-width: 300px !important;">
             <c-card-body class="p-4">
                 <form cForm>
                   <c-input-group class="mb-2">
                     <img src="./assets/img/logo/doc-manager-logo.svg" class="img-fluid" alt="Imagem responsiva">
                   </c-input-group>
-                  <h1 class="font-weight-bold" style="font-size: 30px;">Conta</h1>
-                  <p class="font-weight-bold">Informe os dados para recuperar sua conta</p>
+                  <br>
+                  <br>
+                  <p class="font-weight-bold" style="color: black; font-size: 20px; text-align: center">Informe o e-mail cadastrado para recuperar sua conta</p>
                   <c-input-group class="mb-3">
-                    <div class="omrs-input-group">
-                      <label class="omrs-input-underlined">
-                        <input autoComplete="name" name="username" id="username" required>
-                        <span class="omrs-input-label">Usarname</span>
-                      </label>
-                    </div>
                     <div class="omrs-input-group">
                       <label class="omrs-input-underlined">
                         <input autoComplete="email" name="email" id="email" required>
                         <span class="omrs-input-label">Email</span>
                       </label>
                     </div>
-                    <div class="omrs-input-group">
-                      <label class="omrs-input-underlined">
-                        <input autoComplete="new-password" type="password" name="password" id="password" required>
-                        <span class="omrs-input-label">Senha</span>
-                      </label>
-                    </div>
-                    <div class="omrs-input-group">
-                      <label class="omrs-input-underlined">
-                        <input autoComplete="new-password" type="password" name="passwordConfirm" id="passwordConfirm" required>
-                        <span class="omrs-input-label">Repita a Senha</span>
-                      </label>
-                    </div>
                   </c-input-group>
                   <div class="d-grid gap-2">
-                    <button type="button" class="btn btn-dark" (click)='recoveryAccount()'>Recuperar Conta</button>
+                    <button type="button" class="btn btn-dark" style="background-color:black" (click)='recoveryAccount()'>Enviar</button>
                   </div>
                 </form>
               </c-card-body>

@@ -17,7 +17,7 @@ div.omrs-input-group {
   margin-bottom: 1.5rem;
   position: relative;
   width: 25.4375rem;
-  padding-left: 1rem;
+  padding-left: 1.500rem;
 }
 
 /* Input*/
@@ -28,7 +28,7 @@ div.omrs-input-group {
   width: 125%;
   height: 3rem;
   font-size: 1.0625rem;
-  padding-left: 0.800rem;
+  padding-left: 1.000rem;
   line-height: 147.6%;
   padding-top: 0.825rem;
   padding-bottom: 0.2rem;
@@ -43,7 +43,7 @@ div.omrs-input-group {
 .omrs-input-filled > .omrs-input-label {
   position: absolute;
   top: 0.9500rem;
-  left: 1.200rem;
+  left: 1.500rem;
   line-height: 120.6%;
   color: var(--omrs-color-ink-medium-contrast);
   transition: top .2s;

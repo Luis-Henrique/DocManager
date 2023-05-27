@@ -59,6 +59,10 @@ namespace DocManager.API.Admin
             services.AddScoped<DashboardService>();
             services.AddScoped<DashboardRepository>();
 
+
+            services.AddScoped<DocumentPartnersService>();
+            services.AddScoped<DocumentPartnersRepository>();
+
             services.AddScoped<MySqlContext>();
             services.Configure<AppConnectionSettings>(option => Configuration.GetSection("ConnectionStrings").Bind(option));
 

@@ -1,14 +1,15 @@
-﻿using DocManager.Application.Contracts.DocumentType.Request;
+﻿using DocManager.Application.Contracts.DocumentPartners.Request;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
-namespace DocManager.Application.Data.MySql.Repositories { 
-[Table("documentType")]
-public class DocumentTypeEntity
+namespace DocManager.Application.Data.MySql.Repositories
 {
-        public DocumentTypeEntity(DocumentTypePostRequest document)
+    [Table("documentPartners")]
+    public class DocumentPartnersEntity
+    {
+        public DocumentPartnersEntity(DocumentPartnersPostRequest document)
         {
             this.Id = Guid.NewGuid();
             this.Name = document.Name;
@@ -17,7 +18,7 @@ public class DocumentTypeEntity
             this.CreatedDate = DateTime.Now;
         }
 
-        public DocumentTypeEntity(DocumentTypePutRequest document)
+        public DocumentPartnersEntity(DocumentPartnersPutRequest document)
         {
             this.Id = document.Id;
             this.Name = document.Name;
@@ -26,7 +27,7 @@ public class DocumentTypeEntity
             this.UpdatedDate = DateTime.Now;
         }
 
-        public DocumentTypeEntity()
+        public DocumentPartnersEntity()
         {
 
         }
@@ -48,6 +49,6 @@ public class DocumentTypeEntity
         public DateTime CreatedDate { get; set; }
 
         [Column("uptadedDate")]
-        public DateTime UpdatedDate{ get; set; }
+        public DateTime UpdatedDate { get; set; }
     }
 }

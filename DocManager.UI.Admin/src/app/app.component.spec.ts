@@ -20,9 +20,9 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'CoreUI Free Angular Admin Template'`, () => {
+  it(`should have as title 'DocManager'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('CoreUI Free Angular Admin Template');
+    expect(app.title).toEqual('DocManager');
   });
 });

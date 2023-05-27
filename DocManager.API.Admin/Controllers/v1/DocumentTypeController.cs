@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using DocManager.Application.Contracts.Unity.Request;
 using DocManager.Application.Helpers;
 using DocManager.Application.Services;
 using System;
 using System.Threading.Tasks;
-using DocManager.Application.Contracts.Product.Request;
 using DocManager.Application.Contracts.DocumentType.Request;
 
 namespace DocManager.API.Admin.Controllers.v1

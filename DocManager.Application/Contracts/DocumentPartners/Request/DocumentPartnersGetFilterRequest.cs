@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DocManager.Application.Contracts.DocumentType.Request
+namespace DocManager.Application.Contracts.DocumentPartners.Request
 {
-    public class DocumentTypeGetFilterRequest
+    public class DocumentPartnersGetFilterRequest
     {
         public string Name { get; set; }
 

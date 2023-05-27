@@ -1,11 +1,12 @@
 ﻿
-namespace DocManager.Application.Contracts.Product.Request
+namespace DocManager.Application.Contracts.Document.Request
 {
     public class DocumentGetFilterRequest
     {
         public string Title { get; set; }
         public string Description { get; set; }
         public string DocumentTypeId { get; set; }
+        public string DocumentPartnersId { get; set; }
 
         public string Active { get; set; }
 

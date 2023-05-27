@@ -1,6 +1,4 @@
 ﻿using DocManager.Application.Contracts.DocumentType.Request;
-using DocManager.Application.Contracts.Product.Request;
-using DocManager.Application.Contracts.Unity.Request;
 using DocManager.Application.Data.MySql.Entities;
 using DocManager.Application.Data.MySql.Repositories;
 using DocManager.Application.Errors;
