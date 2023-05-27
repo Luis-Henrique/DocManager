@@ -5,11 +5,11 @@
     <c-col [md]="12">
       <div class="card">
         <c-card-header>
-          <strong>{{ action }} Tipo do documento</strong>
+          <strong>{{ action }} Parceiros</strong>
         </c-card-header>
 
         <div class="card-body">
-          <form [formGroup]="formDocumentType" noValidate cForm class="needs-validation">
+          <form [formGroup]="formDocumentPartners" noValidate cForm class="needs-validation">
             
             <div class="form-group row"> 
               <c-col [md]="3">
@@ -41,7 +41,7 @@
         </div>
         
         <div class="card-footer">
-          <button type="submit" size="sm" active="active" class="me-1" color="success" cButton (click)="saveChanges(formDocumentType.value)" [disabled]="!formDocumentType.valid"><svg cIcon class="me-2" name="cil-save"></svg> Gravar</button>  
+          <button type="submit" size="sm" active="active" class="me-1" color="success" cButton (click)="saveChanges(formDocumentPartners.value)" [disabled]="!formDocumentPartners.valid"><svg cIcon class="me-2" name="cil-save"></svg> Gravar</button>  
           <button type="submit" size="sm" active="active" class="me-1" color="danger" cButton (click)="prepareDelete()"><svg cIcon class="me-2" name="cil-trash"></svg> Excluir</button>
 
         </div>

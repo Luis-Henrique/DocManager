@@ -35,6 +35,7 @@ export class DocumentTypeMaintenanceComponent implements OnInit {
     formDocumentType = new FormGroup({
                                    id: this.formBuilder.control(this.documentType.id),
                                    name: this.formBuilder.control(this.documentType.name),
+                                   description: this.formBuilder.control(this.documentType.description),
                                    active: this.formBuilder.control(this.documentType.active)
                                  });
                 
@@ -66,6 +67,7 @@ export class DocumentTypeMaintenanceComponent implements OnInit {
         this.formDocumentType = new FormGroup({
           id: this.formBuilder.control(documentType.id),
           name: this.formBuilder.control(documentType.name),
+          description: this.formBuilder.control(documentType.description),
           active: this.formBuilder.control(documentType.active),});  
       }
 

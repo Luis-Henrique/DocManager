@@ -1,4 +1,4 @@
-export class DocumentTypeFilter{
+export class DocumentPartnersFilter{
     name: string;
     description: string;
     active: string;
@@ -8,7 +8,7 @@ export class DocumentTypeFilter{
 
     constructor(_name:string, _description:string, _active:string, _page:number, _pageSize: number){
         this.name = _name;
-        this.description = _description;
+        this.description = _description
         this.active = _active;
         this.page = _page;
         this.pageSize = _pageSize;

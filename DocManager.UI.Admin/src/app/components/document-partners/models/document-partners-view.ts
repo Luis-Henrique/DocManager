@@ -1,5 +1,5 @@
 
-export class DocumentTypeView {
+export class DocumentPartnersView {
     id: string ='';
     name: string ='';
     description: string ='';

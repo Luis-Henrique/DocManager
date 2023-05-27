@@ -1,17 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { DocumentTypeFilter} from './models/Document-type-filter';
-import { Utils } from 'src/app/utils/utils';
-import { DocumentTypeService } from 'src/app/services/Document-type-service';
-import { PagerService } from 'src/app/services/page-service';
+import { DocumentPartnersService } from '../../services/document-partners-service';
+import { PagerService } from '../../services/page-service';
+import { DocumentPartnersFilter} from './models/document-partners-filter';
+import { Utils } from '../../utils/utils';
 
 @Component({
-selector:'app-document-type',
-templateUrl:'./document-type.component.html'
+selector:'app-document-partners',
+templateUrl:'./document-partners.component.html'
 })
 
-export class DocumentTypeComponent implements OnInit {
+export class DocumentPartnersComponent implements OnInit {
 
     returnUrl: string ='';
     @Input() modalBodyDetail = '';
@@ -28,7 +28,7 @@ export class DocumentTypeComponent implements OnInit {
 
     constructor(
                 private formbuilder: FormBuilder,
-                private documentTypeService: DocumentTypeService,
+                private documentPartnersService: DocumentPartnersService,
                 private spinner: NgxSpinnerService,
                 private pagerService: PagerService,
                 private utils: Utils
@@ -51,7 +51,7 @@ export class DocumentTypeComponent implements OnInit {
         if (this.deleteId !== undefined && this.deleteId != '')
         {
            this.spinner.show();
-           this.documentTypeService.delete(this.deleteId).subscribe((response: any) => {
+           this.documentPartnersService.delete(this.deleteId).subscribe((response: any) => {
                 this.spinner.hide();
                 this.utils.showSuccessMessage(response.message,'Categoria')
             }, error => {
@@ -83,11 +83,11 @@ export class DocumentTypeComponent implements OnInit {
         this.utils.navigateTo(url,'')
     }
 
-    filterView(filter:DocumentTypeFilter, page: number){
+    filterView(filter:DocumentPartnersFilter, page: number){
 
-      let _filter = new DocumentTypeFilter(filter.name, filter.description, filter.active, page, filter.itemsByPage);
+      let _filter = new DocumentPartnersFilter(filter.name, filter.description, filter.active, page, filter.itemsByPage);
         this.spinner.show();
-        this.documentTypeService.getByFilter(_filter).subscribe(view => 
+        this.documentPartnersService.getByFilter(_filter).subscribe(view => 
             {
                 this.pagedItems = view.items;
                 this.pager = this.pagerService.getPager(view._total, page, view._pageSize);

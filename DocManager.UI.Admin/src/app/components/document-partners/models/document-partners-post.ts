@@ -1,10 +1,10 @@
-import { DocumentTypeView } from "./Document-type-view";
+import { DocumentPartnersView } from "./document-partners-view";
 
-export class DocumentTypePost{
+export class DocumentPartnersPost{
        name: string='';
        description: string='';
 
-       constructor(obj:DocumentTypeView){
+       constructor(obj:DocumentPartnersView){
               this.name = obj.name;
               this.description = obj.description
        }

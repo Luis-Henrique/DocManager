@@ -1,15 +1,15 @@
-import { DocumentTypeView } from "./Document-type-view";
+import { DocumentPartnersView } from "./document-partners-view";
 
-export class DocumentTypePut{
+export class DocumentPartnersPut{
     id: string='';
     name: string='';
     description: string='';
     active:boolean=false;
 
-    constructor(obj:DocumentTypeView){
+    constructor(obj:DocumentPartnersView){
            this.id = obj.id;   
            this.name = obj.name;
-           this.description = obj.description;
+           this.description = obj.description
            this.active = obj.active;
     }    
 }

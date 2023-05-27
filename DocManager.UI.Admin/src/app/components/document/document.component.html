@@ -3,18 +3,18 @@
     <c-col [md]="12">
       <div class="card">
         <c-card-header>
-          <strong>Filtrar Documentos</strong> <small> ...</small>
+          <strong>Filtrar Documentos</strong>
         </c-card-header>
 
           <form cForm [formGroup]="formFilter" class="row g-3">
               <div class="card-body">
                 <div class="form-group row">
-                <c-col [md]="3">
-                  <label cLabel for="prependedInput">Titulo do produto</label>
+                <c-col [md]="4">
+                  <label cLabel for="prependedInput">Titulo do documento</label>
                   <input class="full-control" id="title" placeholder="" formControlName="title"/>
                 </c-col>
-                <c-col [md]="4">
-                  <label cLabel for="prependedInput">Descrição do produto</label>
+                <c-col [md]="6">
+                  <label cLabel for="prependedInput">Descrição do documento</label>
                   <input class="full-control" id="description" placeholder="" formControlName="description"/>
                 </c-col>
                 <c-col [md]="2">
@@ -25,25 +25,33 @@
                     <option value="inativos">Somente inativos</option>
                   </select>
                 </c-col>
-                <c-col [md]="3">
-                    <label cLabel for="itemsByPage">Registros por página</label>
-                    <select class="full-select" formControlName="itemsByPage" id="itemsByPage">
-                       <option selected="true" value="10">10</option>
-                       <option value="25">25</option>
-                       <option value="50">50</option>
-                       <option value="100">100</option>
-                    </select>
-                </c-col>
               </div>
-              <div class="form-group row">
-                <c-col [md]="4">
-                  <label cLabel for="isActive">Tipo do documento</label>
+              <div class="form-group row" style="padding-top: 15px;">
+                <c-col [md]="3">
+                  <label cLabel for="documentTypeId">Tipo do documento</label>
                   <select class="full-select" id="documentTypeId" formControlName="documentTypeId">
-                    <option *ngFor="let types  of listTypes" value={{types.id}}>
-                      {{types.name}}
+                    <option *ngFor="let documentTypes of listDocumentType" value={{documentTypes.id}}>
+                      {{documentTypes.name}}
                     </option>
                   </select>
-                </c-col>                         
+                </c-col>      
+                <c-col [md]="3">
+                  <label cLabel for="documentPartnersId">Parceiros</label>
+                  <select class="full-select" id="documentPartnersId" formControlName="documentPartnersId">
+                    <option *ngFor="let documentPartners of listDocumentPartners" value={{documentPartners.id}}>
+                      {{documentPartners.name}}
+                    </option>
+                  </select>
+                </c-col>   
+                <c-col [md]="2">
+                  <label cLabel for="itemsByPage">Registros por página</label>
+                  <select class="full-select" formControlName="itemsByPage" id="itemsByPage">
+                     <option selected="true" value="10">10</option>
+                     <option value="25">25</option>
+                     <option value="50">50</option>
+                     <option value="100">100</option>
+                  </select>
+              </c-col>   
                 <c-col [md]="2">
                   <label cLabel for="prependedInput">                  </label>
                   <button  class="me-1" color="dark" cButton type="submit" (click)="filterView(formFilter.value, firstPage)"><svg cIcon class="me-2" name="cil-search"></svg> Pesquisar</button>
@@ -72,7 +80,7 @@
                           <tr>
                             <th scope="col">Titulo</th>
                             <th scope="col">Descrição</th>
-                            <th scope="col">Tipo do documento</th>
+                            <th scope="col">Validade</th>
                             <th scope="col">Ativo</th>
                             <th scope="col">Ações</th>
                           </tr>
@@ -81,33 +89,34 @@
                           <tr scope="row" *ngFor="let item of pagedItems">
                             <td>{{item.title}}</td>
                             <td>{{item.description}}</td>
-                            <td *ngFor="let type of listTypes">
-                                {{type.name}}
-                            </td>
+                            <td>{{item.validity}}</td>
                             <td>
                               <c-form-check sizing="lg" switch>
-                                <input cFormCheckInput type="checkbox" checked *ngIf="item.active"/>
-                                <input cFormCheckInput type="checkbox" *ngIf="!item.active"/>
+                                <input cFormCheckInput name="disableinput" type="checkbox" checked *ngIf="item.active"/>
+                                <input cFormCheckInput name="disableinput" type="checkbox" *ngIf="!item.active"/>
                                 <label cFormCheckLabel *ngIf="item.active">Ativo</label>
                                 <label cFormCheckLabel *ngIf="!item.active">Inativo</label>
                               </c-form-check>
                             </td>
-
-                              <td>
-                                <button size="sm" active="active" class="me-1" color="info" cButton (click)="redirectUpdate('/document/maintenance', item.id)"><svg cIcon class="me-2" name="cil-Pen"></svg> Editar</button>
-                                <button size="sm" active="active" class="me-1" color="danger" cButton (click)="prepareDelete(item.id, item.title)"><svg cIcon class="me-2" name="cil-Trash"></svg> Excluir</button>
+                              <td style=" display: flex;
+                              flex-direction: column;
+                              flex-wrap: wrap;
+                              align-content: center;">
+                                <button size="sm" active="active" class="me-1" color="info" cButton (click)="redirectUpdate('/document/maintenance', item.id)"><svg cIcon class="me-1" name="cilFile"></svg></button>
+                                <button size="sm" active="active" class="me-1" color="a"style="background-color: rgb(238, 255, 0);" cButton (click)="redirectUpdate('/document/maintenance', item.id)"><svg cIcon class="me-1" name="cil-Pen"></svg></button>
+                                <button size="sm" active="active" class="me-1" color="danger" cButton (click)="prepareDelete(item.id, item.title)"><svg cIcon class="me-1" name="cil-Trash"></svg></button>
                               </td>
                           </tr>
                       </tbody>
                       <tfoot>
                           <tr>
-                            <td colspan="6">
+                            <td colspan="8">
                               <app-custom-pagination (callNavitation)="filterView(formFilter.value, $event)" [pager]=pager>
                               </app-custom-pagination>
                           </td>
                           </tr>
                       </tfoot>
-                  </table>
+                </table>
         </div>
     </div>
     </c-col> <!--/.col-->

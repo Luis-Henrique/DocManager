@@ -31,6 +31,7 @@ import { DocumentMaintenanceComponent } from './document-maintenance/document-ma
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { CustomModalModule } from '../modal/custom-modal.module';
 import { Utils } from 'src/app/utils/utils';
+import { DocumentPartnersService } from 'src/app/services/document-partners-service';
 
 @NgModule({
   imports: [
@@ -60,6 +61,7 @@ import { Utils } from 'src/app/utils/utils';
   providers: [
     DocumentService,
     DocumentTypeService,
+    DocumentPartnersService,
     PagerService, Utils
   ],
   declarations: [

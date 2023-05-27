@@ -55,18 +55,18 @@ export const navItems: INavData[] = [
   },
   {
     name:'Parceiros',
-    url:'/documenttype',
+    url:'/documentpartners',
     iconComponent: {name:'cilNotes'},
     children: [
       {
         iconComponent: {name:'cilList'},
         name:'Meus Tipos',
-        url:'/documenttype/documenttype'
+        url:'/documentpartners/documentpartners'
       },
       {
         iconComponent: {name:'cilPlus'},
         name:'Novo Tipo',
-        url:'/documenttype/maintenance'
+        url:'/documentpartners/maintenance'
       },
     ]
   },

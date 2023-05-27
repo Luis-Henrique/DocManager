@@ -102,3 +102,13 @@ div.omrs-input-group {
   background-image: url("./bg.jpg");
   --cui-sidebar-nav-link-icon-color:  rgb(255, 255, 255);
 }
+
+*:disabled {
+  background-color: rgb(255, 119, 13);
+  color: rgb(0, 0, 0);
+  opacity: 0;
+}
+
+.disableinput{
+pointer-events: none;
+}

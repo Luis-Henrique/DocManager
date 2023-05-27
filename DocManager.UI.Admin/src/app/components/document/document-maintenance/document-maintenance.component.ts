@@ -13,6 +13,9 @@ import { DocumentTypeFilter } from '../../document-type/models/Document-type-fil
 import { DocumentTypeView } from '../../document-type/models/Document-type-view';
 import { DocumentPost } from 'src/app/components/document/models/document-post'
 import { DocumentPut } from 'src/app/components/document/models/document-put'
+import { DocumentPartnersFilter } from '../../document-partners/models/document-partners-filter';
+import { DocumentPartnersService } from 'src/app/services/document-partners-service';
+import { DocumentPartnersView } from '../../document-partners/models/document-partners-view';
 
 @Component({
   selector: 'app-document-maintenance',
@@ -40,7 +43,8 @@ export class DocumentMaintenanceComponent implements OnInit {
   setToDeleteDocument = '';
   isCollapsed: boolean = true;
 
-  listTypes: DocumentTypeView[]=[];
+  listDocumentType: DocumentTypeView[]=[];
+  listDocumentPartners: DocumentPartnersView[]=[];
 
   action = 'Inserir';
 
@@ -55,6 +59,7 @@ export class DocumentMaintenanceComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private spinner: NgxSpinnerService,
               private activedRouter: ActivatedRoute,
+              private documentPartnersService: DocumentPartnersService, 
               private documentTypeService: DocumentTypeService,
               private documentService: DocumentService,
               private utils : Utils) {}
@@ -77,7 +82,7 @@ export class DocumentMaintenanceComponent implements OnInit {
 
   InitializeDependecies() {
     this.getDocumentTypes();
-
+    this.getDocumentPartners();
   }
 
   getById(id: string) {
@@ -108,19 +113,38 @@ export class DocumentMaintenanceComponent implements OnInit {
       title: this.formBuilder.control(document.title),
       description: this.formBuilder.control(this.document.description),
       documentTypeId: this.formBuilder.control(this.document.documentTypeId),
+      documentPartnersId: this.formBuilder.control(this.document.documentPartnersId),
+      validity: this.formBuilder.control(this.document.validity),
+      url: this.formBuilder.control(this.document.url),
       active: this.formBuilder.control(this.document.active)
   })
   }
 
   getDocumentTypes() {
     this.spinner.show();
-    let eventFilter = new DocumentTypeFilter('','todos',0, 100);
+    let eventFilter = new DocumentTypeFilter('','', 'todos',0, 100);
     this.documentTypeService.getByFilter(eventFilter)
       .subscribe(typesview => {
         this.spinner.hide();
         var view = new DocumentTypeView();
         typesview.items.unshift(view);
-        this.listTypes = typesview.items;
+        this.listDocumentType = typesview.items;
+      }, error => {
+        this.utils.showErrorMessage(error,'Tipo de produto');
+        this.spinner.hide();
+        console.log(error);
+      });
+  }  
+
+  getDocumentPartners() {
+    this.spinner.show();
+    let eventFilter = new DocumentPartnersFilter('','', 'todos',0, 100);
+    this.documentPartnersService.getByFilter(eventFilter)
+      .subscribe(typesview => {
+        this.spinner.hide();
+        var view = new DocumentPartnersView();
+        typesview.items.unshift(view);
+        this.listDocumentPartners = typesview.items;
       }, error => {
         this.utils.showErrorMessage(error,'Tipo de produto');
         this.spinner.hide();
