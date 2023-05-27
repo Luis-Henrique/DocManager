@@ -29,13 +29,22 @@ export class LoginComponent implements OnInit {
         var iPassword = (<HTMLInputElement>document.getElementById("password")).value;
 
         if (iUsername == '' || iUsername == undefined) {
-            this.showMessage('É necessário informar um usuário, verifique...');
+            this.showMessage('É necessário informar um e-mail, verifique...');
             return;
         }       
         if (iPassword == '' || iPassword == undefined){
             this.showMessage('É necessário informar uma senha, verifique...');
             return;
         }
+        if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(iUsername))){
+            this.showMessage('É necessário informar um e-mail valido, verifique...');
+            return;
+        }
+        if (!(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/.test(iPassword))){
+            this.showMessage('A senha deve conter 8 caracteres entre maiúsculas, números e especiais, verifique...');
+            return;
+        }
+
 
         const user = new AccountLoginView(iUsername,iPassword);        
 

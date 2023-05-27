@@ -55,6 +55,7 @@ export class RecoveryComponent implements OnInit {
             this.showMessage('Senhas invalidas, verifique...');
             return;
         }
+
         console.log('tudo certo, vamos preparar para chamar o backEnd');
 
         const account = new AccountPutRequest(iUserName,iEmail,iPassword);

@@ -3,15 +3,16 @@
       <c-row class="justify-content-center">
         <c-col md="8" >
           <c-card-group class="">
-            <c-card class="p-4" style="height: 450px;">
+            <c-card class="p-4" style="height: 450px;" cBorder="light">
               <c-card-body>
                 <form cForm>
                   <c-input-group class="mb-2">
                     <img src="./assets/img/logo/doc-manager-logo.svg" class="img-fluid" alt="Imagem responsiva">
-                  </c-input-group>
-                  <c-card-body class="text-center">
-                    <h5 class="font-weight-bold" style="font-size: 20px;">Login</h5>
-                  </c-card-body>
+                  </c-input-group><br>
+                 <c-card-body class="text-center p-4">
+                     <!--<h5 class="font-weight-bold" style="font-size: 18px; color: black; font-weight: bold;">Entrar no DocManager</h5>
+                  --></c-card-body>
+                
                   <div class="omrs-input-group">
                     <label class="omrs-input-underlined">
                       <input autoComplete="username" name="username" id="username" required>
@@ -25,19 +26,20 @@
                     </label>
                   </div>
                   <div class="d-grid gap-2">
-                    <button type="button" class="btn btn-dark" (click)='login()'>Login</button>
+                    <button type="button" class="btn btn-dark" style="background-color:black" (click)='login()'>Entrar</button>
                   </div>
                   <div class="d-grid gap-2">
-                    <button cButton class="px-0" color="black" routerLink="/recovery">
+                    <button cButton class="px-0" color="black" style="font-size: 15px; color: black;" routerLink="/recovery">
                       Recuperar senha?
                     </button>
                   </div>
                 </form>
               </c-card-body>
             </c-card>
+            <!--
             <c-card class="justify-content-sm-end" style="height: 450px;">
                 <c-card-body class="text-center">
-                    <img class="card-img text-center" src="./assets/img/login/imagem-login.jpeg" alt="Card image">
+                    <img class="card-img text-center" src="./assets/img/login/imagem-login.jpg" style="" alt="Card image">
                       <div class="card-img-overlay">
                         <h5 class="card-title font-weight-bold" style="font-size: 25px;">Inscrever-se</h5>
                         <p class="card-text font-weight-bold">Crie uma conta para acessar o DocManager, seu sistema de controle.</p>
@@ -47,6 +49,31 @@
                       </div>
                 </c-card-body>
             </c-card>
+          -->
+            <div class="card">
+              <img class="card-img-top" src="./assets/img/login/imagem-login.jpg" alt="Card image">
+              <div class="card-img-overlay">
+                <p class="card-text-login" style="font-size: 15px; color: black;">Crie uma conta para acessar o DocManager</p>
+                <div class="d-grid">
+                <button class="btn btn-dark" style="font-size: 15px; background-color:black; border: 0;" routerLink="/register">Registrar-se</button>
+                </div>
+              </div>
+            </div>
+          <!--
+            <c-card class="mb-4" cBorder="light" style="height: 450px;">
+              <img [cCardImg] src="./assets/img/angular.jpg">
+              <c-card-img-overlay>
+                <h5 cCardTitle>Card title</h5>
+                <p cCardText>
+                  This is a wider card with supporting text below as a natural lead-in to
+                  additional content. This content is a little bit longer.
+                </p>
+                <p cCardText>
+                  <small class="text-medium-emphasis">Last updated 3 mins ago</small>
+                </p>
+              </c-card-img-overlay>
+            </c-card>
+          -->
           </c-card-group>
         </c-col>
       </c-row>

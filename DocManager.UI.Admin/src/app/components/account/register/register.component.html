@@ -1,21 +1,20 @@
 <div class="bg-light min-vh-100 d-flex flex-row align-items-center">
   <c-container>
     <c-row class="justify-content-center">
-      <c-col lg="7" md="9" xl="6">
+      <c-col lg="2" md="2" xl="5">
         <c-card class="mx-4">
           <c-card class="p-4" style="height: 540px;">
             <c-card-body class="p-4">
               <form cForm>
-                <c-input-group class="mb-2">
+                <c-input-group class="mb-4">
                   <img src="./assets/img/logo/doc-manager-logo.svg" class="img-fluid" alt="Imagem responsiva">
                 </c-input-group>
-                <h1 class="font-weight-bold" style="font-size: 30px;">Nova Conta</h1>
-                <p class="font-weight-bold">Cadastre sua conta</p>
+                <h1 class="font-register" style="color: black; font-size: 25px; padding-left: 85px;">Nova Conta</h1>
                 <c-input-group class="mb-3">
                   <div class="omrs-input-group">
                     <label class="omrs-input-underlined">
                       <input autoComplete="name" name="username" id="username" required>
-                      <span class="omrs-input-label">Usarname</span>
+                      <span class="omrs-input-label">Nome</span>
                     </label>
                   </div>
                   <div class="omrs-input-group">
@@ -38,7 +37,7 @@
                   </div>
                 </c-input-group>
                   <div class="d-grid gap-2">
-                    <button type="button" class="btn btn-dark" (click)='createAccount()'>Criar Conta</button>
+                    <button type="button" style="font-size: 15px; background-color:black; border: 0;" class="btn btn-dark" (click)='createAccount()'>Criar Conta</button>
                   </div>
               </form>
             </c-card-body>

@@ -5,6 +5,8 @@
     border: 0px solid;
   }
 
+/** INPUT LOGIN**/
+
 /** BEGIN: Non Openmrs CSS **/
 @import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
 * {
@@ -80,4 +82,23 @@ div.omrs-input-group {
 .omrs-input-underlined:not(.omrs-input-danger) > input:focus + .omrs-input-label,
 .omrs-input-filled:not(.omrs-input-danger) > input:focus + .omrs-input-label {
   color: black;
+}
+
+/**Registrar-se**/
+
+.card-img-overlay{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  padding-top: 350px;
+}
+
+.sidebar{
+  --cui-sidebar-bg: rgb(255, 119, 13);
+  --cui-sidebar-brand-bg: rgb(255, 255, 255);
+  --cui-sidebar-nav-title-color: rgb(255, 255, 255);
+  --cui-sidebar-nav-link-color: rgb(255, 255, 255);
+  background-image: url("./bg.jpg");
+  --cui-sidebar-nav-link-icon-color:  rgb(255, 255, 255);
 }
