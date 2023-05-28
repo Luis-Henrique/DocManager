@@ -16,6 +16,7 @@ import { DocumentPut } from 'src/app/components/document/models/document-put'
 import { DocumentPartnersFilter } from '../../document-partners/models/document-partners-filter';
 import { DocumentPartnersService } from 'src/app/services/document-partners-service';
 import { DocumentPartnersView } from '../../document-partners/models/document-partners-view';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-document-maintenance',
@@ -53,6 +54,9 @@ export class DocumentMaintenanceComponent implements OnInit {
     title: this.formBuilder.control(this.document.title),
     description: this.formBuilder.control(this.document.description),
     documentTypeId: this.formBuilder.control(this.document.documentTypeId),
+    documentPartnersId: this.formBuilder.control(this.document.documentPartnersId),
+    validity: this.formBuilder.control(this.datePipe.transform(this.document.validity, 'yyyy-MM-dd')),
+    url: this.formBuilder.control(this.document.url),
     active: this.formBuilder.control(this.document.active)
   });  
 
@@ -62,6 +66,7 @@ export class DocumentMaintenanceComponent implements OnInit {
               private documentPartnersService: DocumentPartnersService, 
               private documentTypeService: DocumentTypeService,
               private documentService: DocumentService,
+              private datePipe: DatePipe,
               private utils : Utils) {}
   
   ngOnInit() {
@@ -108,13 +113,14 @@ export class DocumentMaintenanceComponent implements OnInit {
   }
 
   updateForm(document: DocumentView){
+    var _validity = new Date(document.validity)
     this.formDocument = new FormGroup({
       id: this.formBuilder.control(document.id),
       title: this.formBuilder.control(document.title),
       description: this.formBuilder.control(this.document.description),
       documentTypeId: this.formBuilder.control(this.document.documentTypeId),
       documentPartnersId: this.formBuilder.control(this.document.documentPartnersId),
-      validity: this.formBuilder.control(this.document.validity),
+      validity: this.formBuilder.control(this.datePipe.transform(_validity.setDate(_validity.getDate() + 1), 'yyyy-MM-dd')),
       url: this.formBuilder.control(this.document.url),
       active: this.formBuilder.control(this.document.active)
   })

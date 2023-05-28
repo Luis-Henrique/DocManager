@@ -1,5 +1,5 @@
 // Angular
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -62,6 +62,7 @@ import { DocumentPartnersService } from 'src/app/services/document-partners-serv
     DocumentService,
     DocumentTypeService,
     DocumentPartnersService,
+    DatePipe,
     PagerService, Utils
   ],
   declarations: [
