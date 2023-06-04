@@ -101,6 +101,7 @@ div.omrs-input-group {
   --cui-sidebar-nav-link-color: rgb(255, 255, 255);
   background-image: url("./bg.jpg");
   --cui-sidebar-nav-link-icon-color:  rgb(255, 255, 255);
+  padding-bottom: 110px;
 }
 
 *:disabled {
@@ -112,3 +113,10 @@ div.omrs-input-group {
 .disableinput{
 pointer-events: none;
 }
+
+input[type="checkbox"]:checked {
+  background-color: rgb(255, 119, 13); 
+  border: 0;
+}
+
+

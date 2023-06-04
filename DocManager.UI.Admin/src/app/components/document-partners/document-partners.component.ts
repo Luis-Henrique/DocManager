@@ -44,7 +44,7 @@ export class DocumentPartnersComponent implements OnInit {
                                });
 
     ngOnInit(){
-
+        this.filterView(this.formFilter.value, 1)
     }
 
     confirmdelete(){

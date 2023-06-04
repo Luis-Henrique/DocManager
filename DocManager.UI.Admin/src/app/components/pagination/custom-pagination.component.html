@@ -1,7 +1,7 @@
 <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
     <li [ngClass]="{disabled:pager.currentPage === 1}">
         <button type="button" class="btn-first" [disabled]="pager.currentPage === 1" 
-        (click)="callPage(1)">Primeiro</button>
+        (click)="callPage(1)" style="font-size: 15px; background-color:black; border: 0;">Primeiro</button>
     </li>
     <li [ngClass]="{disabled:pager.currentPage === 1}">
         <button type="button" class="btn-prev" style="background-color: rgb(255, 119, 13);" [disabled]="pager.currentPage === 1" 
@@ -15,7 +15,7 @@
          (click)="callPage(pager.currentPage + 1)">Próximo</button>
     </li>
     <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-        <button type="button" class="btn-last" [disabled]="pager.currentPage === pager.totalPages"
-         (click)="callPage(pager.totalPages)">Último</button>
+        <button type="button" style="font-size: 15px; background-color:black; border: 0;" class="btn-last" [disabled]="pager.currentPage === pager.totalPages"
+         (click)="callPage(pager.totalPages)"> Último </button>
     </li>
   </ul>

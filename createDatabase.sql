@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS docManager.documents
 `documentPartnersId`  varchar(50) NOT NULL COMMENT 'parceiros',
 `validity` DateTime NOT NULL DEFAULT NOW() COMMENT 'data de vigencia do documento',
 `active` bit NOT NULL DEFAULT false COMMENT 'indicador se o documento esta ativo ou inativo',
-`url` varchar(100) NOT NULL COMMENT 'link do documento',
+`url` varchar(350) NOT NULL COMMENT 'link do documento',
 `creationDate` DateTime NOT NULL DEFAULT NOW() COMMENT 'data de criação do registro',
 `updateDate` DateTime NULL COMMENT 'data de atualização do registro',
 PRIMARY KEY(`id`),

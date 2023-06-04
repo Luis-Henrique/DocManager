@@ -16,7 +16,7 @@ templateUrl:'./document-partners-maintenance.component.html'
 })
 
 export class DocumentPartnersMaintenanceComponent implements OnInit {
-    returnUrl: string ='/document-partners/document-partners';
+    returnUrl: string ='/documentpartners/documentpartners';
     @Input() modalTitle = ''
     @Input() modalBodyDetail = ''
     action = 'Inserir';
@@ -50,6 +50,10 @@ export class DocumentPartnersMaintenanceComponent implements OnInit {
           this.formDocumentPartners.patchValue(this.documentPartners);
         }
     }
+
+    redirect(url: string) {
+      this.utils.navigateTo(url,'');
+    }  
 
     getById(id: string) {
         this.spinner.show();
@@ -111,6 +115,7 @@ export class DocumentPartnersMaintenanceComponent implements OnInit {
       this.documentPartnersService.insert(documentPartnersPost).subscribe((response: any) => {
            this.spinner.hide();
            this.utils.showSuccessMessage(response.message,this.action)
+           this.redirect(this.returnUrl);        
        }, error => {
            this.spinner.hide();
            this.utils.showErrorMessage(error,this.action); 
@@ -123,6 +128,7 @@ export class DocumentPartnersMaintenanceComponent implements OnInit {
       this.documentPartnersService.update(documentPartnersPut).subscribe((response: any) => {
            this.spinner.hide();
            this.utils.showSuccessMessage(response.message,this.action)
+           this.redirect(this.returnUrl);        
        }, error => {
            this.spinner.hide();
            this.utils.showErrorMessage(error,this.action);

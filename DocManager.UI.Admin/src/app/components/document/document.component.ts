@@ -91,6 +91,10 @@ redirectUpdate(url: string, id: string) {
   this.utils.navigateTo(url,id)
 }
 
+redirectView(url: string){
+  window.open(url, '_blank');
+}
+
 confirmdelete(){
 
   if (this.deleteId !== undefined && this.deleteId != '')  {
@@ -133,6 +137,7 @@ getDocumentTypes() {
       var view = new DocumentTypeView();
       typesview.items.unshift(view);
       this.listDocumentType = typesview.items;
+      this.listDocumentType.shift();
     }, error => {
       this.utils.showErrorMessage(error,'Tipo de produto');
       this.spinner.hide();
@@ -149,6 +154,7 @@ getDocumentPartners() {
       var view = new DocumentPartnersView();
       typesview.items.unshift(view);
       this.listDocumentPartners = typesview.items;
+      this.listDocumentPartners.shift();
     }, error => {
       this.utils.showErrorMessage(error,'Tipo de produto');
       this.spinner.hide();

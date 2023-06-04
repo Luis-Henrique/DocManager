@@ -3,43 +3,46 @@
     <c-col [md]="12">
       <div class="card">
         <c-card-header>
-          <strong>Filtrar Tipo do Documento</strong> <small> ...</small>
+          <strong>Filtrar Tipo do Documento</strong>
         </c-card-header>
 
           <form cForm [formGroup]="formFilter" class="row g-3">
               <div class="card-body">
                 <div class="form-group row">
-                <c-col [md]="3">
-                  <label cLabel for="prependedInput">Nome</label>
-                  <input class="full-control" id="name" placeholder="" formControlName="name"/>
-                </c-col>
-                <c-col [md]="3">
-                  <label cLabel for="prependedInput">Descrição</label>
-                  <input class="full-control" id="description" placeholder="" formControlName="description"/>
-                </c-col>
-                <c-col [md]="3">
-                  <label cLabel for="isActive">Ativos/Inativos</label>
-                  <select class="full-select" formControlName="active" id="active">
-                    <option selected="true" value="todos">Todos</option>
-                    <option value="ativos">Somente ativos</option>
-                    <option value="inativos">Somente inativos</option>
-                  </select>
-                </c-col>
-                <c-col [md]="3">
-                    <label cLabel for="itemsByPage">Registros por página</label>
-                     <select class="full-select" formControlName="itemsByPage" id="itemsByPage">
-                       <option selected="true" value="10">10</option>
-                       <option value="25">25</option>
-                       <option value="50">50</option>
-                       <option value="100">100</option>
-                    </select>
-                </c-col>
-                <c-col [md]="2">
-                   <label cLabel for="prependedInput"></label>
-                   <button  class="me-1" color="dark" cButton type="submit" (click)="filterView(formFilter.value, firstPage)"><svg cIcon class="me-2" name="cil-search"></svg> Pesquisar</button>
-                </c-col>
+                  <div class="form-group row">
+                    <c-col [md]="4">
+                      <label cLabel for="prependedInput">Nome</label>
+                      <input class="full-control" id="name" placeholder="Todos" formControlName="name"/>
+                    </c-col>
+                    <c-col [md]="6">
+                      <label cLabel for="prependedInput">Descrição</label>
+                      <input class="full-control" id="description" placeholder="Todos" formControlName="description"/>
+                    </c-col>
+                    <c-col [md]="2">
+                      <label cLabel for="isActive">Ativos/Inativos</label>
+                      <select class="full-select" formControlName="active" id="active">
+                        <option selected="true" value="todos">Todos</option>
+                        <option value="ativos">Somente ativos</option>
+                        <option value="inativos">Somente inativos</option>
+                      </select>
+                    </c-col>
+                    <br>
+                    <c-col [md]="2">
+                        <label cLabel for="itemsByPage" style="padding-top: 15px;">Itens por página</label>
+                        <select class="full-select" formControlName="itemsByPage" id="itemsByPage">
+                          <option selected="true" value="10">10</option>
+                          <option value="25">25</option>
+                          <option value="50">50</option>
+                          <option value="100">100</option>
+                        </select>
+                    </c-col>
+                    <c-col [md]="2" style="padding-top: 47px;">
+                        <label cLabel for="prependedInput"></label>
+                        <button  class="me-1" style="font-size: 15px; background-color:black; border: 0;" cButton type="submit" (click)="filterView(formFilter.value, firstPage)"><svg cIcon class="me-2" name="cil-search"></svg> Pesquisar</button>
+                    </c-col>
+                  </div>
               </div>
-              </div>
+            </div>
         </form>
       </div>
       
@@ -52,7 +55,7 @@
       <div class="card">
         <c-card-header>
           <strong>Resultado da pesquisa</strong> <small>  </small>
-          <button size="sm" active="active" class="me-1" color="dark" cButton (click)="redirectTo('/documenttype/maintenance')"><svg cIcon class="me-2" name="cil-plus"></svg> novo</button>
+          <button size="sm" active="active" class="me-1" style="font-size: 15px; background-color:black; border: 0;" cButton (click)="redirectTo('/documenttype/maintenance')"><svg cIcon class="me-2" name="cil-plus"></svg> novo</button>
         </c-card-header>
         <div class="card-body">        
                   <table [hover]="true" [striped]="true" cTable>
@@ -60,7 +63,7 @@
                           <tr>
                             <th scope="col">Nome</th>
                             <th scope="col">Descrição</th>
-                            <th scope="col">Ativo/Inativo</th>
+                            <th scope="col">Ativo?</th>
                             <th scope="col">Ações</th>
                           </tr>
                       </thead>
@@ -76,10 +79,12 @@
                                 <label cFormCheckLabel *ngIf="!item.active">Inativo</label>
                               </c-form-check>
                             </td>
-
-                              <td>
-                                <button size="sm" active="active" class="me-1" color="info" cButton (click)="redirectUpdate('/documenttype/maintenance', item.id)"><svg cIcon class="me-2" name="cil-Pen"></svg> Editar</button>
-                                <button size="sm" active="active" class="me-1" color="danger" cButton (click)="prepareDelete(item.id, item.name)"><svg cIcon class="me-2" name="cil-Trash"></svg> Excluir</button>
+                              <td style=" display: flex;
+                              flex-direction: column;
+                              flex-wrap: wrap;
+                              align-content: center;">
+                                <button size="sm" active="active" class="me-1" color="a"style="background-color: rgb(238, 255, 0);" cButton (click)="redirectUpdate('/documenttype/maintenance', item.id)"><svg cIcon class="me-1" name="cil-Pen"></svg></button>
+                                <button size="sm" active="active" class="me-1" color="danger" cButton (click)="prepareDelete(item.id, item.name)"><svg cIcon class="me-1" name="cil-Trash"></svg></button>
                               </td>
                           </tr>
                       </tbody>

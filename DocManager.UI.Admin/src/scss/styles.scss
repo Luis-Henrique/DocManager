@@ -9,7 +9,7 @@ $enable-rtl: true;
 @import "~@coreui/coreui/scss/coreui";
 
 // Import Chart.js custom tooltips styles
-@import "~@coreui/chartjs/scss/coreui-chartjs";
+//@import "~@coreui/chartjs/scss/coreui-chartjs";
 
 // perfect scrollbar theming for use with [perfectScrollbar] directive
 //@import '~perfect-scrollbar/css/perfect-scrollbar.css';
@@ -54,7 +54,7 @@ $enable-rtl: true;
     --omrs-color-ink-high-contrast: #121212;
     --omrs-color-bg-high-contrast: #ffffff;
  }
-  
+
 .full-control {
     display: block;
     width: 100%;
@@ -62,7 +62,7 @@ $enable-rtl: true;
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    color: var(#6f42c1, rgba(44, 56, 74, 0.95));
+    color: var(rgb(255, 119, 13), rgb(255, 119, 13));
     //background-color: var(--cui-input-bg, #fff);
     background-color: #fff;
     background-clip: padding-box;
@@ -74,12 +74,13 @@ $enable-rtl: true;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   }
 
+  //Parte de dentro do box:
   .full-control:focus {
     color: var(--cui-input-focus-color, rgba(44, 56, 74, 0.95));
     background-color: var(--cui-input-focus-bg, #fff);
     border-color: var(--cui-input-focus-border-color, #998fed);
     outline: 0;
-    box-shadow: 0 0 0 0.25rem rgba(50, 31, 219, 0.25);
+    box-shadow: 0 0 0 0.25rem rgb(255, 119, 13);
   }
 
   .full-control:read-only {
@@ -191,5 +192,5 @@ $enable-rtl: true;
   .full-select:focus {
     border-color: var(--cui-form-select-focus-border-color, #998fed);
     outline: 0;
-    box-shadow: 0 0 0 0.25rem rgba(143, 27, 27, 0.25);
+    box-shadow: 0 0 0 0.25rem rgb(255, 119, 13);
   }

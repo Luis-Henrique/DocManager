@@ -4,7 +4,7 @@ import { IconComponent } from '@coreui/icons-angular';
 export const navItems: INavData[] = [
   {
     name: 'Dashboard',
-    url: '',
+    url: '/dashboard',
     iconComponent: { name: 'cilHome' },
     badge: {
       color: 'dark',

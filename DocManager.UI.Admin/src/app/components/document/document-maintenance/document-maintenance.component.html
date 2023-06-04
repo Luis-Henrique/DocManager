@@ -10,17 +10,16 @@
 
         <div class="card-body">
           <form [formGroup]="formDocument" cForm>
-            
             <div class="form-group row">
-              <c-col [md]="3">
+              <c-col [md]="4">
                 <label cLabel for="title">Titulo do documento</label>
                 <input id="title" class="full-control" placeholder="Titulo" type="text" formControlName="title"/>
               </c-col>
-              <c-col [md]="3">
+              <c-col [md]="5">
                 <label cLabel for="description">Descrição documento</label>
                 <input id="description" class="full-control" placeholder="Descrição" type="text" formControlName="description"/>
               </c-col>
-              <c-col [md]="4">
+              <c-col [md]="3">
                 <label cLabel for="documentType">Tipo do documento</label>
                 <select class="full-select" id="documentTypeId" formControlName="documentTypeId" type="text">
                   <option value="" selected disabled hidden>Selecione</option>
@@ -29,7 +28,7 @@
                    </option>
                  </select>                
               </c-col>
-              <c-col [md]="4">
+              <c-col [md]="3" style="padding-top: 15px;">
                 <label cLabel for="documentPartners">Parceiros</label>
                 <select class="full-select" id="documentPartnersId" formControlName="documentPartnersId" type="text">
                   <option value="" selected disabled hidden>Selecione</option>
@@ -38,15 +37,15 @@
                    </option>
                  </select>                
               </c-col>
-              <c-col [md]="3">
+              <c-col [md]="2" style="padding-top: 15px;">
                 <label cLabel for="validity">Data de expiração</label>
                 <input id="validity" class="full-control" type="date" formControlName="validity"/>
               </c-col>
-              <c-col [md]="3">
+              <c-col [md]="5" style="padding-top: 15px;">
                 <label cLabel for="url">URL</label>
                 <input id="url" class="full-control" placeholder="URL" type="text" formControlName="url"/>
               </c-col>
-              <c-col [md]="4">
+              <c-col [md]="2"  style="padding-top: 15px;">
                 <c-row>
                   <label cLabel for="active">Inativo/Ativo</label>
                 </c-row>

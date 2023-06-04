@@ -1,4 +1,114 @@
-<c-row>
-    
-</c-row>
+  <!--/.row-->
+  <!--<div class="row">
+    <c-col [md]="12">
+      <div class="card">
+        <c-card-header>
+          <strong>Filtrar Documentos</strong>
+        </c-card-header>
 
+        <form cForm [formGroup]="formFilter" class="row g-3">
+              <div class="card-body">
+                <div class="form-group row">
+                <c-col [md]="2">
+                  <label cLabel for="active">Ativos/Inativos</label>
+                  <select class="full-select" formControlName="active" id="active">
+                    <option selected="true" value="todos">Todos</option>
+                    <option value="ativos">Somente ativos</option>
+                    <option value="inativos">Somente inativos</option>
+                  </select>
+                </c-col>
+                <c-col [md]="3">
+                  <label cLabel for="documentTypeId">Tipo do documento</label>
+                  <select class="full-select" id="documentTypeId" formControlName="documentTypeId">
+                    <option selected="true" value="">
+                      Todos
+                    </option>
+                    <option *ngFor="let documentTypes of listDocumentType" value={{documentTypes.id}}>
+                      {{documentTypes.name}}
+                    </option>
+                  </select>
+                </c-col>      
+                <c-col [md]="3">
+                  <label cLabel for="documentPartnersId">Parceiros</label>
+                  <select class="full-select" id="documentPartnersId" formControlName="documentPartnersId">
+                    <option selected="true" value="">
+                      Todos
+                    </option>
+                    <option *ngFor="let documentPartners of listDocumentPartners" value={{documentPartners.id}}>
+                      {{documentPartners.name}}
+                    </option>
+                  </select>
+                </c-col>   
+                  
+                <c-col [md]="2">
+                  <label cLabel for="prependedInput">                  </label>
+                  <button  class="me-1" style="font-size: 15px; background-color:black; border: 0;" cButton type="submit" (click)="filterView(formFilter.value, 1)"><svg cIcon class="me-2" name="cil-search"></svg> Pesquisar</button>
+                </c-col>
+            </div>
+
+            </div>
+        </form>
+      </div>
+      
+  </div>
+<br>-->
+  <!--/.row-->
+  <div class="row">
+    <c-col [md]="12">
+      <div class="card">
+        <c-card-header>
+          <strong>Resultado da pesquisa</strong> <small>  </small>
+        </c-card-header>
+        <div class="card-body" style="display: flex;">        
+            <div class="col-lg-4" style="padding: 10px;">
+                <div class="card">
+                    <div class="card-header">
+                      Tipo do documento
+                    </div>
+                    <div class="card-body">
+                      <canvas baseChart width="400" height="500" chartType="doughnut" [data]="amountOfDocumentChartData" [labels]="amountOfDocumentChartLabels" [colors]="chartColors"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4" style="padding: 10px;">
+              <div class="card">
+                  <div class="card-header">
+                    Parceiros
+                  </div>
+                  <div class="card-body">
+                    <canvas baseChart width="400" height="500" chartType="doughnut" [data]="amountOfPartnersChartData" [labels]="amountOfPartnersChartLabels" [colors]="chartColors"></canvas>
+                  </div>
+              </div>
+            </div>
+            <div class="col-lg-4" style="padding: 10px;">
+              <div class="card">
+                  <div class="card-header">
+                    Ativos/Inativos
+                  </div>
+                  <div class="card-body">
+                    <canvas baseChart width="400" height="500" chartType="doughnut" [data]="amountOfActiveChartData" [labels]="amountOfActiveChartLabels" [colors]="chartColors"></canvas>
+                  </div>
+              </div>
+            </div>
+        </div>
+        <div class="card-body" style="display: flex;"> 
+          <div class="col-lg-12" style="padding: 10px;">
+            <div class="card">
+                <div class="card-header">
+                  Data de expiração
+                </div>
+                <div class="card-body">
+                  <canvas baseChart width="500" height="200" chartType="line" [datasets]="lineChartData" [labels]="lineChartLabels" [colors]="lineChartColors"></canvas>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    </c-col> <!--/.col-->
+  </div><!--/.row-->
+  <ngx-spinner type="ball-fall">
+  <p style="font-size: 20px; color: white">Aguarde...</p>
+  </ngx-spinner>
+
+ 
+  
