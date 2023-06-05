@@ -41,7 +41,7 @@ namespace DocManager.Application.Helpers
             if (DateTime.Now > date)
                 return true;
 
-            return false;
+            return true;
         }
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
