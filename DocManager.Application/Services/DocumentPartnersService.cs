@@ -3,8 +3,11 @@ using DocManager.Application.Data.MySql.Entities;
 using DocManager.Application.Data.MySql.Repositories;
 using DocManager.Application.Errors;
 using DocManager.Application.Helpers;
+using DocManager.Application.Validators;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,12 +22,28 @@ namespace DocManager.Application.Services
         }
         public async Task<ResultData> PostAsync(DocumentPartnersPostRequest documentPartners)
         {
+            var validator = new DocumentPartnersPostRequestValidator(_documentPartnersRepository);
+            var validationResult = validator.Validate(documentPartners);
+
+            if (!validationResult.IsValid)
+            {
+                return Utils.ErrorData(validationResult.Errors.ToErrorList());
+            }
+
             var entity = new DocumentPartnersEntity(documentPartners);
             return Utils.SuccessData(await _documentPartnersRepository.CreateAsync(entity));
         }
 
         public async Task<ResultData> PutAsync(DocumentPartnersPutRequest documentPartners)
         {
+            var validator = new DocumentPartnersPutRequestValidator(_documentPartnersRepository);
+            var validationResult = validator.Validate(documentPartners);
+
+            if (!validationResult.IsValid)
+            {
+                return Utils.ErrorData(validationResult.Errors.ToErrorList());
+            }
+
             var entity = new DocumentPartnersEntity(documentPartners);
             return Utils.SuccessData(await _documentPartnersRepository.UpdateAsync(entity));
         }

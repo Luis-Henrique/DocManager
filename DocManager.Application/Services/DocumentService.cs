@@ -5,6 +5,7 @@ using DocManager.Application.Data.MySql.Repositories;
 using DocManager.Application.Errors;
 using DocManager.Application.Helpers;
 using DocManager.Application.Validators;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -35,7 +36,7 @@ namespace DocManager.Application.Services
             var entity = new ProductEntity(product);
             return Utils.SuccessData(await _productRepository.CreateAsync(entity));
              */
-            var validator = new DocumentPostRequestValidator(_documentRepository);
+            var validator = new DocumentsPostRequestValidator(_documentRepository);
             var validationResult = validator.Validate(document);
 
             if (!validationResult.IsValid)
@@ -49,6 +50,14 @@ namespace DocManager.Application.Services
 
         public async Task<ResultData> PutAsync(DocumentPutRequest document)
         {
+            var validator = new DocumentsPutRequestValidator(_documentRepository);
+            var validationResult = validator.Validate(document);
+
+            if (!validationResult.IsValid)
+            {
+                return Utils.ErrorData(validationResult.Errors.ToErrorList());
+            }
+
             var entity = new DocumentEntity(document);
             return Utils.SuccessData(await _documentRepository.UpdateAsync(entity));
         }

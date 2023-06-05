@@ -77,7 +77,13 @@ export class DashboardComponent implements OnInit {
       ];
 
     ngOnInit(): void {
-      this.InitializeDependecies();
+      this.getDocumentTypes();
+      this.getDocumentPartners();
+      this.filterView(this.formFilter.value, 1);   
+     }
+
+    saveChanges(){
+      
     }
 
     private allItems: any[]=[];
@@ -103,12 +109,6 @@ export class DashboardComponent implements OnInit {
         itemsByPage: this.formBuilder.control('10')
       }
     );
-
-    InitializeDependecies() {
-      this.getDocumentTypes();
-      this.getDocumentPartners();
-      this.filterView(this.formFilter.value, 1)
-    }
 
     filterView(filter: DocumentFilter, page: number) {
       this.spinner.show();
@@ -159,8 +159,9 @@ export class DashboardComponent implements OnInit {
         this.amountOfPartnersChartLabels.push(documentPartners.name)
       }
       var x = 0;
-      for (let documentPartners of this.listDocumentPartners) {
-        for (let document of this.allItems) {
+      for (let document of this.allItems) {
+        x=0;
+        for (let documentPartners of this.listDocumentPartners) {
           if(document.documentPartnersId == documentPartners.id){
             x++;
           }
@@ -175,6 +176,7 @@ export class DashboardComponent implements OnInit {
       }
       var x = 0;
       for (let documentType of this.listDocumentType) {
+        x=0;
         for (let document of this.allItems) {
           if(document.documentTypeId == documentType.id){
             x++;

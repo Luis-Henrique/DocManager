@@ -23,8 +23,19 @@ namespace DocManager.Application.Data.MySql.Repositories
 
         public async Task<DefaultResponse> CreateAsync(DocumentEntity entity)
         {
-            string strQuery = @$"insert into documents(id, title, description, documentTypeId, documentPartnersId, validity, url)
-                                          Values('{entity.Id}', '{entity.Title}', '{entity.Description}', '{entity.DocumentTypeId}', '{entity.DocumentPartnersId}', '{entity.Validity}', '{entity.Url}')";
+            int active = 0;
+
+            if (entity.Active == true)
+            {
+                active = 1;
+            }
+            else
+            {
+                active = 0;
+            }
+
+            string strQuery = @$"insert into documents(id, title, description, documentTypeId, documentPartnersId, validity, active, url)
+                                          Values('{entity.Id}', '{entity.Title}', '{entity.Description}', '{entity.DocumentTypeId}', '{entity.DocumentPartnersId}', '{entity.Validity}', {active}, '{entity.Url}')";
 
             using (var cnx = _context.Connection())
             {

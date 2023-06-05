@@ -3,10 +3,13 @@ using DocManager.Application.Data.MySql.Entities;
 using DocManager.Application.Data.MySql.Repositories;
 using DocManager.Application.Errors;
 using DocManager.Application.Helpers;
+using DocManager.Application.Validators;
 using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace DocManager.Application.Services
 {
@@ -19,12 +22,28 @@ namespace DocManager.Application.Services
         }
         public async Task<ResultData> PostAsync(DocumentTypePostRequest documentType)
         {
+            var validator = new DocumentTypePostRequestValidator(_documentTypeRepository);
+            var validationResult = validator.Validate(documentType);
+
+            if (!validationResult.IsValid)
+            {
+                return Utils.ErrorData(validationResult.Errors.ToErrorList());
+            }
+
             var entity = new DocumentTypeEntity(documentType);
             return Utils.SuccessData(await _documentTypeRepository.CreateAsync(entity));
         }
 
         public async Task<ResultData> PutAsync(DocumentTypePutRequest documentType)
         {
+            var validator = new DocumentTypePutRequestValidator(_documentTypeRepository);
+            var validationResult = validator.Validate(documentType);
+
+            if (!validationResult.IsValid)
+            {
+                return Utils.ErrorData(validationResult.Errors.ToErrorList());
+            }
+
             var entity = new DocumentTypeEntity(documentType);
             return Utils.SuccessData(await _documentTypeRepository.UpdateAsync(entity));
         }

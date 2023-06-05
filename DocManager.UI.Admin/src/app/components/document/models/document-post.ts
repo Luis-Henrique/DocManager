@@ -8,7 +8,7 @@ export class DocumentPost {
     documentPartnersId: string;
     validity: string;
     url:string;
-    
+    active: boolean;
 
   constructor(obj:DocumentView) {
     this.title = obj.title;
@@ -17,6 +17,7 @@ export class DocumentPost {
     this.documentPartnersId = obj.documentPartnersId;
     this.validity = obj.validity;
     this.url = obj.url;
+    this.active = obj.active;
   }
 
 }

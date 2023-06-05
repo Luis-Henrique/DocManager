@@ -18,7 +18,7 @@ namespace DocManager.Application.Data.MySql.Repositories
             this.DocumentTypeId = document.DocumentTypeId;
             this.DocumentPartnersId = document.DocumentPartnersId;
             this.Validity = document.Validity;
-            this.Active = true;
+            this.Active = document.Active;
             this.Url = document.Url;
             this.CreatedDate = DateTime.Now;
         }
