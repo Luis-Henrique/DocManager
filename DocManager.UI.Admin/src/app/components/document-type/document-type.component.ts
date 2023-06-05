@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { DocumentTypeFilter} from './models/Document-type-filter';
+import { DocumentTypeFilter} from './models/document-type-filter';
 import { Utils } from 'src/app/utils/utils';
-import { DocumentTypeService } from 'src/app/services/Document-type-service';
+import { DocumentTypeService } from 'src/app/services/document-type-service';
 import { PagerService } from 'src/app/services/page-service';
 
 @Component({

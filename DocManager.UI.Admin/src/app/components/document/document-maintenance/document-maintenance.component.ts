@@ -7,10 +7,10 @@ import { ToastrService } from 'ngx-toastr';
 import { Guid } from 'guid-typescript';
 import { Utils } from 'src/app/utils/utils';
 import { DocumentView } from '../models/document-view';
-import { DocumentTypeService } from 'src/app/services/Document-type-service';
+import { DocumentTypeService } from 'src/app/services/document-type-service';
 import { DocumentService } from 'src/app/services/document-service';
-import { DocumentTypeFilter } from '../../document-type/models/Document-type-filter';
-import { DocumentTypeView } from '../../document-type/models/Document-type-view';
+import { DocumentTypeFilter } from '../../document-type/models/document-type-filter';
+import { DocumentTypeView } from '../../document-type/models/documenttype-view';
 import { DocumentPost } from 'src/app/components/document/models/document-post'
 import { DocumentPut } from 'src/app/components/document/models/document-put'
 import { DocumentPartnersFilter } from '../../document-partners/models/document-partners-filter';

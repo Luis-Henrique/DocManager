@@ -1,6 +1,6 @@
 import {Routes} from '@angular/router'
 import { DocumentTypeComponent } from './document-type.component';
-import { DocumentTypeViewComponent } from './models/document-type-view-component';
+import { DocumentTypeViewComponent } from './models/documenttype-view.component'
 import { DocumentTypeMaintenanceComponent } from './document-type-maintenance/document-type-maintenance.component';
 
 export const DocumentTypeRoutes: Routes = [
