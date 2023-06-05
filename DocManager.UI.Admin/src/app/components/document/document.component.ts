@@ -7,9 +7,13 @@ import { DocumentFilter } from './models/document-filter';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Utils } from 'src/app/utils/utils';
-import { DocumentTypeService } from 'src/app/services/document-type-service';
-import { DocumentTypeView } from '../document-type/models/documenttype-view';
-import { DocumentTypeFilter } from '../document-type/models/document-type-filter';
+import { DocumentTypeService } from 'src/app/services/Document-type-service';
+import { DocumentPartnersService } from 'src/app/services/document-partners-service';
+import { DocumentTypeView } from '../document-type/models/Document-type-view';
+import { DocumentTypeFilter } from '../document-type/models/Document-type-filter';
+import { DocumentPartnersFilter } from '../document-partners/models/document-partners-filter';
+import { DocumentPartnersView } from '../document-partners/models/document-partners-view';
+import { DocumentView } from './models/document-view';
 
 @Component({
   selector: 'app-document',
@@ -23,6 +27,7 @@ export class DocumentComponent implements OnInit {
   public deleteId = '';
   constructor(private formBuilder: FormBuilder,
               private DocumentService: DocumentService,
+              private DocumentPartnersService: DocumentPartnersService,
               private DocumentTypeService: DocumentTypeService,
               private pagerService: PagerService,
               private spinner: NgxSpinnerService,
@@ -36,7 +41,8 @@ export class DocumentComponent implements OnInit {
   private allItems: any[]=[];
   public pager: any = {};
   
-  listTypes: DocumentTypeView[]=[];
+  listDocumentType: DocumentTypeView[]=[];
+  listDocumentPartners: DocumentPartnersView[]=[];
 
   ngOnInit(): void {
     this.InitializeDependecies();
@@ -48,6 +54,7 @@ export class DocumentComponent implements OnInit {
       description: this.formBuilder.control(''),
       active: this.formBuilder.control('todos'),
       documentTypeId: this.formBuilder.control(''),
+      documentPartnersId: this.formBuilder.control(''),
       itemsByPage: this.formBuilder.control('10')
     }
   );
@@ -61,7 +68,7 @@ export class DocumentComponent implements OnInit {
 
 filterView(filter: DocumentFilter, page: number) {
   this.spinner.show();
-  let eventFilter = new DocumentFilter(filter.title, filter.description, filter.documentTypeId, filter.active, page, this.itemsByPage);
+  let eventFilter = new DocumentFilter(filter.title, filter.description, filter.documentTypeId, filter.documentPartnersId, filter.active, page, this.itemsByPage);
   this.DocumentService.getByFilter(eventFilter).subscribe(view => {
     this.allItems = view.items;
     this.totalItem = view._total;
@@ -82,6 +89,10 @@ redirectTo(url:string) {
 
 redirectUpdate(url: string, id: string) {
   this.utils.navigateTo(url,id)
+}
+
+redirectView(url: string){
+  window.open(url, '_blank');
 }
 
 confirmdelete(){
@@ -117,15 +128,33 @@ prepareDelete(id:string, name:string){
 }
 
 
-getProdutcTypes() {
+getDocumentTypes() {
   this.spinner.show();
-  let eventFilter = new DocumentTypeFilter('','todos',0, 100);
+  let eventFilter = new DocumentTypeFilter('', '', 'todos', 0, 100);
   this.DocumentTypeService.getByFilter(eventFilter)
     .subscribe(typesview => {
       this.spinner.hide();
       var view = new DocumentTypeView();
       typesview.items.unshift(view);
-      this.listTypes = typesview.items;
+      this.listDocumentType = typesview.items;
+      this.listDocumentType.shift();
+    }, error => {
+      this.utils.showErrorMessage(error,'Tipo de produto');
+      this.spinner.hide();
+      console.log(error);
+    });
+}  
+
+getDocumentPartners() {
+  this.spinner.show();
+  let eventFilter = new DocumentPartnersFilter('', '', 'todos', 0, 100);
+  this.DocumentPartnersService.getByFilter(eventFilter)
+    .subscribe(typesview => {
+      this.spinner.hide();
+      var view = new DocumentPartnersView();
+      typesview.items.unshift(view);
+      this.listDocumentPartners = typesview.items;
+      this.listDocumentPartners.shift();
     }, error => {
       this.utils.showErrorMessage(error,'Tipo de produto');
       this.spinner.hide();
@@ -134,11 +163,10 @@ getProdutcTypes() {
 }  
 
 InitializeDependecies() {
-  this.getProdutcTypes();
-
+  this.getDocumentTypes();
+  this.getDocumentPartners();
+  this.filterView(this.formFilter.value, 1)
 }
-
-
 
 }
 

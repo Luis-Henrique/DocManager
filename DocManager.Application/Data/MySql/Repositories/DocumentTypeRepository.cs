@@ -1,6 +1,6 @@
 ﻿using Dapper;
 using DocManager.Application.Contracts;
-using DocManager.Application.Contracts.Unity.Request;
+using DocManager.Application.Contracts.DocumentType.Request;
 using DocManager.Application.Data.MySql.Entities;
 using DocManager.Application.Helpers;
 using System;
@@ -32,8 +32,8 @@ namespace DocManager.Application.Data.MySql.Repositories
             {
                 active = 0;
             }
-            string strQuery = @$"insert into documenttype(id, name, active)
-                                          Values('{entity.Id}', '{entity.Name}',{active})";
+            string strQuery = @$"insert into documentType(id, name, description, active)
+                                          Values('{entity.Id}', '{entity.Name}', '{entity.Description}',{active})";
 
             using (var cnx = _context.Connection())
             {
@@ -46,7 +46,8 @@ namespace DocManager.Application.Data.MySql.Repositories
         }
         public async Task<DefaultResponse> UpdateAsync(DocumentTypeEntity entity)
         {
-            string strQuery = $@"update documenttype set name = '{entity.Name}', 
+            string strQuery = $@"update documentType set name = '{entity.Name}', 
+                                                    description = '{entity.Description}',
                                                     active = {entity.Active}
                                                     where id = '{entity.Id}'";
 
@@ -63,7 +64,7 @@ namespace DocManager.Application.Data.MySql.Repositories
 
          public async Task<DefaultResponse> DeleteAsync(Guid id)
          {
-             string strQuery = $"delete from documenttype where id = '{id}'";
+             string strQuery = $"delete from documentType where id = '{id}'";
              using (var cnx = _context.Connection())
              {
                  var result = await cnx.ExecuteAsync(strQuery);
@@ -75,7 +76,7 @@ namespace DocManager.Application.Data.MySql.Repositories
        
          public async Task<DocumentTypeEntity> DocumentTypeGetByIdAsync(Guid id)
          {
-             string strQuery = $"select * from documenttype where id = '{id}'";
+             string strQuery = $"select * from documentType where id = '{id}'";
              using (var cnx = _context.Connection())
              {
                  var result = await cnx.QueryFirstOrDefaultAsync<DocumentTypeEntity>(strQuery);
@@ -93,7 +94,9 @@ namespace DocManager.Application.Data.MySql.Repositories
                 if (!string.IsNullOrEmpty(filter.Name))
                     where.Append(" AND name like '%" + filter.Name + "%'");
 
-               
+                if (!string.IsNullOrEmpty(filter.Description))
+                    where.Append(" AND description like '%" + filter.Description + "%'");
+
                 if (filter.Active.ToLower() != "todos")
                 {
                     string _booleanFilter = "";

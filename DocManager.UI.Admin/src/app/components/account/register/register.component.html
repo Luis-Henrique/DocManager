@@ -1,47 +1,54 @@
 <div class="bg-light min-vh-100 d-flex flex-row align-items-center">
-    <c-container>
-      <c-row class="justify-content-center">
-        <c-col lg="7" md="9" xl="6">
-          <c-card class="mx-4">
+  <c-container>
+    <c-row class="justify-content-center">
+      <c-col lg="2" md="2" xl="5">
+        <c-card class="mx-4">
+          <c-card class="p-4" style="min-height: 450px !important; min-width: 300px !important;">
             <c-card-body class="p-4">
               <form cForm>
-                <h1>Nova Conta</h1>
-                <p class="text-medium-emphasis">Cadastre sua conta</p>
-                <c-input-group class="mb-3">
-                  <span cInputGroupText>
-                    <svg cIcon name="cilUser"></svg>
-                  </span>
-                  <input autoComplete="name" cFormControl placeholder="Username" name="username" id="username"/>
-                </c-input-group>
-                <c-input-group class="mb-3">
-                  <span cInputGroupText>@</span>
-                  <input autoComplete="email" cFormControl placeholder="Email" name="email" id="email"/>
-                </c-input-group>
-                <c-input-group class="mb-3">
-                  <span cInputGroupText>
-                    <svg cIcon name="cilLockLocked"></svg>
-                  </span>
-                  <input autoComplete="new-password" cFormControl placeholder="Password" type="password" name="password" id="password"/>
-                </c-input-group>
                 <c-input-group class="mb-4">
-                  <span cInputGroupText>
-                    <svg cIcon name="cilLockLocked"></svg>
-                  </span>
-                  <input autoComplete="new-password" cFormControl placeholder="Repeat password" type="password" name="passwordConfirm" id="passwordConfirm"/>
+                  <img src="./assets/img/logo/doc-manager-logo.svg" class="img-fluid" alt="Imagem responsiva">
                 </c-input-group>
-                <div class="d-grid">
-                  <button cButton color="success" (click)='createAccount()'>Criar Conta</button>
-                </div>
+                <h1 class="font-register" style="color: black; font-size: 25px; padding-left: 85px;">Nova Conta</h1>
+                <c-input-group class="mb-3">
+                  <div class="omrs-input-group">
+                    <label class="omrs-input-underlined">
+                      <input autoComplete="name" name="username" id="username" required>
+                      <span class="omrs-input-label">Nome</span>
+                    </label>
+                  </div>
+                  <div class="omrs-input-group">
+                    <label class="omrs-input-underlined">
+                      <input autoComplete="email" name="email" id="email" required>
+                      <span class="omrs-input-label">Email</span>
+                    </label>
+                  </div>
+                  <div class="omrs-input-group">
+                    <label class="omrs-input-underlined">
+                      <input autoComplete="new-password" type="password" name="password" id="password" required>
+                      <span class="omrs-input-label">Senha</span>
+                    </label>
+                  </div>
+                  <div class="omrs-input-group">
+                    <label class="omrs-input-underlined">
+                      <input autoComplete="new-password" type="password" name="passwordConfirm" id="passwordConfirm" required>
+                      <span class="omrs-input-label">Repita a Senha</span>
+                    </label>
+                  </div>
+                </c-input-group>
+                  <div class="d-grid gap-2">
+                    <button type="button" style="font-size: 15px; background-color:black; border: 0;" class="btn btn-dark" (click)='createAccount()'>Criar Conta</button>
+                  </div>
               </form>
             </c-card-body>
           </c-card>
-        </c-col>
-      </c-row>
-      <c-row class="justify-content-center" id="colerror" style="display: none;">
-        <c-col md="8">
-           <div class="alert alert-danger" id="dvAlert" role="alert">As senhas não conferem...</div>
-        </c-col>
-      </c-row>    
-    </c-container>
-  </div>
-  
+        </c-card>
+      </c-col>
+    </c-row>
+    <c-row class="justify-content-center" id="colerror" style="display: none;">
+      <c-col md="8">
+         <div class="alert alert-danger" id="dvAlert" role="alert">As senhas não conferem...</div>
+      </c-col>
+    </c-row>    
+  </c-container>
+</div>

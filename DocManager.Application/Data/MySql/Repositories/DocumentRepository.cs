@@ -9,7 +9,6 @@ using DocManager.Application.Helpers;
 using DocManager.Application.Contracts.Document.Request;
 using DocManager.Application.Services;
 using Microsoft.AspNetCore.Mvc;
-using DocManager.Application.Contracts.Product.Request;
 
 namespace DocManager.Application.Data.MySql.Repositories
 {
@@ -24,8 +23,19 @@ namespace DocManager.Application.Data.MySql.Repositories
 
         public async Task<DefaultResponse> CreateAsync(DocumentEntity entity)
         {
-            string strQuery = @$"insert into documents(id, title, description, documentTypeId)
-                                          Values('{entity.Id}', '{entity.Title}', '{entity.Description}', '{entity.DocumentTypeId}')";
+            int active = 0;
+
+            if (entity.Active == true)
+            {
+                active = 1;
+            }
+            else
+            {
+                active = 0;
+            }
+
+            string strQuery = @$"insert into documents(id, title, description, documentTypeId, documentPartnersId, validity, active, url)
+                                          Values('{entity.Id}', '{entity.Title}', '{entity.Description}', '{entity.DocumentTypeId}', '{entity.DocumentPartnersId}', '{entity.Validity}', {active}, '{entity.Url}')";
 
             using (var cnx = _context.Connection())
             {
@@ -50,7 +60,10 @@ namespace DocManager.Application.Data.MySql.Repositories
             string strQuery = $@"update documents set title = '{entity.Title}', 
                                                     description = '{entity.Description}', 
                                                     documentTypeId = '{entity.DocumentTypeId}',
-                                                    active = {active}
+                                                    documentPartnersId = '{entity.DocumentPartnersId}',
+                                                    validity = '{entity.Validity}', 
+                                                    active = {active},
+                                                    url = '{entity.Url}'
                                                     where id = '{entity.Id}'";
 
             using (var cnx = _context.Connection())
@@ -96,8 +109,14 @@ namespace DocManager.Application.Data.MySql.Repositories
                 if (!string.IsNullOrEmpty(filter.Title))
                     where.Append(" AND title like '%" + filter.Title + "%'");
 
+                if (!string.IsNullOrEmpty(filter.Description))
+                    where.Append(" AND description like '%" + filter.Description + "%'");
+
                 if (!string.IsNullOrEmpty(filter.DocumentTypeId))
                     where.Append(" AND documentTypeId = '" + filter.DocumentTypeId + "'");
+
+                if (!string.IsNullOrEmpty(filter.DocumentPartnersId))
+                    where.Append(" AND documentPartnersId = '" + filter.DocumentPartnersId + "'");
 
                 if (filter.Active.ToLower() != "todos")
                 {

@@ -1,6 +1,5 @@
 ﻿using DocManager.Application.Contracts.Document.Request;
 using DocManager.Application.Contracts.DocumentType.Request;
-using DocManager.Application.Contracts.Product.Request;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -17,8 +16,10 @@ namespace DocManager.Application.Data.MySql.Repositories
             this.Title = document.Title;
             this.Description = document.Description;
             this.DocumentTypeId = document.DocumentTypeId;
+            this.DocumentPartnersId = document.DocumentPartnersId;
             this.Validity = document.Validity;
-            this.Active = true;
+            this.Active = document.Active;
+            this.Url = document.Url;
             this.CreatedDate = DateTime.Now;
         }
 
@@ -28,8 +29,10 @@ namespace DocManager.Application.Data.MySql.Repositories
             this.Title = document.Title;
             this.Description = document.Description;
             this.DocumentTypeId = document.DocumentTypeId;
+            this.DocumentPartnersId = document.DocumentPartnersId;
             this.Validity = document.Validity;
             this.Active = document.Active;
+            this.Url = document.Url;
             this.UpdatedDate = DateTime.Now;
         }
 
@@ -51,11 +54,17 @@ namespace DocManager.Application.Data.MySql.Repositories
         [Column("documentTypeId")]
         public string DocumentTypeId { get; set; }
 
+        [Column("documentPartnersId")]
+        public string DocumentPartnersId { get; set; }
+
         [Column("validity")]
-        public DateTime Validity { get; set; }
+        public string Validity { get; set; }
 
         [Column("active")]
         public bool Active { get; set; }
+
+        [Column("url")]
+        public string Url { get; set; }
 
         [Column("createdDate")]
         public DateTime CreatedDate { get; set; }

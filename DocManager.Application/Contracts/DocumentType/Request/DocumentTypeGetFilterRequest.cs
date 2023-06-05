@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DocManager.Application.Contracts.Unity.Request
+namespace DocManager.Application.Contracts.DocumentType.Request
 {
     public class DocumentTypeGetFilterRequest
     {
@@ -12,6 +12,8 @@ namespace DocManager.Application.Contracts.Unity.Request
         /// Página da consulta
         /// </summary>
         /// 
+        public string Description { get; set; }
+
         public string Active { get; set; }
 
         public int page { get; set; }

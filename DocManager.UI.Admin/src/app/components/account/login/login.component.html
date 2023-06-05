@@ -1,60 +1,85 @@
 <div class="bg-light min-vh-100 d-flex flex-row align-items-center">
     <c-container>
       <c-row class="justify-content-center">
-        <c-col md="8">
-          <c-card-group>
-            <c-card class="p-4">
+        <c-col md="8" >
+          <c-card-group class="c-card-group-login">
+            <c-card class="p-4" style="min-height: 450px !important; min-width: 300px !important;" cBorder="light">
               <c-card-body>
                 <form cForm>
-                  <h1>Login</h1>
-                  <p class="text-medium-emphasis">Entre com sua conta de usuário</p>
-                  <c-input-group class="mb-3">
-                    <span cInputGroupText>
-                      <svg cIcon name="cilUser"></svg>
-                    </span>
-                    <input autoComplete="username" cFormControl placeholder="Username" name="username" id="username"/>
-                  </c-input-group>
-                  <c-input-group class="mb-4">
-                    <span cInputGroupText>
-                      <svg cIcon name="cilLockLocked"></svg>
-                    </span>
-                    <input
-                      autoComplete="current-password" cFormControl placeholder="Password" type="password" name="password" id="password"/>
-                  </c-input-group>
-                  <c-row>
-                    <c-col xs="6">
-                      <button cButton class="px-4" color="primary" (click)='login()'>
-                        Login
-                      </button>
-                    </c-col>
-                    <c-col class="text-right" xs="6">
-                      <button cButton class="px-0" color="link" routerLink="/recovery">
-                        Recuperar senha?
-                      </button>
-                    </c-col>
-                  </c-row>
+                  <c-input-group class="mb-2">
+                    <img src="./assets/img/logo/doc-manager-logo.svg" class="img-fluid" alt="Imagem responsiva">
+                  </c-input-group><br>
+                 <c-card-body class="text-center p-4">
+                     <!--<h5 class="font-weight-bold" style="font-size: 18px; color: black; font-weight: bold;">Entrar no DocManager</h5>
+                  --></c-card-body>
+                
+                  <div class="omrs-input-group">
+                    <label class="omrs-input-underlined">
+                      <input autoComplete="username" name="username" id="username" required>
+                      <span class="omrs-input-label">Email</span>
+                    </label>
+                  </div>
+                  <div class="omrs-input-group">
+                    <label class="omrs-input-underlined">
+                      <input autoComplete="current-password" type="password" name="password" id="password" required>
+                      <span class="omrs-input-label">Senha</span>
+                    </label>
+                  </div>
+                  <div class="d-grid gap-2">
+                    <button type="button" class="btn btn-dark" style="background-color:black" (click)='login()'>Entrar</button>
+                  </div>
+                  <div class="d-grid gap-2">
+                    <button cButton class="px-0" color="black" style="font-size: 15px; color: black;" routerLink="/recovery">
+                      Recuperar senha?
+                    </button>
+                  </div>
                 </form>
               </c-card-body>
             </c-card>
-            <c-card [ngStyle]="{'width.%': 44}" class="text-white bg-primary py-5">
-              <c-card-body class="text-center">
-                <div>
-                  <h2>Inscrevers-se</h2>
-                  <p>
-                    Crie uma conta para acessar o SysManager, seu sistema de controle.
-                  </p>
-                  <button [active]="true" cButton class="mt-3" color="primary" routerLink="/register">
-                    Registrar-se!
-                  </button>
-                </div>
-              </c-card-body>
+            <!--
+            <c-card class="justify-content-sm-end" style="height: 450px;">
+                <c-card-body class="text-center">
+                    <img class="card-img text-center" src="./assets/img/login/imagem-login.jpg" style="" alt="Card image">
+                      <div class="card-img-overlay">
+                        <h5 class="card-title font-weight-bold" style="font-size: 25px;">Inscrever-se</h5>
+                        <p class="card-text font-weight-bold">Crie uma conta para acessar o DocManager, seu sistema de controle.</p>
+                        <div class="d-grid gap-2">
+                          <button class="card-text" [active]="true" cButton class="btn btn-dark" color="black" routerLink="/register">Registrar-se!</button>
+                        </div>
+                      </div>
+                </c-card-body>
             </c-card>
+          -->
+            <div class="card" style="min-height: 450px !important; min-width: 300px !important;">
+              <img class="card-img" src="./assets/img/login/imagem-login.jpg" alt="Card image">
+              <div class="card-img-overlay">
+                <p class="card-text-login" style="font-size: 15px; color: black;">Crie uma conta para acessar o DocManager</p>
+                <div class="d-grid">
+                <button class="btn btn-dark" style="font-size: 15px; background-color:black; border: 0;" routerLink="/register">Registrar-se</button>
+                </div>
+              </div>
+            </div>
+          <!--
+            <c-card class="mb-4" cBorder="light" style="height: 450px;">
+              <img [cCardImg] src="./assets/img/angular.jpg">
+              <c-card-img-overlay>
+                <h5 cCardTitle>Card title</h5>
+                <p cCardText>
+                  This is a wider card with supporting text below as a natural lead-in to
+                  additional content. This content is a little bit longer.
+                </p>
+                <p cCardText>
+                  <small class="text-medium-emphasis">Last updated 3 mins ago</small>
+                </p>
+              </c-card-img-overlay>
+            </c-card>
+          -->
           </c-card-group>
         </c-col>
       </c-row>
       <c-row class="justify-content-center" id="colerror" style="display: none;">
         <c-col md="8">
-           <div class="alert alert-danger" id="dvAlert" role="alert">Usuário ou senha inválidos</div>
+           <div class="alert alert-danger" id="dvAlert" role="alert">Erro no banco</div>
         </c-col>
       </c-row>
     </c-container>

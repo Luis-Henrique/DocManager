@@ -16,7 +16,7 @@ templateUrl:'./document-type-maintenance.component.html'
 })
 
 export class DocumentTypeMaintenanceComponent implements OnInit {
-    returnUrl: string ='/document-type/document-type';
+    urlReturn = '/documenttype/documenttype';
     @Input() modalTitle = ''
     @Input() modalBodyDetail = ''
     action = 'Inserir';
@@ -35,6 +35,7 @@ export class DocumentTypeMaintenanceComponent implements OnInit {
     formDocumentType = new FormGroup({
                                    id: this.formBuilder.control(this.documentType.id),
                                    name: this.formBuilder.control(this.documentType.name),
+                                   description: this.formBuilder.control(this.documentType.description),
                                    active: this.formBuilder.control(this.documentType.active)
                                  });
                 
@@ -66,6 +67,7 @@ export class DocumentTypeMaintenanceComponent implements OnInit {
         this.formDocumentType = new FormGroup({
           id: this.formBuilder.control(documentType.id),
           name: this.formBuilder.control(documentType.name),
+          description: this.formBuilder.control(documentType.description),
           active: this.formBuilder.control(documentType.active),});  
       }
 
@@ -81,8 +83,8 @@ export class DocumentTypeMaintenanceComponent implements OnInit {
               this.utils.showErrorMessage(error,this.action);
           });
           this.setModalVisible = false;
-          this.utils.navigateTo(this.returnUrl,'');
-      }
+          this.redirect(this.urlReturn);
+        }
     }
 
     canceldelete(){
@@ -109,6 +111,7 @@ export class DocumentTypeMaintenanceComponent implements OnInit {
       this.documentTypeService.insert(documentTypePost).subscribe((response: any) => {
            this.spinner.hide();
            this.utils.showSuccessMessage(response.message,this.action)
+           this.redirect(this.urlReturn);
        }, error => {
            this.spinner.hide();
            this.utils.showErrorMessage(error,this.action); 
@@ -121,10 +124,15 @@ export class DocumentTypeMaintenanceComponent implements OnInit {
       this.documentTypeService.update(documentTypePut).subscribe((response: any) => {
            this.spinner.hide();
            this.utils.showSuccessMessage(response.message,this.action)
+           this.redirect(this.urlReturn);
        }, error => {
            this.spinner.hide();
            this.utils.showErrorMessage(error,this.action);
        });
     }    
+
+    redirect(url: string) {
+      this.utils.navigateTo(url,'');
+    }
 }
 

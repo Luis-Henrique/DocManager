@@ -4,11 +4,11 @@ import { IconComponent } from '@coreui/icons-angular';
 export const navItems: INavData[] = [
   {
     name: 'Dashboard',
-    url: '',
-    iconComponent: { name: 'cil-speedometer' },
+    url: '/dashboard',
+    iconComponent: { name: 'cilHome' },
     badge: {
-      color: 'info',
-      text: 'NEW'
+      color: 'dark',
+      text: 'Análises'
     }
   },
   {
@@ -18,15 +18,15 @@ export const navItems: INavData[] = [
   {
     name:'Documentos',
     url:'/document',
-    iconComponent: {name:'cil-Inbox'},
+    iconComponent: {name:'cilFile'},
     children: [
       {
-        iconComponent: {name:'cil-Filter'},
+        iconComponent: {name:'cilList'},
         name:'Meus documentos',
         url:'/document/document'
       },
       {
-        iconComponent: {name:'cil-Spreadsheet'},
+        iconComponent: {name:'cilPlus'},
         name:'Novo documento',
         url:'/document/maintenance'
       },
@@ -39,17 +39,34 @@ export const navItems: INavData[] = [
   {
     name:'Tipo do documento',
     url:'/documenttype',
-    iconComponent: {name:'cil-Calculator'},
+    iconComponent: {name:'cilNotes'},
     children: [
       {
-        iconComponent: {name:'cil-Filter'},
+        iconComponent: {name:'cilList'},
         name:'Meus Tipos',
         url:'/documenttype/documenttype'
       },
       {
-        iconComponent: {name:'cil-Spreadsheet'},
+        iconComponent: {name:'cilPlus'},
         name:'Novo Tipo',
         url:'/documenttype/maintenance'
+      },
+    ]
+  },
+  {
+    name:'Parceiros',
+    url:'/documentpartners',
+    iconComponent: {name:'cilNotes'},
+    children: [
+      {
+        iconComponent: {name:'cilList'},
+        name:'Meus Tipos',
+        url:'/documentpartners/documentpartners'
+      },
+      {
+        iconComponent: {name:'cilPlus'},
+        name:'Novo Tipo',
+        url:'/documentpartners/maintenance'
       },
     ]
   },

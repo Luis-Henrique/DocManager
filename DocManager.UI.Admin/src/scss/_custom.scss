@@ -1,2 +1,122 @@
 // Here you can add other styles
 
+.input-login:focus {
+    box-shadow: 0 0 8px rgba(255, 119, 13, 1);
+    border: 0px solid;
+  }
+
+/** INPUT LOGIN**/
+
+/** BEGIN: Non Openmrs CSS **/
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+* {
+  font-family: "Roboto";
+}
+/** END: Non Openmrs CSS **/
+div.omrs-input-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+  width: 25.4375rem;
+  padding-left: 1.500rem;
+}
+
+/* Input*/
+.omrs-input-underlined > input,
+.omrs-input-filled > input {
+  border: 0px solid;
+  border-bottom: 0.125rem solid var(--omrs-color-ink-medium-contrast);
+  width: 125%;
+  height: 3rem;
+  font-size: 1.0625rem;
+  padding-left: 1.000rem;
+  line-height: 147.6%;
+  padding-top: 0.825rem;
+  padding-bottom: 0.2rem;
+}
+
+.omrs-input-underlined > input:focus,
+.omrs-input-filled > input:focus {
+  outline: none;
+}
+
+.omrs-input-underlined > .omrs-input-label,
+.omrs-input-filled > .omrs-input-label {
+  position: absolute;
+  top: 0.9500rem;
+  left: 1.500rem;
+  line-height: 120.6%;
+  color: var(--omrs-color-ink-medium-contrast);
+  transition: top .2s;
+}
+
+.omrs-input-underlined > svg,
+.omrs-input-filled > svg {
+  position: absolute;
+  top: 0.9375rem;
+  right: 0.875rem;
+  fill: var(--omrs-color-ink-medium-contrast);
+}
+
+.omrs-input-underlined > .omrs-input-helper,
+.omrs-input-filled > .omrs-input-helper {
+  font-size: 0.9375rem;
+  color: var(--omrs-color-ink-medium-contrast);
+  letter-spacing: 0.0275rem;
+  margin: 0.125rem 0.875rem;
+}
+
+.omrs-input-underlined > input:hover,
+.omrs-input-filled > input:hover {
+  background: white;
+}
+
+.omrs-input-underlined > input:focus + .omrs-input-label,
+.omrs-input-underlined > input:valid + .omrs-input-label,
+.omrs-input-filled > input:focus + .omrs-input-label,
+.omrs-input-filled > input:valid + .omrs-input-label {
+  top: 0;
+  font-size: 0.8000rem;
+  margin-bottom: 32px;;
+}
+
+.omrs-input-underlined:not(.omrs-input-danger) > input:focus + .omrs-input-label,
+.omrs-input-filled:not(.omrs-input-danger) > input:focus + .omrs-input-label {
+  color: black;
+}
+
+/**Registrar-se**/
+
+.card-img-overlay{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  padding-top: 350px;
+}
+
+.sidebar{
+  --cui-sidebar-bg: rgb(255, 119, 13);
+  --cui-sidebar-brand-bg: rgb(255, 255, 255);
+  --cui-sidebar-nav-title-color: rgb(255, 255, 255);
+  --cui-sidebar-nav-link-color: rgb(255, 255, 255);
+  background-image: url("./bg.jpg");
+  --cui-sidebar-nav-link-icon-color:  rgb(255, 255, 255);
+  padding-bottom: 110px;
+}
+
+*:disabled {
+  background-color: rgb(255, 119, 13);
+  color: rgb(0, 0, 0);
+  opacity: 0;
+}
+
+.disableinput{
+pointer-events: none;
+}
+
+input[type="checkbox"]:checked {
+  background-color: rgb(255, 119, 13); 
+  border: 0;
+}
+
+

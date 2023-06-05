@@ -1,15 +1,31 @@
 ﻿using FluentValidation;
-using DocManager.Application.Contracts.Users.Request;
 using DocManager.Application.Data.MySql.Repositories;
 using DocManager.Application.Errors;
 using DocManager.Application.Helpers;
-using DocManager.Application.Contracts.Unity.Request;
 using DocManager.Application.Contracts.DocumentType.Request;
 
 namespace DocManager.Application.Validators
 {
-    public class DocumentTypePutRequestValidator: AbstractValidator<DocumentTypePutRequest>
+    public class DocumentTypePutRequestValidator : AbstractValidator<DocumentTypePutRequest>
     {
-       
+        public DocumentTypePutRequestValidator(DocumentTypeRepository repository)
+        {
+
+            RuleFor(contract => contract.Name)
+               .Must(_name => !string.IsNullOrEmpty(_name))
+               .WithMessage(DocManagerErrors.documentType_Put_BadRequest_Name_Cannot_Be_Null_Or_Empty.Description());
+
+            RuleFor(contract => contract.Description)
+                .Must(_Description => !string.IsNullOrEmpty(_Description))
+                .WithMessage(DocManagerErrors.documentType_Put_BadRequest_Description_Cannot_Be_Null_Or_Empty.Description());
+
+            RuleFor(contract => contract.Name)
+              .Must(_name => _name.Length <= 35)
+              .WithMessage(DocManagerErrors.documentType_Put_BadRequest_Title_Is_Too_long.Description());
+
+            RuleFor(contract => contract.Description)
+               .Must(_Description => _Description.Length <= 50)
+               .WithMessage(DocManagerErrors.documentType_Put_BadRequest_Description_Is_Too_long.Description());
+        }
     }
 }

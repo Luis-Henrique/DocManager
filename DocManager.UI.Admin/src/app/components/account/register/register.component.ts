@@ -33,29 +33,47 @@ export class RegisterComponent implements OnInit {
             return;
         }
 
+        if (iUserName.length < 10)
+        {
+            this.showMessage('Nome muito curto, verifique...');
+            return;
+        }
+
         if (iEmail == '' || iEmail == undefined)
         {
             this.showMessage('É necessário informar um e-mail, verifique...');
             return;
         }       
-        
+
+        if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(iEmail))){
+            this.showMessage('É necessário informar um e-mail valido, verifique...');
+            return;
+        }
+
         if (iPassword == '' || iPassword == undefined)
         {
             this.showMessage('É necessário informar uma senha, verifique...');
             return;
-        }          
+        }  
+        
+        if (!(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/.test(iPassword))){
+            this.showMessage('A senha deve conter 8 caracteres entre maiúsculas, números e especiais, verifique...');
+            return;
+        }
 
         if (iPasswordConfirm == '' || iPasswordConfirm == undefined)
         {
             this.showMessage('É necessário informar uma senha de confirmação, verifique...');
             return;
-        }                  
+        }     
+        
 
         if (iPassword != iPasswordConfirm)
         {
-            this.showMessage('Senhas invalidas, verifique...');
+            this.showMessage('As senhas não conferem, verifique...');
             return;
-        }
+        }        
+        
         console.log('tudo certo, vamos preparar para chamar o backEnd');
 
         const account = new AccountView(iUserName,iEmail,iPassword);

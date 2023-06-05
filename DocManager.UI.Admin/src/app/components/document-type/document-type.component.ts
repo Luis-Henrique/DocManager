@@ -38,12 +38,13 @@ export class DocumentTypeComponent implements OnInit {
                 
     formFilter = new FormGroup({
                                 name: this.formbuilder.control(''),
+                                description: this.formbuilder.control(''),
                                 active: this.formbuilder.control('todos'),
                                 itemsByPage: this.formbuilder.control('10'),
                                });
 
     ngOnInit(){
-
+        this.filterView(this.formFilter.value, 1)
     }
 
     confirmdelete(){
@@ -84,7 +85,7 @@ export class DocumentTypeComponent implements OnInit {
 
     filterView(filter:DocumentTypeFilter, page: number){
 
-      let _filter = new DocumentTypeFilter(filter.name, filter.active, page, filter.itemsByPage);
+      let _filter = new DocumentTypeFilter(filter.name, filter.description, filter.active, page, filter.itemsByPage);
         this.spinner.show();
         this.documentTypeService.getByFilter(_filter).subscribe(view => 
             {

@@ -13,6 +13,8 @@ CREATE TABLE IF NOT EXISTS docManager.user
  `email` varchar(100) NOT NULL COMMENT 'email do usuário',
  `password` varchar(50) NOT NULL COMMENT 'senha do usuário',
  `active` bit NOT NULL DEFAULT false COMMENT 'indicador se o usuário esta ativo ou inativo',
+ `forgetPasswordToken` varchar(100) NULL COMMENT 'token recuperaçao da senha',
+ `forgetPasswordExpiration` varchar(100) NULL COMMENT 'expiração do token',
  `createdDate` DateTime NOT NULL DEFAULT NOW() COMMENT 'Data de criação do usuário',
  `updatedDate` Datetime NULL COMMENT 'Data de alteração do reguistro',
  PRIMARY KEY(`id`)
@@ -24,6 +26,20 @@ CREATE TABLE IF NOT EXISTS docManager.user
 CREATE TABLE IF NOT EXISTS docManager.documentType (
   `id` CHAR(36) not null default 'uuid()' comment 'Identificador do registro',
   `name` varchar(100) not null comment 'Nome',
+  `description` varchar(200) not null comment 'Descrição',
+  `active` bit NOT NULL default false comment 'Ativo ou inativo',
+  `createdDate` datetime not null default NOW() comment 'data de criação do registro',
+  `updatedDate` datetime null  comment 'data de atualização do registro',
+  PRIMARY KEY (`id`)
+  );
+  
+  -- -----------------------------------------------------
+-- Table `docManager`.`documentParthers`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS docManager.documentPartners (
+  `id` CHAR(36) not null default 'uuid()' comment 'Identificador do registro',
+  `name` varchar(100) not null comment 'Nome',
+  `description` varchar(200) not null comment 'Descrição',
   `active` bit NOT NULL default false comment 'Ativo ou inativo',
   `createdDate` datetime not null default NOW() comment 'data de criação do registro',
   `updatedDate` datetime null  comment 'data de atualização do registro',
@@ -36,16 +52,20 @@ CREATE TABLE IF NOT EXISTS docManager.documentType (
 CREATE TABLE IF NOT EXISTS docManager.documents
 (
 `id` char(36) NOT NULL DEFAULT 'uuid()' COMMENT 'Identificador unico do registro',
-`title` varchar(50) NOT NULL COMMENT 'nome',
-`description` varchar(50) NOT NULL COMMENT 'descrição do documento',
+`title` varchar(100) NOT NULL COMMENT 'nome',
+`description` varchar(200) NOT NULL COMMENT 'descrição do documento',
 `documentTypeId`  varchar(50) NOT NULL COMMENT 'tipo do documento',
+`documentPartnersId`  varchar(50) NOT NULL COMMENT 'parceiros',
 `validity` DateTime NOT NULL DEFAULT NOW() COMMENT 'data de vigencia do documento',
 `active` bit NOT NULL DEFAULT false COMMENT 'indicador se o documento esta ativo ou inativo',
+`url` varchar(350) NOT NULL COMMENT 'link do documento',
 `creationDate` DateTime NOT NULL DEFAULT NOW() COMMENT 'data de criação do registro',
 `updateDate` DateTime NULL COMMENT 'data de atualização do registro',
 PRIMARY KEY(`id`),
 KEY `fk_documentType` (`documentTypeId`),
-CONSTRAINT `fk_documentType` FOREIGN KEY (`documentTypeId`) REFERENCES `documentType` (`id`)
+KEY `fk_documentPartners` (`documentPartnersId`),
+CONSTRAINT `fk_documentType` FOREIGN KEY (`documentTypeId`) REFERENCES `documentType` (`id`),
+CONSTRAINT `fk_documentPartners` FOREIGN KEY (`documentPartnersId`) REFERENCES `documentPartners` (`id`)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 );

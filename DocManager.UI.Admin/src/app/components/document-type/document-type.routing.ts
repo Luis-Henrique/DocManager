@@ -11,17 +11,17 @@ export const DocumentTypeRoutes: Routes = [
                {
                    path: 'documenttype',
                    component: DocumentTypeComponent,
-                   data: {name: 'Pesquisar documento', title:'Pesquisar documento'}
+                   data: {name: 'Pesquisar tipo do documento', title:'Pesquisar tipo do documento'}
                },
                {
                    path: 'maintenance',
                    component: DocumentTypeMaintenanceComponent,
-                   data: {name: 'Inserir documento', title:'Inserir documento'}
+                   data: {name: 'Inserir tipo do documento', title:'Inserir tipo do documento'}
                },
                {
                    path: 'maintenance/:id',
                    component: DocumentTypeMaintenanceComponent,
-                   data: {name: 'Alterar documento', title:'Alterar documento'}
+                   data: {name: 'Alterar tipo do documento', title:'Alterar tipo do documento'}
                },                           
               ]
     }

@@ -1,6 +1,4 @@
 ﻿using DocManager.Application.Contracts.DocumentType.Request;
-using DocManager.Application.Contracts.Product.Request;
-using DocManager.Application.Contracts.Unity.Request;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,6 +12,7 @@ public class DocumentTypeEntity
         {
             this.Id = Guid.NewGuid();
             this.Name = document.Name;
+            this.Description = document.Description;
             this.Active = true;
             this.CreatedDate = DateTime.Now;
         }
@@ -22,6 +21,7 @@ public class DocumentTypeEntity
         {
             this.Id = document.Id;
             this.Name = document.Name;
+            this.Description = document.Description;
             this.Active = document.Active;
             this.UpdatedDate = DateTime.Now;
         }
@@ -38,6 +38,8 @@ public class DocumentTypeEntity
         [Column("name")]
         public string Name { get; set; }
 
+        [Column("description")]
+        public string Description { get; set; }
 
         [Column("active")]
         public bool Active { get; set; }
