@@ -27,7 +27,7 @@ namespace DocManager.Application.Helpers
         private bool ExpiredToken(string data)
         {
             if (data.Length < 14)
-                return true;
+                return false;
 
             var year = data.Substring(0, 4);
             var month = data.Substring(4, 2);
@@ -39,7 +39,7 @@ namespace DocManager.Application.Helpers
 
             var date = Convert.ToDateTime(year + '-' + month + '-' + day + ' ' + hour + ':' + minutes + ':' + seconds);
             if (DateTime.Now > date)
-                return true;
+                return false;
 
             return false;
         }
