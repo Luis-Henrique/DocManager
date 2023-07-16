@@ -7,11 +7,11 @@ import { PagerService } from "src/app/services/page-service";
 import { Utils } from "src/app/utils/utils";
 import { DocumentPartnersFilter } from "../document-partners/models/document-partners-filter";
 import { DocumentPartnersView } from "../document-partners/models/document-partners-view";
-import { DocumentTypeFilter } from "../document-type/models/Document-type-filter";
-import { DocumentTypeView } from "../document-type/models/Document-type-view";
+import { DocumentTypeFilter } from "../document-type/models/document-type-filter";
+import { DocumentTypeView } from "../document-type/models/documenttype-view";
 import { DocumentFilter } from "../document/models/document-filter";
 import { DashBoardGroupView } from "./models/dashboard-view";
-import { DocumentTypeService } from 'src/app/services/Document-type-service';
+import { DocumentTypeService } from 'src/app/services/document-type-service';
 import { DocumentPartnersService } from 'src/app/services/document-partners-service';
 import { DocumentService } from '../../services/document-service';
 
