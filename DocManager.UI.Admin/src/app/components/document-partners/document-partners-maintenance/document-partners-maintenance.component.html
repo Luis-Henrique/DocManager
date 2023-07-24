@@ -1,5 +1,5 @@
 <div class="animated fadeIn">
-  <c-toaster class="p-3"></c-toaster>  
+  <c-toaster class="p-3"></c-toaster>
   <!--/.row-->
   <div class="row">
     <c-col [md]="12">
@@ -10,51 +10,50 @@
 
         <div class="card-body">
           <form [formGroup]="formDocumentPartners" noValidate cForm class="needs-validation">
-            
-            <div class="form-group row"> 
+
+            <div class="form-group row">
               <c-col [md]="4">
                 <label cLabel for="name">Nome</label>
-                <input class="full-control" id="name" placeholder="Nome" type="text" formControlName="name"/>
+                <input class="full-control" id="name" placeholder="Nome" type="text" formControlName="name" />
               </c-col>
               <c-col [md]="6">
                 <label cLabel for="description">Descrição</label>
-                <input class="full-control" id="description" placeholder="description" type="text" formControlName="description"/>
+                <input class="full-control" id="description" placeholder="description" type="text"
+                  formControlName="description" />
               </c-col>
               <c-col [md]="2">
                 <c-row>
                   <label cLabel for="active">Inativo/Ativo</label>
                 </c-row>
                 <c-row>
-                   <label class="switch">
-                     <input type="checkbox" formControlName="active"  id="active">
-                     <span class="slider round"></span>
-                   </label>
+                  <label class="switch">
+                    <input type="checkbox" formControlName="active" id="active">
+                    <span class="slider round"></span>
+                  </label>
                 </c-row>
-              </c-col> 
+              </c-col>
             </div>
-         </form>
+          </form>
         </div>
-        
+
         <div class="card-footer">
-          <button type="submit" size="sm" active="active" class="me-1" color="success" cButton (click)="saveChanges(formDocumentPartners.value)" [disabled]="!formDocumentPartners.valid"><svg cIcon class="me-2" name="cil-save"></svg> Gravar</button>  
-          <button type="submit" size="sm" active="active" class="me-1" color="danger" cButton (click)="prepareDelete()"><svg cIcon class="me-2" name="cil-trash"></svg> Excluir</button>
+          <button type="submit" size="sm" active="active" class="me-1" color="success" cButton
+            (click)="saveChanges(formDocumentPartners.value)" [disabled]="!formDocumentPartners.valid"><svg cIcon
+              class="me-2" name="cil-save"></svg> Gravar</button>
+          <button type="submit" size="sm" active="active" class="me-1" color="danger" cButton
+            (click)="prepareDelete()"><svg cIcon class="me-2" name="cil-trash"></svg> Excluir</button>
 
         </div>
       </div>
-    </c-col> <!--/.col-->
-  </div><!--/.row-->
+    </c-col>
+    <!--/.col-->
+  </div>
+  <!--/.row-->
 </div>
 <ngx-spinner type="ball-fall">
   <p style="font-size: 20px; color: white">Aguarde...</p>
 </ngx-spinner>
 
-<app-custom-modal (closeModal)="canceldelete()" 
-                  (cancelModal)="canceldelete()"
-                  (confirmModal) ="confirmdelete()"
-                  [showModal]="setModalVisible"
-                  title="{{modalTitle}}"
-                  body="{{modalBodyDetail}}">
-</app-custom-modal>  
-
-
-
+<app-custom-modal (closeModal)="canceldelete()" (cancelModal)="canceldelete()" (confirmModal)="confirmdelete()"
+  [showModal]="setModalVisible" title="{{modalTitle}}" body="{{modalBodyDetail}}">
+</app-custom-modal>

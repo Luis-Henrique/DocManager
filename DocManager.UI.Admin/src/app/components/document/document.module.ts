@@ -57,7 +57,7 @@ import { DocumentPartnersService } from 'src/app/services/document-partners-serv
     CurrencyMaskModule,
     ToastModule,
     CustomModalModule
-    ],
+  ],
   providers: [
     DocumentService,
     DocumentTypeService,

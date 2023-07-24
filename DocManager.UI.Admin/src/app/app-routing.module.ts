@@ -39,6 +39,11 @@ const routes: Routes = [
                 import('./components/document-partners/document-partners.module').then((m) => m.DocumentPartnersModule)
               },
               {
+                path:'report',
+                loadChildren: () =>
+                import('./components/report/report.module').then((m) => m.ReportModule)
+              },
+              {
                 path:'document',
                 loadChildren: () =>
                 import('./components/document/document.module').then((m) => m.DocumentModule)

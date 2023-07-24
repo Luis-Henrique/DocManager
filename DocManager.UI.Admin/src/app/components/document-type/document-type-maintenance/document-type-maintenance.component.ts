@@ -11,128 +11,128 @@ import { DocumentTypePut } from '../models/document-type-put'
 import { DocumentTypeView } from '../models/documenttype-view';
 
 @Component({
-selector:'app-document-type-maintenance',
-templateUrl:'./document-type-maintenance.component.html'
+  selector: 'app-document-type-maintenance',
+  templateUrl: './document-type-maintenance.component.html'
 })
 
 export class DocumentTypeMaintenanceComponent implements OnInit {
-    urlReturn = '/documenttype/documenttype';
-    @Input() modalTitle = ''
-    @Input() modalBodyDetail = ''
-    action = 'Inserir';
-    @Input() id: any = '';
-    idDefault = Guid.EMPTY;
+  urlReturn = '/documenttype/documenttype';
+  @Input() modalTitle = ''
+  @Input() modalBodyDetail = ''
+  action = 'Inserir';
+  @Input() id: any = '';
+  idDefault = Guid.EMPTY;
 
-    public setModalVisible = false;
-    documentType = new DocumentTypeView();
-    constructor(private formBuilder: FormBuilder,
-                private activedRouter: ActivatedRoute,
-                private spinner: NgxSpinnerService,
-                private documentTypeService: DocumentTypeService,
-                private utils: Utils
-                ){}
+  public setModalVisible = false;
+  documentType = new DocumentTypeView();
+  constructor(private formBuilder: FormBuilder,
+    private activedRouter: ActivatedRoute,
+    private spinner: NgxSpinnerService,
+    private documentTypeService: DocumentTypeService,
+    private utils: Utils
+  ) { }
 
-    formDocumentType = new FormGroup({
-                                   id: this.formBuilder.control(this.documentType.id),
-                                   name: this.formBuilder.control(this.documentType.name),
-                                   description: this.formBuilder.control(this.documentType.description),
-                                   active: this.formBuilder.control(this.documentType.active)
-                                 });
-                
-    ngOnInit(){
-        this.id = this.activedRouter.snapshot.params['id'];
-        if (this.id != undefined && this.id != this.idDefault && this.id != null) {
-          this.action = 'Alterar';
-          this.getById(this.id);
-        } else {
-          this.action = 'Inserir';
-          this.documentType = new DocumentTypeView();
-          this.formDocumentType.patchValue(this.documentType);
-        }
+  formDocumentType = new FormGroup({
+    id: this.formBuilder.control(this.documentType.id),
+    name: this.formBuilder.control(this.documentType.name),
+    description: this.formBuilder.control(this.documentType.description),
+    active: this.formBuilder.control(this.documentType.active)
+  });
+
+  ngOnInit() {
+    this.id = this.activedRouter.snapshot.params['id'];
+    if (this.id != undefined && this.id != this.idDefault && this.id != null) {
+      this.action = 'Alterar';
+      this.getById(this.id);
+    } else {
+      this.action = 'Inserir';
+      this.documentType = new DocumentTypeView();
+      this.formDocumentType.patchValue(this.documentType);
     }
+  }
 
-    getById(id: string) {
-        this.spinner.show();
-        this.documentTypeService.getByID(id).subscribe(view => {
-          this.documentType = view;
-          this.updateForm(this.documentType);
-          this.spinner.hide();
-        }, error  => {
-          this.utils.showErrorMessage(error,this.action)
-          this.spinner.hide();
-        });
-      }
+  getById(id: string) {
+    this.spinner.show();
+    this.documentTypeService.getByID(id).subscribe(view => {
+      this.documentType = view;
+      this.updateForm(this.documentType);
+      this.spinner.hide();
+    }, error => {
+      this.utils.showErrorMessage(error, this.action)
+      this.spinner.hide();
+    });
+  }
 
-      updateForm(documentType: DocumentTypeView){
-        this.formDocumentType = new FormGroup({
-          id: this.formBuilder.control(documentType.id),
-          name: this.formBuilder.control(documentType.name),
-          description: this.formBuilder.control(documentType.description),
-          active: this.formBuilder.control(documentType.active),});  
-      }
+  updateForm(documentType: DocumentTypeView) {
+    this.formDocumentType = new FormGroup({
+      id: this.formBuilder.control(documentType.id),
+      name: this.formBuilder.control(documentType.name),
+      description: this.formBuilder.control(documentType.description),
+      active: this.formBuilder.control(documentType.active),
+    });
+  }
 
-    confirmdelete(){
-      if (this.documentType.id !== undefined && this.documentType.id != '')
-      {
-         this.spinner.show();
-         this.documentTypeService.delete(this.documentType.id).subscribe((response: any) => {
-              this.spinner.hide();
-              this.utils.showSuccessMessage(response.message,this.action)
-          }, error => {
-              this.spinner.hide();
-              this.utils.showErrorMessage(error,this.action);
-          });
-          this.setModalVisible = false;
-          this.redirect(this.urlReturn);
-        }
-    }
-
-    canceldelete(){
-        this.setModalVisible = false;
-    }
-
-    prepareDelete(){
-      this.modalTitle = 'Excluir tipo de produto';
-      this.modalBodyDetail = 'Deseja realmente excluir o registro ('+this.documentType.name+') ?';
-    }
-
-    
-    saveChanges(documentType:any){
-     if(this.documentType.id === undefined || this.documentType.id ==='') {
-       this.insertDocumentType(documentType);
-     } else {
-       this.updateDocumentType(documentType);
-     }
-    }
-
-    insertDocumentType(documentType: DocumentTypeView){
-      const documentTypePost = new DocumentTypePost(documentType);
+  confirmdelete() {
+    if (this.documentType.id !== undefined && this.documentType.id != '') {
       this.spinner.show();
-      this.documentTypeService.insert(documentTypePost).subscribe((response: any) => {
-           this.spinner.hide();
-           this.utils.showSuccessMessage(response.message,this.action)
-           this.redirect(this.urlReturn);
-       }, error => {
-           this.spinner.hide();
-           this.utils.showErrorMessage(error,this.action); 
-       });
+      this.documentTypeService.delete(this.documentType.id).subscribe((response: any) => {
+        this.spinner.hide();
+        this.utils.showSuccessMessage(response.message, this.action)
+      }, error => {
+        this.spinner.hide();
+        this.utils.showErrorMessage(error, this.action);
+      });
+      this.setModalVisible = false;
+      this.redirect(this.urlReturn);
     }
-    
-    updateDocumentType(documentType: DocumentTypeView){
-      const documentTypePut = new DocumentTypePut(documentType);
-      this.spinner.show();
-      this.documentTypeService.update(documentTypePut).subscribe((response: any) => {
-           this.spinner.hide();
-           this.utils.showSuccessMessage(response.message,this.action)
-           this.redirect(this.urlReturn);
-       }, error => {
-           this.spinner.hide();
-           this.utils.showErrorMessage(error,this.action);
-       });
-    }    
+  }
 
-    redirect(url: string) {
-      this.utils.navigateTo(url,'');
+  canceldelete() {
+    this.setModalVisible = false;
+  }
+
+  prepareDelete() {
+    this.modalTitle = 'Excluir tipo de produto';
+    this.modalBodyDetail = 'Deseja realmente excluir o registro (' + this.documentType.name + ') ?';
+  }
+
+
+  saveChanges(documentType: any) {
+    if (this.documentType.id === undefined || this.documentType.id === '') {
+      this.insertDocumentType(documentType);
+    } else {
+      this.updateDocumentType(documentType);
     }
+  }
+
+  insertDocumentType(documentType: DocumentTypeView) {
+    const documentTypePost = new DocumentTypePost(documentType);
+    this.spinner.show();
+    this.documentTypeService.insert(documentTypePost).subscribe((response: any) => {
+      this.spinner.hide();
+      this.utils.showSuccessMessage(response.message, this.action)
+      this.redirect(this.urlReturn);
+    }, error => {
+      this.spinner.hide();
+      this.utils.showErrorMessage(error, this.action);
+    });
+  }
+
+  updateDocumentType(documentType: DocumentTypeView) {
+    const documentTypePut = new DocumentTypePut(documentType);
+    this.spinner.show();
+    this.documentTypeService.update(documentTypePut).subscribe((response: any) => {
+      this.spinner.hide();
+      this.utils.showSuccessMessage(response.message, this.action)
+      this.redirect(this.urlReturn);
+    }, error => {
+      this.spinner.hide();
+      this.utils.showErrorMessage(error, this.action);
+    });
+  }
+
+  redirect(url: string) {
+    this.utils.navigateTo(url, '');
+  }
 }
 

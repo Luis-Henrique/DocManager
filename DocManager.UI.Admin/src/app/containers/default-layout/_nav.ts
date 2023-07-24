@@ -33,6 +33,18 @@ export const navItems: INavData[] = [
     ]
   },
   {
+    name:'Relatórios',
+    url:'/report',
+    iconComponent: {name:'cilSpeedometer'},
+    children: [
+      {
+        iconComponent: {name:'cilCloudDownload'},
+        name:'Exportar Relatório',
+        url:'/report/report'
+      },
+    ]
+  },
+  {
     name:'Cadastros Auxiliares',
     title: true
   },

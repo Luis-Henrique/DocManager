@@ -15,16 +15,13 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "SysManager.API.Admin": {
+    "DocManager.API.Admin": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "https://localhost:5001;http://localhost:5000"
-    },
-    "DocManager.API.Admin": {
-      "commandName": "Executable"
     }
   }
 }

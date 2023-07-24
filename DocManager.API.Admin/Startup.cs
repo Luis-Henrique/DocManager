@@ -37,6 +37,7 @@ namespace DocManager.API.Admin
 
             services.AddAuthentication("BasicAuthentication")
                       .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
+
             services.AddCors(options =>
             {
                 options.AddPolicy(name: CorsPolicy,

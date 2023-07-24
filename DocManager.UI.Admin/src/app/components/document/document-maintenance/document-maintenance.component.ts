@@ -1,5 +1,5 @@
-import { Component, OnInit, OnChanges, EventEmitter, Output, Input} from '@angular/core';
-import { FormGroup, FormBuilder, Validators, ValidatorFn  } from '@angular/forms';
+import { Component, OnInit, OnChanges, EventEmitter, Output, Input } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, ValidatorFn } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -32,21 +32,21 @@ export class DocumentMaintenanceComponent implements OnInit {
   public setModalVisible = false;
   @Input() modalBodyDetail = '';
   @Input() modalTitle = '';
-  @Input() id: any = '';  
+  @Input() id: any = '';
   idDefault = Guid.EMPTY;
 
   pager: any = {};
-  totalItem: number=0;
-  pagedItems: any[]=[];
+  totalItem: number = 0;
+  pagedItems: any[] = [];
   itemsByPage = 10;
   firstPage = 1;
   currentPage = 1;
   setToDeleteDocument = '';
   isCollapsed: boolean = true;
-  validated: number=0;
+  validated: number = 0;
 
-  listDocumentType: DocumentTypeView[]=[];
-  listDocumentPartners: DocumentPartnersView[]=[];
+  listDocumentType: DocumentTypeView[] = [];
+  listDocumentPartners: DocumentPartnersView[] = [];
 
   action = 'Inserir';
 
@@ -59,17 +59,17 @@ export class DocumentMaintenanceComponent implements OnInit {
     validity: this.formBuilder.control(this.datePipe.transform(this.document.validity, 'yyyy-MM-dd')),
     url: this.formBuilder.control(this.document.url),
     active: this.formBuilder.control(this.document.active)
-  });  
+  });
 
   constructor(private formBuilder: FormBuilder,
-              private spinner: NgxSpinnerService,
-              private activedRouter: ActivatedRoute,
-              private documentPartnersService: DocumentPartnersService, 
-              private documentTypeService: DocumentTypeService,
-              private documentService: DocumentService,
-              private datePipe: DatePipe,
-              private utils : Utils) {}
-  
+    private spinner: NgxSpinnerService,
+    private activedRouter: ActivatedRoute,
+    private documentPartnersService: DocumentPartnersService,
+    private documentTypeService: DocumentTypeService,
+    private documentService: DocumentService,
+    private datePipe: DatePipe,
+    private utils: Utils) { }
+
   ngOnInit() {
     this.id = this.activedRouter.snapshot.params['id'];
 
@@ -94,23 +94,23 @@ export class DocumentMaintenanceComponent implements OnInit {
   getById(id: string) {
     this.spinner.show();
     this.documentService.getByID(id)
-    .subscribe(view => {
-      this.document = view;
-      console.log('resposta do get...');
-      console.log(JSON.stringify(this.document));
-      this.updateForm(this.document);
-      this.spinner.hide();
-    }, error  => {
-      this.utils.showErrorMessage(error,this.action);
-      this.spinner.hide();
-    });
+      .subscribe(view => {
+        this.document = view;
+        console.log('resposta do get...');
+        console.log(JSON.stringify(this.document));
+        this.updateForm(this.document);
+        this.spinner.hide();
+      }, error => {
+        this.utils.showErrorMessage(error, this.action);
+        this.spinner.hide();
+      });
   }
 
-  saveChanges(document: any){
+  saveChanges(document: any) {
     if (this.document.id === undefined || this.document.id === '')
-       this.insertDocument(document);
+      this.insertDocument(document);
     else
-       this.updateDocument(document);
+      this.updateDocument(document);
   }
 
   /*validateForm(){
@@ -171,7 +171,7 @@ export class DocumentMaintenanceComponent implements OnInit {
         return;
   }*/
 
-  updateForm(document: DocumentView){
+  updateForm(document: DocumentView) {
     var _validity = new Date(document.validity)
     this.formDocument = new FormGroup({
       id: this.formBuilder.control(document.id),
@@ -182,12 +182,12 @@ export class DocumentMaintenanceComponent implements OnInit {
       validity: this.formBuilder.control(this.datePipe.transform(_validity.setDate(_validity.getDate() + 1), 'yyyy-MM-dd')),
       url: this.formBuilder.control(this.document.url),
       active: this.formBuilder.control(this.document.active)
-  })
+    })
   }
 
   getDocumentTypes() {
     this.spinner.show();
-    let eventFilter = new DocumentTypeFilter('','', 'todos',0, 100);
+    let eventFilter = new DocumentTypeFilter('', '', 'todos', 0, 100);
     this.documentTypeService.getByFilter(eventFilter)
       .subscribe(typesview => {
         this.spinner.hide();
@@ -196,112 +196,109 @@ export class DocumentMaintenanceComponent implements OnInit {
         this.listDocumentType = typesview.items;
         this.listDocumentType.shift();
       }, error => {
-        this.utils.showErrorMessage(error,'Tipo de produto');
+        this.utils.showErrorMessage(error, 'Tipo de produto');
         this.spinner.hide();
         console.log(error);
       });
-  }  
+  }
 
   getDocumentPartners() {
     this.spinner.show();
-    let eventFilter = new DocumentPartnersFilter('','', 'todos',0, 100);
+    let eventFilter = new DocumentPartnersFilter('', '', 'todos', 0, 100);
     this.documentPartnersService.getByFilter(eventFilter)
       .subscribe(typesview => {
         this.spinner.hide();
         this.listDocumentPartners = typesview.items;
       }, error => {
-        this.utils.showErrorMessage(error,'Tipo de produto');
+        this.utils.showErrorMessage(error, 'Tipo de produto');
         this.spinner.hide();
         console.log(error);
       });
-  }  
+  }
 
-prepareDelete(){
-  this.modalTitle = 'Exclusão de Produto'
-  this.modalBodyDetail = 'Deseja realmente excluir o registro ('+ this.document.title+') ?';
-  this.setModalVisible = true;
-}
+  prepareDelete() {
+    this.modalTitle = 'Exclusão de Produto'
+    this.modalBodyDetail = 'Deseja realmente excluir o registro (' + this.document.title + ') ?';
+    this.setModalVisible = true;
+  }
 
-confirmdelete(){
+  confirmdelete() {
 
-    if (this.document.id !== undefined && this.document.id != '')
-    {
-       this.spinner.show();
-       this.documentTypeService.delete(this.document.id).subscribe((response: any) => {
-            this.spinner.hide();
-            this.utils.showSuccessMessage(response.message,this.action)
-        }, error => {
-            this.spinner.hide();
-            this.utils.showErrorMessage(error,this.action);
-        });
-        this.setModalVisible = false;
-        this.utils.navigateTo(this.urlReturn,'');
+    if (this.document.id !== undefined && this.document.id != '') {
+      this.spinner.show();
+      this.documentTypeService.delete(this.document.id).subscribe((response: any) => {
+        this.spinner.hide();
+        this.utils.showSuccessMessage(response.message, this.action)
+      }, error => {
+        this.spinner.hide();
+        this.utils.showErrorMessage(error, this.action);
+      });
+      this.setModalVisible = false;
+      this.utils.navigateTo(this.urlReturn, '');
     }
 
-}
+  }
 
-canceldelete(){
+  canceldelete() {
     this.setToDeleteDocument = '';
     this.modalVisible = false;
-}
+  }
 
   redirect(url: string) {
-    this.utils.navigateTo(url,'');
+    this.utils.navigateTo(url, '');
   }
 
   insertDocument(document: DocumentView) {
     this.spinner.show();
     const documentPost = new DocumentPost(document);
-      this.documentService.insert(documentPost).subscribe((response: any) =>
-       {
-        this.spinner.hide();
-        this.utils.showSuccessMessage(response.message,this.action);
-        this.redirect(this.urlReturn);        
-       }, error => {
-        this.utils.showErrorMessage(error,this.action);
-        this.spinner.hide();
+    this.documentService.insert(documentPost).subscribe((response: any) => {
+      this.spinner.hide();
+      this.utils.showSuccessMessage(response.message, this.action);
+      this.redirect(this.urlReturn);
+    }, error => {
+      this.utils.showErrorMessage(error, this.action);
+      this.spinner.hide();
     });
   }
 
   updateDocument(document: DocumentView) {
     this.spinner.show();
     const documentPut = new DocumentPut(document);
-    this.documentService.update(documentPut).subscribe((response: any) =>  {
-         this.spinner.hide();
-         this.utils.showSuccessMessage(response.message,this.action);
-         this.redirect(this.urlReturn);        
-       }, error => {
-        this.utils.showErrorMessage(error,this.action);
-         this.spinner.hide();
+    this.documentService.update(documentPut).subscribe((response: any) => {
+      this.spinner.hide();
+      this.utils.showSuccessMessage(response.message, this.action);
+      this.redirect(this.urlReturn);
+    }, error => {
+      this.utils.showErrorMessage(error, this.action);
+      this.spinner.hide();
     });
   }
 
   deleteDocument(document: DocumentView) {
     this.spinner.show();
-    this.documentService.delete(document.id).subscribe((response: any) => 
-       {
-        this.spinner.hide();
-        this.utils.showSuccessMessage(response.message,this.action);
-       }, error  => {
-        this.utils.showErrorMessage(error,this.action);
-        this.spinner.hide();
-      });
-      this.redirect(this.urlReturn);
+    this.documentService.delete(document.id).subscribe((response: any) => {
+      this.spinner.hide();
+      this.utils.showSuccessMessage(response.message, this.action);
+    }, error => {
+      this.utils.showErrorMessage(error, this.action);
+      this.spinner.hide();
+    });
+    this.redirect(this.urlReturn);
   }
 
-  showMessage(value:string){
+  showMessage(value: string) {
     const colErrors = document.getElementById("colerror")!;
     var idvAlert = (<HTMLDivElement>document.getElementById("dvAlert"));
-    idvAlert.innerHTML =value;
+    idvAlert.innerHTML = value;
     colErrors.style.display = '';
-}
+  }
 
-hideMessage(){
+  hideMessage() {
     const colErrors = document.getElementById("colerror")!;
     var idvAlert = (<HTMLDivElement>document.getElementById("dvAlert"));
-    idvAlert.innerHTML ='';
+    idvAlert.innerHTML = '';
     colErrors.style.display = 'none';
-  } 
+  }
 }
 
 
