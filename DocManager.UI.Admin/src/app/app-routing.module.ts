@@ -4,6 +4,7 @@ import { RegisterComponent } from './components/account/register/register.compon
 import { DefaultLayoutComponent } from './containers';
 import {LoginComponent} from './components/account/login/login.component'
 import { RecoveryComponent } from './components/account/recovery/recovery.component';
+import { ResetComponent } from './components/account/reset/reset.component';
 
 const routes: Routes = [
   {
@@ -70,9 +71,14 @@ const routes: Routes = [
     data:{
       title:'login Page'
     }
-  }  
-
-  
+  },
+  {
+    path:'reset',
+    component: ResetComponent,
+    data:{
+      title:'reset Page'
+    }
+  },  
   //{path: '**', redirectTo: 'dashboard'}
 ];
 

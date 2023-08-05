@@ -40,21 +40,46 @@ namespace DocManager.Application.Data.MySql.Repositories
             }
             return new DefaultResponse("", "Erro ao tentar criar uma conta", true);
         }
-        public async Task<DefaultResponse> UpdateUser(string newPassword, Guid id)
+
+        public async Task<DefaultResponse> UpdateUser(UserEntity user)
         {
-            var _sql = @$"UPDATE user set password = '{newPassword}' where id = '{id}'";
+            var _sql = @$"UPDATE user set forgetPasswordToken = '{user.ForgetPasswordToken}', forgetPasswordExpiration = '{user.ForgetPasswordExpiration}' where id = '{user.Id}'";
             using (var cnx = _context.Connection())
             {
                 var result = await cnx.ExecuteAsync(_sql);
                 if (result > 0)
-                    return new DefaultResponse(id.ToString(), "Senha de usuário alterada com sucesso", false);
+                    return new DefaultResponse(user.Id.ToString(), "usuário alterado com sucesso", false);
             }
-            return new DefaultResponse(id.ToString(), "Erro ao tentar alterar senha de um usuário", true);
+            return new DefaultResponse(user.Id.ToString(), "Erro ao tentar alterar um usuário", true);
+        }
+
+        public async Task<DefaultResponse> ClearUser(UserEntity user)
+        {
+            var _sql = @$"UPDATE user set forgetPasswordToken = null, forgetPasswordExpiration = null where id = '{user.Id}'";
+            using (var cnx = _context.Connection())
+            {
+                var result = await cnx.ExecuteAsync(_sql);
+                if (result > 0)
+                    return new DefaultResponse(user.Id.ToString(), "usuário alterado com sucesso", false);
+            }
+            return new DefaultResponse(user.Id.ToString(), "Erro ao tentar alterar um usuário", true);
+        }
+
+        public async Task<DefaultResponse> UpdatePasswordUser(UserEntity user)
+        {
+            var _sql = @$"UPDATE user set password = '{user.Password}' where id = '{user.Id}'";
+            using (var cnx = _context.Connection())
+            {
+                var result = await cnx.ExecuteAsync(_sql);
+                if (result > 0)
+                    return new DefaultResponse(user.Id.ToString(), "Senha de usuário alterada com sucesso", false);
+            }
+            return new DefaultResponse(user.Id.ToString(), "Erro ao tentar alterar senha de um usuário", true);
         }
 
         public async Task<UserEntity> GetUserByEmail(string email)
         {
-            var _sql = $"SELECT id, userName, email, password, active from user WHERE email = '{email}' limit 1";
+            var _sql = $"SELECT * from user WHERE email = '{email}' limit 1";
             using (var cnx = _context.Connection())
             {
                 return await cnx.QueryFirstOrDefaultAsync<UserEntity>(_sql);
@@ -86,5 +111,7 @@ namespace DocManager.Application.Data.MySql.Repositories
                 return result;
             }
         }
+
+
     }
 }

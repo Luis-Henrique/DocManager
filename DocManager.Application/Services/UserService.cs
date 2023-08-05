@@ -32,20 +32,22 @@ namespace DocManager.Application.Services
             return Utils.SuccessData(response);
         }
 
-        public async Task<ResultData> PutAsync(UserPutRequest request)
+        public async Task<ResultData> PutAsync(UserEntity request)
         {
-            var existUser = await _userRepository.GetUserByUserNameAndEmail(request.UserName, request.Email);
+            var response = await _userRepository.UpdateUser(request);
+            return Utils.SuccessData(response);
+        }
 
-            if (existUser != null)
-            {
-                var result = await _userRepository.UpdateUser(request.NewPassword, existUser.Id);
+        public async Task<ResultData> ClearUserAsync(UserEntity request)
+        {
+            var response = await _userRepository.ClearUser(request);
+            return Utils.SuccessData(response);
+        }
 
-                if (!result.HasErrors) 
-                   return Utils.SuccessData(result);
-
-                return Utils.ErrorData(result);
-            }
-            return Utils.ErrorData(DocManagerErrors.User_Put_BadRequest_User_Not_Found.Description());
+        public async Task<ResultData> PutPasswordAsync(UserEntity request)
+        {
+            var response = await _userRepository.UpdatePasswordUser(request);
+            return Utils.SuccessData(response);
         }
 
         public async Task<UserEntity> Authenticate(string user, string password)
@@ -53,7 +55,6 @@ namespace DocManager.Application.Services
             var response = await _userRepository.GetUserByCredentialsAsync(user, password);
             return response;
         }
-
 
         public async Task<ResultData> PostLoginAsync(UserPostLoginRequest user)
         {
@@ -73,6 +74,12 @@ namespace DocManager.Application.Services
             }
 
             return Utils.ErrorData(new AccountResponse { Message = "Token Fail" });
+        }
+
+        public async Task<UserEntity> GetByEmail(string email)
+        {
+            var response = await _userRepository.GetUserByEmail(email);
+            return response;
         }
 
     }

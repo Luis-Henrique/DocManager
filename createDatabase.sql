@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS docManager.user
  `password` varchar(50) NOT NULL COMMENT 'senha do usuário',
  `active` bit NOT NULL DEFAULT false COMMENT 'indicador se o usuário esta ativo ou inativo',
  `forgetPasswordToken` varchar(100) NULL COMMENT 'token recuperaçao da senha',
- `forgetPasswordExpiration` varchar(100) NULL COMMENT 'expiração do token',
+ `forgetPasswordExpiration` DateTime NULL COMMENT 'expiração do token',
  `createdDate` DateTime NOT NULL DEFAULT NOW() COMMENT 'Data de criação do usuário',
  `updatedDate` Datetime NULL COMMENT 'Data de alteração do reguistro',
  PRIMARY KEY(`id`)

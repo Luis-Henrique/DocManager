@@ -17,6 +17,17 @@ namespace DocManager.Application.Data.MySql.Entities
             this.Active = true;
         }
 
+        public UserEntity(UserPutRecoveryRequest user)
+        {
+            this.Id = user.Id;
+            this.UserName = user.UserName;
+            this.Email = user.Email;
+            this.Password = user.Password;
+            this.Active = user.Active;
+            this.ForgetPasswordToken = user.ForgetPasswordToken;
+            this.ForgetPasswordExpiration = user.ForgetPasswordExpiration;
+        }
+
         public UserEntity(){}
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -30,5 +41,9 @@ namespace DocManager.Application.Data.MySql.Entities
         public string Password { get; set; }
         [Column("active")]
         public bool Active { get; set; }
+        [Column("forgetPasswordToken")]
+        public string ForgetPasswordToken { get; set; }
+        [Column("forgetPasswordExpiration")]
+        public string ForgetPasswordExpiration { get; set; }
     }
 }

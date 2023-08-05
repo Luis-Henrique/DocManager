@@ -108,6 +108,36 @@ export abstract class ServiceBase<TResultResponse> {
         );
     }
 
+    resetPassword(put: object): Observable<string> {
+        let endpoint = `${this.servicesConfig.endpoint}/reset-email`;
+        this.headers = new HttpHeaders()
+        .set('Content-Type', 'application/json') 
+
+        return this.http.put(endpoint,
+        JSON.stringify(put), {
+            headers: this.headers,
+            observe: 'response'
+        }).pipe(
+            map(this.extractData),
+            catchError(this.serviceError.bind(this))
+        );
+    }
+
+    sendResetPasswordLink(email: string): Observable<string> {
+        let endpoint = `${this.servicesConfig.endpoint}/send-reset-email/${email}`;
+        this.headers = new HttpHeaders()
+        .set('Content-Type', 'application/json') 
+
+        return this.http.post(endpoint,
+        JSON.stringify(email), {
+            headers: this.headers,
+            observe: 'response'
+        }).pipe(
+            map(this.extractData),
+            catchError(this.serviceError.bind(this))
+        );
+    }
+
     createAccount(post: object): Observable<string> {
         this.headers = this.getHeaderToken();
         return this.http.post(`${this.servicesConfig.endpoint}/create-account`,

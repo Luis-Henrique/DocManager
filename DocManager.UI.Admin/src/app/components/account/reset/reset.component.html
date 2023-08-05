@@ -1,0 +1,44 @@
+<div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+    <c-container>
+      <c-row class="justify-content-center">
+        <c-col lg="7" md="9" xl="5">
+          <c-card class="mx-4">
+            <c-card class="p-4" style="min-height: 450px !important; min-width: 300px !important;">
+              <c-card-body class="p-4">
+                  <form cForm>
+                    <c-input-group class="mb-2">
+                      <img src="./assets/img/logo/doc-manager-logo.svg" class="img-fluid" alt="Imagem responsiva">
+                    </c-input-group>
+                    <br>
+                    <br>
+                    <p class="font-weight-bold" style="color: black; font-size: 20px; text-align: center">Informe a nova senha</p>
+                    <c-input-group class="mb-3">
+                      <div class="omrs-input-group">
+                        <label class="omrs-input-underlined">
+                          <input autoComplete="new-password" type="password" name="new-password" id="new-password" class="new-password" required>
+                          <span class="omrs-input-label">Nova senha</span>
+                        </label>
+                      </div>
+                      <div class="omrs-input-group">
+                        <label class="omrs-input-underlined">
+                          <input autoComplete="new-password" type="password" name="passwordConfirm" id="passwordConfirm" required>
+                          <span class="omrs-input-label">Repita a Senha</span>
+                        </label>
+                      </div>
+                    </c-input-group>
+                    <div class="d-grid gap-2">
+                      <button type="button" class="btn btn-dark" style="background-color:black" (click)='reset()'>Mudar senha</button>
+                    </div>
+                  </form>
+                </c-card-body>
+            </c-card>
+          </c-card>
+        </c-col>
+      </c-row>
+      <c-row class="justify-content-center" id="colerror" style="display: none;">
+        <c-col md="8">
+           <div class="alert alert-danger" id="dvAlert" role="alert">Erro no banco</div>
+        </c-col>
+      </c-row>
+    </c-container>
+  </div>

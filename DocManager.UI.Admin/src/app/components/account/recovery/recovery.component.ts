@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {AccountService} from 'src/app/services/account-service';
+import { Utils } from 'src/app/utils/utils';
 import {AccountPutRequest} from '../models/account-put-request';
 
 @Component({
@@ -12,62 +13,39 @@ export class RecoveryComponent implements OnInit {
 
     constructor(private route: ActivatedRoute,
                 private router: Router,
-                private accountService: AccountService
+                private accountService: AccountService,
                 ){}
                 
     ngOnInit(){
     }
 
     recoveryAccount() {
-   
-        this.hideMessage();
-        var iUserName = (<HTMLInputElement>document.getElementById("username")).value;
         var iEmail = (<HTMLInputElement>document.getElementById("email")).value;
-        var iPassword = (<HTMLInputElement>document.getElementById("password")).value;
-        var iPasswordConfirm = (<HTMLInputElement>document.getElementById("passwordConfirm")).value;        
 
-        if (iUserName == '' || iUserName == undefined)
-        {
-            this.showMessage('É necessário informar um usuário, verifique...');
-            return;
-        }
+        this.validateForm(iEmail);
 
-        if (iEmail == '' || iEmail == undefined)
+        this.accountService.sendResetPasswordLink(iEmail)
+        .subscribe((response:any) => {
+            this.router.navigateByUrl('/login');
+        }, error => {
+            console.log(`erro ao enviar email ${error}`);
+            this.showMessage('Erro ao enviar e-mail, tente novamente...');
+        });
+
+        
+    }
+
+    validateForm(email:string){
+        if (email == '' || email == undefined)
         {
             this.showMessage('É necessário informar um e-mail, verifique...');
             return;
         }       
         
-        if (iPassword == '' || iPassword == undefined)
-        {
-            this.showMessage('É necessário informar uma senha, verifique...');
-            return;
-        }          
-
-        if (iPasswordConfirm == '' || iPasswordConfirm == undefined)
-        {
-            this.showMessage('É necessário informar uma senha de confirmação, verifique...');
-            return;
-        }                  
-
-        if (iPassword != iPasswordConfirm)
-        {
-            this.showMessage('Senhas invalidas, verifique...');
+        if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))){
+            this.showMessage('É necessário informar um e-mail valido, verifique...');
             return;
         }
-
-        console.log('tudo certo, vamos preparar para chamar o backEnd');
-
-        const account = new AccountPutRequest(iUserName,iEmail,iPassword);
-
-        this.accountService.recoveryAccount(account).subscribe(
-        (response:any) => {
-            console.log(`tudo certo: ${JSON.stringify(response)}`);
-            this.router.navigateByUrl('/login');
-        }, error => {
-            console.log(`tudo errado ${error}`);
-            this.showMessage('Login ou senha inválidos, verifique...');
-        });
     }
 
     showMessage(value:string){
