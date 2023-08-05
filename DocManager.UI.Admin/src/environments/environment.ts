@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   url_reload: 'http://localhost:4200/#/login',
-  url_login: 'http://localhost:5000/api/v1/account',
-  url_api: 'http://localhost:5000/api/v1/',
+  url_login: 'https://localhost:5001/api/v1/account',
+  url_api: 'https://localhost:5001/api/v1/',
 };
 
 /*

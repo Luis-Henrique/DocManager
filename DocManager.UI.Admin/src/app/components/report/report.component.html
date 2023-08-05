@@ -9,7 +9,7 @@
             <form cForm [formGroup]="formFilter" class="row g-3">
                 <div class="card-body">
                     <div class="form-group row">
-                        <c-col [md]="2">
+                        <c-col [md]="3">
                             <label cLabel for="active">Ativos/Inativos</label>
                             <select class="full-select" formControlName="active" id="active">
                                 <option selected="true" value="todos">Todos</option>
@@ -40,16 +40,18 @@
                                 </option>
                             </select>
                         </c-col>
-                        <c-col [md]="2">
-                            <label cLabel for="prependedInput">                  </label>
-                            <button class="me-1" style="font-size: 15px; background-color:black; border: 0;" cButton
+                        <c-col [md]="3" style="display: flex; flex-direction:row; padding-top:30px;">
+                        <div>
+                            <button style="font-size: 15px; background-color:black; border: 0;" cButton
                                 type="submit" (click)="filterView(formFilter.value, firstPage)"><svg cIcon class="me-2"
                                     name="cil-search"></svg> Filtrar</button>
-                            <label cLabel for="prependedInput">                  </label>
-                            <button class="me-1" style="font-size: 15px; background-color:black; border: 0;" cButton
+                        </div>
+                        <div style="padding-left: 20px;">
+                            <button style="font-size: 15px; background-color:black; border: 0;" cButton
                                 type="submit" (click)="export()"><svg cIcon class="me-2"
                                     name="cilCloudDownload"></svg> Baixar</button>
-                        </c-col>
+                        </div>
+                         </c-col>
                     </div>
                 </div>
             </form>

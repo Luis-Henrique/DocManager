@@ -48,6 +48,8 @@ namespace DocManager.API.Admin
             });
             BeforeConfigureServices(services);
             services.AddApiVersioning();
+            services.AddScoped<EmailService>();
+
             services.AddScoped<UserService>();
             services.AddScoped<UserRepository>();
 
