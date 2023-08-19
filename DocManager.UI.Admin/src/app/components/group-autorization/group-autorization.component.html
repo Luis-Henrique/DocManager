@@ -31,10 +31,10 @@
                                 flex-direction: column;
                                 flex-wrap: wrap;
                                 align-content: center;">
-                  <button size="sm" active="active" class="me-1" color="a" style="background-color: rgb(238, 255, 0);"
+                  <button size="sm" active="active" class="me-1" style="background-color:rgba(255, 127, 22, 0.78); border-color: rgba(255, 127, 22, 0.78);"
                     cButton (click)="redirectUpdate('/groupautorization/maintenance', item.id)"><svg cIcon class="me-1"
                       name="cil-Pen"></svg></button>
-                  <button size="sm" active="active" class="me-1" color="danger" cButton
+                  <button size="sm" active="active" class="me-1" style="background-color: rgba(227, 98, 0, 0.829); border-color: rgba(227, 98, 0, 0.829);"  cButton
                     (click)="prepareDelete(item.id, item.name)"><svg cIcon class="me-1" name="cil-Trash"></svg></button>
                 </td>
               </tr>
