@@ -66,7 +66,7 @@ $enable-rtl: true;
     //background-color: var(--cui-input-bg, #fff);
     background-color: #fff;
     background-clip: padding-box;
-    border: 1px solid #b1b7c1;
+    border: 1px solid #000000;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -132,11 +132,11 @@ $enable-rtl: true;
   }
   
   input:checked + .slider {
-    background-color: #998fed;
+    background-color:rgb(255, 119, 13);
   }
   
   input:focus + .slider {
-    box-shadow: 0 0 1px #998fed;
+    box-shadow: 0 0 1px rgb(255, 119, 13);
   }
   
   input:checked + .slider:before {
@@ -176,7 +176,7 @@ $enable-rtl: true;
     background-repeat: no-repeat;
     background-position: right 0.75rem center;
     background-size: 16px 12px;
-    border: 1px solid var(--cui-form-select-border-color, #b1b7c1);
+    border: 1px solid var(--cui-form-select-border-color, #000000);
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     -webkit-appearance: none;

@@ -89,10 +89,10 @@
                               flex-direction: column;
                               flex-wrap: wrap;
                               align-content: center;">
-                <button size="sm" active="active" class="me-1" color="a" style="background-color: rgb(238, 255, 0);"
+                <button size="sm" active="active" class="me-1" color="a" style="background-color:rgba(241, 127, 37, 1);"
                   cButton (click)="redirectUpdate('/documenttype/maintenance', item.id)"><svg cIcon class="me-1"
                     name="cil-Pen"></svg></button>
-                <button size="sm" active="active" class="me-1" color="danger" cButton
+                <button size="sm" active="active" class="me-1" style="background-color: rgba(227, 100, 0, 1);" cButton
                   (click)="prepareDelete(item.id, item.name)"><svg cIcon class="me-1" name="cil-Trash"></svg></button>
               </td>
             </tr>
