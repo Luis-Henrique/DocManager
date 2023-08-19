@@ -4,7 +4,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DocManager.Application.Data.MySql.Repositories
+namespace DocManager.Application.Data.MySql.Entities
 {
 
     [Table("document")]
@@ -17,6 +17,7 @@ namespace DocManager.Application.Data.MySql.Repositories
             this.Description = document.Description;
             this.DocumentTypeId = document.DocumentTypeId;
             this.DocumentPartnersId = document.DocumentPartnersId;
+            this.UserGroupAutorization = document.UserGroupAutorization;
             this.Validity = document.Validity;
             this.Active = document.Active;
             this.Url = document.Url;
@@ -30,6 +31,7 @@ namespace DocManager.Application.Data.MySql.Repositories
             this.Description = document.Description;
             this.DocumentTypeId = document.DocumentTypeId;
             this.DocumentPartnersId = document.DocumentPartnersId;
+            this.UserGroupAutorization = document.UserGroupAutorization;
             this.Validity = document.Validity;
             this.Active = document.Active;
             this.Url = document.Url;
@@ -71,6 +73,8 @@ namespace DocManager.Application.Data.MySql.Repositories
 
         [Column("uptadedDate")]
         public DateTime UpdatedDate { get; set; }
+        [Column("userGroupAutorization")]
+        public string UserGroupAutorization { get; set; }
 
     }
 }

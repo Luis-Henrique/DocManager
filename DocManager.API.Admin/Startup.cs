@@ -37,6 +37,7 @@ namespace DocManager.API.Admin
 
             services.AddAuthentication("BasicAuthentication")
                       .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
+
             services.AddCors(options =>
             {
                 options.AddPolicy(name: CorsPolicy,
@@ -47,6 +48,8 @@ namespace DocManager.API.Admin
             });
             BeforeConfigureServices(services);
             services.AddApiVersioning();
+            services.AddScoped<EmailService>();
+
             services.AddScoped<UserService>();
             services.AddScoped<UserRepository>();
 
@@ -61,6 +64,9 @@ namespace DocManager.API.Admin
 
             services.AddScoped<DocumentPartnersService>();
             services.AddScoped<DocumentPartnersRepository>();
+
+            services.AddScoped<GroupAutorizationService>();
+            services.AddScoped<GroupAutorizationRepository>();
 
             services.AddScoped<MySqlContext>();
             services.Configure<AppConnectionSettings>(option => Configuration.GetSection("ConnectionStrings").Bind(option));

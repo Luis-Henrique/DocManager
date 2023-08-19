@@ -4,11 +4,12 @@ import { RegisterComponent } from './components/account/register/register.compon
 import { DefaultLayoutComponent } from './containers';
 import {LoginComponent} from './components/account/login/login.component'
 import { RecoveryComponent } from './components/account/recovery/recovery.component';
+import { ResetComponent } from './components/account/reset/reset.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'dashboard',
     pathMatch: 'full'
   },
   {
@@ -39,9 +40,24 @@ const routes: Routes = [
                 import('./components/document-partners/document-partners.module').then((m) => m.DocumentPartnersModule)
               },
               {
+                path:'report',
+                loadChildren: () =>
+                import('./components/report/report.module').then((m) => m.ReportModule)
+              },
+              {
                 path:'document',
                 loadChildren: () =>
                 import('./components/document/document.module').then((m) => m.DocumentModule)
+              },
+              {
+                path:'user',
+                loadChildren: () =>
+                import('./components/user/user.module').then((m) => m.UserModule)
+              },
+              {
+                path:'groupautorization',
+                loadChildren: () =>
+                import('./components/group-autorization/group-autorization.module').then((m) => m.GroupAutorizationModule)
               }                  
     ]
   },
@@ -65,9 +81,14 @@ const routes: Routes = [
     data:{
       title:'login Page'
     }
-  }  
-
-  
+  },
+  {
+    path:'reset',
+    component: ResetComponent,
+    data:{
+      title:'reset Page'
+    }
+  },  
   //{path: '**', redirectTo: 'dashboard'}
 ];
 

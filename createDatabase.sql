@@ -14,7 +14,9 @@ CREATE TABLE IF NOT EXISTS docManager.user
  `password` varchar(50) NOT NULL COMMENT 'senha do usuário',
  `active` bit NOT NULL DEFAULT false COMMENT 'indicador se o usuário esta ativo ou inativo',
  `forgetPasswordToken` varchar(100) NULL COMMENT 'token recuperaçao da senha',
- `forgetPasswordExpiration` varchar(100) NULL COMMENT 'expiração do token',
+ `forgetPasswordExpiration` DateTime NULL COMMENT 'expiração do token',
+ `userAutorization` tinyint NULL COMMENT 'Nivel de autorização',
+ `userGroupAutorization` varchar(50) NULL COMMENT 'Grupo de autorização',
  `createdDate` DateTime NOT NULL DEFAULT NOW() COMMENT 'Data de criação do usuário',
  `updatedDate` Datetime NULL COMMENT 'Data de alteração do reguistro',
  PRIMARY KEY(`id`)
@@ -27,6 +29,18 @@ CREATE TABLE IF NOT EXISTS docManager.documentType (
   `id` CHAR(36) not null default 'uuid()' comment 'Identificador do registro',
   `name` varchar(100) not null comment 'Nome',
   `description` varchar(200) not null comment 'Descrição',
+  `active` bit NOT NULL default false comment 'Ativo ou inativo',
+  `createdDate` datetime not null default NOW() comment 'data de criação do registro',
+  `updatedDate` datetime null  comment 'data de atualização do registro',
+  PRIMARY KEY (`id`)
+  );
+
+-- -----------------------------------------------------
+-- Table `docManager`.`groupAutorization`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS docManager.groupAutorization (
+  `id` CHAR(36) not null default 'uuid()' comment 'Identificador do registro',
+  `name` varchar(100) not null comment 'Nome',
   `active` bit NOT NULL default false comment 'Ativo ou inativo',
   `createdDate` datetime not null default NOW() comment 'data de criação do registro',
   `updatedDate` datetime null  comment 'data de atualização do registro',
@@ -56,6 +70,7 @@ CREATE TABLE IF NOT EXISTS docManager.documents
 `description` varchar(200) NOT NULL COMMENT 'descrição do documento',
 `documentTypeId`  varchar(50) NOT NULL COMMENT 'tipo do documento',
 `documentPartnersId`  varchar(50) NOT NULL COMMENT 'parceiros',
+`userAutorizationGroupId` varchar(50) NULL COMMENT 'Grupo de autorização',
 `validity` DateTime NOT NULL DEFAULT NOW() COMMENT 'data de vigencia do documento',
 `active` bit NOT NULL DEFAULT false COMMENT 'indicador se o documento esta ativo ou inativo',
 `url` varchar(350) NOT NULL COMMENT 'link do documento',

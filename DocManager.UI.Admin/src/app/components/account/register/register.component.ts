@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {AccountView} from '../models/account-view';
+import { AccountRegister } from '../models/account-register-view';
 import {AccountService} from 'src/app/services/account-service';
 
 @Component({
@@ -76,7 +76,7 @@ export class RegisterComponent implements OnInit {
         
         console.log('tudo certo, vamos preparar para chamar o backEnd');
 
-        const account = new AccountView(iUserName,iEmail,iPassword);
+        const account = new AccountRegister(iUserName,iEmail,iPassword);
 
         this.accountService.createAccount(account).subscribe(
         (response:any) => {

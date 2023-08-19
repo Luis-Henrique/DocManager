@@ -5,6 +5,7 @@ export class DocumentView {
     description:string = '';
     documentTypeId:string = '';
     documentPartnersId:string = '';
+    userGroupAutorization: string = '';
     validity: string = '';
     active: boolean = false;
     url: string = '';

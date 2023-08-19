@@ -32,6 +32,7 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { CustomModalModule } from '../modal/custom-modal.module';
 import { Utils } from 'src/app/utils/utils';
 import { DocumentPartnersService } from 'src/app/services/document-partners-service';
+import { GroupAutorizationService } from 'src/app/services/group-autorization-service';
 
 @NgModule({
   imports: [
@@ -57,11 +58,12 @@ import { DocumentPartnersService } from 'src/app/services/document-partners-serv
     CurrencyMaskModule,
     ToastModule,
     CustomModalModule
-    ],
+  ],
   providers: [
     DocumentService,
     DocumentTypeService,
     DocumentPartnersService,
+    GroupAutorizationService,
     DatePipe,
     PagerService, Utils
   ],

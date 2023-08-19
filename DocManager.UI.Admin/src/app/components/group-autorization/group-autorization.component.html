@@ -1,0 +1,63 @@
+  <div class="row">
+    <c-col [md]="12">
+      <div class="card">
+        <c-card-header>
+          <strong>Resultado da pesquisa</strong> <small>  </small>
+          <button size="sm" active="active" class="me-1" style="font-size: 15px; background-color:black; border: 0;"
+            cButton (click)="redirectTo('/groupautorization/maintenance')"><svg cIcon class="me-2" name="cil-plus"></svg>
+            novo</button>
+        </c-card-header>
+        <div class="card-body">
+          <table [hover]="true" [striped]="true" cTable>
+            <thead>
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Ativo?</th>
+                <th scope="col">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr scope="row" *ngFor="let item of pagedItems">
+                <td>{{item.name}}</td>
+                <td>
+                  <c-form-check sizing="lg" switch>
+                    <input cFormCheckInput type="checkbox" checked *ngIf="item.active" />
+                    <input cFormCheckInput type="checkbox" *ngIf="!item.active" />
+                    <label cFormCheckLabel *ngIf="item.active">Ativo</label>
+                    <label cFormCheckLabel *ngIf="!item.active">Inativo</label>
+                  </c-form-check>
+                </td>
+                <td style=" display: flex;
+                                flex-direction: column;
+                                flex-wrap: wrap;
+                                align-content: center;">
+                  <button size="sm" active="active" class="me-1" style="background-color:rgba(255, 127, 22, 0.78); border-color: rgba(255, 127, 22, 0.78);"
+                    cButton (click)="redirectUpdate('/groupautorization/maintenance', item.id)"><svg cIcon class="me-1"
+                      name="cil-Pen"></svg></button>
+                  <button size="sm" active="active" class="me-1" style="background-color: rgba(227, 98, 0, 0.829); border-color: rgba(227, 98, 0, 0.829);"  cButton
+                    (click)="prepareDelete(item.id, item.name)"><svg cIcon class="me-1" name="cil-Trash"></svg></button>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="6">
+                  <app-custom-pagination (callNavitation)="filterView()" [pager]=pager>
+                  </app-custom-pagination>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </c-col>
+    <!--/.col-->
+  </div>
+  <!--/.row-->
+  <ngx-spinner type="ball-fall">
+    <p style="font-size: 20px; color: white">Aguarde...</p>
+  </ngx-spinner>
+  
+  <app-custom-modal (closeModal)="canceldelete()" (cancelModal)="canceldelete()" (confirmModal)="confirmdelete()"
+    [showModal]="setModalVisible" title="{{modalTitle}}" body="{{modalBodyDetail}}">
+  </app-custom-modal>

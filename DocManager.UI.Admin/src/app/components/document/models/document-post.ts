@@ -9,6 +9,7 @@ export class DocumentPost {
     validity: string;
     url:string;
     active: boolean;
+    userGroupAutorization: string;
 
   constructor(obj:DocumentView) {
     this.title = obj.title;
@@ -18,6 +19,7 @@ export class DocumentPost {
     this.validity = obj.validity;
     this.url = obj.url;
     this.active = obj.active;
+    this.userGroupAutorization = obj.userGroupAutorization;
   }
 
 }

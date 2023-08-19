@@ -4,17 +4,29 @@ using DocManager.Application.Helpers;
 using DocManager.Application.Services;
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Cryptography;
+using Microsoft.Extensions.Configuration;
+using DocManager.Application.Data.MySql.Entities;
+using Microsoft.AspNetCore.Identity;
+using MySqlX.XDevAPI.Relational;
 
 namespace DocManager.API.Admin.Controllers.v1
 {
+    [AllowAnonymous]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class AccountController
     {
         private readonly UserService _userService;
-        public AccountController(UserService service)
+        private readonly EmailService _emailService;
+        private readonly IConfiguration _configuration;
+        
+        public AccountController(UserService service, EmailService emailService, IConfiguration configuration)
         {
             this._userService = service;
+            this._emailService = emailService;
+            this._configuration = configuration;
         }
 
         [HttpPost("create-account")]
@@ -24,10 +36,10 @@ namespace DocManager.API.Admin.Controllers.v1
             return Utils.Convert(response);
         }
 
-        [HttpPut("recovery-account")]
-        public async Task<IActionResult> Put([FromBody] UserPutRequest request)
+        [HttpGet("getAll")]
+        public async Task<IActionResult> GetAll()
         {
-            var response = await _userService.PutAsync(request);
+            var response = await _userService.GetAllAsync();
             return Utils.Convert(response);
         }
 
@@ -35,6 +47,67 @@ namespace DocManager.API.Admin.Controllers.v1
         public async Task<IActionResult> PostLogin([FromBody] UserPostLoginRequest request)
         {
             var response = await _userService.PostLoginAsync(request);
+            return Utils.Convert(response);
+        }
+
+        [HttpPut("autorize-user")]
+        public async Task<IActionResult> Put([FromBody] UserPutRequest request)
+        {
+            var response = await _userService.PutAsync(request);
+            return Utils.Convert(response);
+        }
+
+        [HttpPost("send-reset-email/{email}")]
+        public async Task<IActionResult> SendEmail(string email)
+        {
+            var user = await _userService.GetByEmail(email);
+
+            if (user == null)
+            {
+                return Utils.Convert(new ResultData(email, false));
+            }
+            var tokenBytes = RandomNumberGenerator.GetBytes(64);
+            var emailToken = Convert.ToBase64String(tokenBytes);
+            user.ForgetPasswordToken = emailToken;
+            user.ForgetPasswordExpiration = DateTime.Now.AddMinutes(15).ToString("yyyy-MM-dd HH:mm:ss");
+
+            string from = _configuration["EmailSettings:From"];
+            var emailEntity = new EmailEntity(email, "reset password", EmailBody.EmailStringBody(email, emailToken));
+            _emailService.SendEmail(emailEntity);
+            _userService.PutTokenAsync(user);
+            return Utils.Convert(new ResultData(user, true));
+        }
+
+        [HttpPut("reset-email")]
+        public async Task<IActionResult> ResetPassword([FromBody] UserPutResetPasswordRequest request)
+        {
+            var newToken = request.EmailToken.Replace(" ", "+");
+            var user = await _userService.GetByEmail(request.Email);
+
+            if (user == null)
+            {
+                return Utils.Convert(new ResultData(request, false));
+            }
+
+            var tokenCode = user.ForgetPasswordToken;
+            var emailTokenExpiry = DateTime.Parse(user.ForgetPasswordExpiration);
+
+            if(tokenCode != newToken || emailTokenExpiry < DateTime.Now)
+            {
+                return Utils.Convert(new ResultData(request, false));
+            }
+
+            user.Password = request.NewPassword;
+
+            _userService.PutPasswordAsync(user);
+            _userService.ClearUserAsync(user);
+            return Utils.Convert(new ResultData(request, true));
+        }
+
+        [HttpGet("id/{id}")]
+        public async Task<IActionResult> GetById([FromRoute] Guid id)
+        {
+            var response = await _userService.GetByIdAsync(id);
             return Utils.Convert(response);
         }
     }

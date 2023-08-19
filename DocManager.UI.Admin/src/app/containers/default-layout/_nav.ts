@@ -33,6 +33,51 @@ export const navItems: INavData[] = [
     ]
   },
   {
+    name:'Relatórios',
+    url:'/report',
+    iconComponent: {name:'cilSpeedometer'},
+    children: [
+      {
+        iconComponent: {name:'cilCloudDownload'},
+        name:'Exportar Relatório',
+        url:'/report/report'
+      },
+    ]
+  },
+  {
+    name:'Gestão de usuários',
+    title: true
+  },
+  {
+    name:'Usuários',
+    url:'/user',
+    iconComponent: {name:'cilPeople'},
+    children: [
+      {
+        iconComponent: {name:'cilList'},
+        name:'Usuários',
+        url:'/user/user'
+      },
+    ]
+  },
+  {
+    name:'Grupos de usuários',
+    url:'/groupautorization',
+    iconComponent: {name:'cilNotes'},
+    children: [
+      {
+        iconComponent: {name:'cilList'},
+        name:'Meus Grupos',
+        url:'/groupautorization/groupautorization'
+      },
+      {
+        iconComponent: {name:'cilPlus'},
+        name:'Novo Grupo',
+        url:'/groupautorization/maintenance'
+      },
+    ]
+  },
+  {
     name:'Cadastros Auxiliares',
     title: true
   },

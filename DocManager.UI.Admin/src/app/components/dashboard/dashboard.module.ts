@@ -28,7 +28,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { CustomModalModule } from '../modal/custom-modal.module';
 import { DocumentService } from 'src/app/services/document-service';
-import { DocumentTypeService } from 'src/app/services/Document-type-service';
+import { DocumentTypeService } from 'src/app/services/document-type-service';
 import { DocumentPartnersService } from 'src/app/services/document-partners-service';
 import { PagerService } from 'src/app/services/page-service';
 import { Utils } from 'src/app/utils/utils';

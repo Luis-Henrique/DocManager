@@ -11,19 +11,19 @@ export const DocumentRoutes: Routes = [
     children: [
       {
         path: 'document',
-        component: DocumentComponent,    
-        data: { name: 'Pesquisar documento', title: 'Pesquisar documento'},
+        component: DocumentComponent,
+        data: { name: 'Pesquisar documento', title: 'Pesquisar documento' },
       },
       {
         path: 'maintenance',
         component: DocumentMaintenanceComponent,
-        data: { name: 'Inserir documento', title: 'Inserir documento'},
+        data: { name: 'Inserir documento', title: 'Inserir documento' },
       },
       {
         path: 'maintenance/:id',
         component: DocumentMaintenanceComponent,
-        data: { name: 'Alterar documento', title: 'Alterar documento'},
+        data: { name: 'Alterar documento', title: 'Alterar documento' },
       }
     ]
-  },  
+  },
 ];

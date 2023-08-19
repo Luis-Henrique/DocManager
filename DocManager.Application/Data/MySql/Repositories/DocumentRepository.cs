@@ -34,8 +34,8 @@ namespace DocManager.Application.Data.MySql.Repositories
                 active = 0;
             }
 
-            string strQuery = @$"insert into documents(id, title, description, documentTypeId, documentPartnersId, validity, active, url)
-                                          Values('{entity.Id}', '{entity.Title}', '{entity.Description}', '{entity.DocumentTypeId}', '{entity.DocumentPartnersId}', '{entity.Validity}', {active}, '{entity.Url}')";
+            string strQuery = @$"insert into documents(id, title, description, documentTypeId, documentPartnersId, userGroupAutorization, validity, active, url)
+                                          Values('{entity.Id}', '{entity.Title}', '{entity.Description}', '{entity.DocumentTypeId}', '{entity.DocumentPartnersId}', '{entity.UserGroupAutorization}', '{entity.Validity}', {active}, '{entity.Url}')";
 
             using (var cnx = _context.Connection())
             {
@@ -61,6 +61,7 @@ namespace DocManager.Application.Data.MySql.Repositories
                                                     description = '{entity.Description}', 
                                                     documentTypeId = '{entity.DocumentTypeId}',
                                                     documentPartnersId = '{entity.DocumentPartnersId}',
+                                                    userGroupAutorization = '{entity.UserGroupAutorization}',
                                                     validity = '{entity.Validity}', 
                                                     active = {active},
                                                     url = '{entity.Url}'
@@ -117,6 +118,9 @@ namespace DocManager.Application.Data.MySql.Repositories
 
                 if (!string.IsNullOrEmpty(filter.DocumentPartnersId))
                     where.Append(" AND documentPartnersId = '" + filter.DocumentPartnersId + "'");
+
+                if (filter.UserGroupAutorization != "Todos")
+                    where.Append(" AND userGroupAutorization = '" + filter.UserGroupAutorization + "'");
 
                 if (filter.Active.ToLower() != "todos")
                 {
