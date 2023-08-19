@@ -34,7 +34,6 @@ export class ReportComponent implements OnInit {
 
     }
 
-
     private allItems: any[] = [];
     public pager: any = {};
 
@@ -65,7 +64,9 @@ export class ReportComponent implements OnInit {
 
     filterView(filter: DocumentFilter, page: number) {
         this.spinner.show();
-        let eventFilter = new DocumentFilter('', '', filter.documentTypeId, filter.documentPartnersId, filter.active, 1, 50);
+        var userGroupAutorization = this.utils.getUserGroupAutorization((localStorage.getItem('currentUser') || "")).toString();
+        if(!(userGroupAutorization == '')){
+        let eventFilter = new DocumentFilter('', '', filter.documentTypeId, filter.documentPartnersId, userGroupAutorization, filter.active, 1, 50);
         this.DocumentService.getByFilter(eventFilter).subscribe(view => {
             this.allItems = view.items;
             this.totalItem = view._total;
@@ -78,6 +79,9 @@ export class ReportComponent implements OnInit {
             console.log(error);
             this.spinner.hide();
         });
+        }else{
+            this.utils.showErrorMessage('Usuário não pertence a nenhum grupo', 'Erro! fale com o administrador');
+        }
     }
 
     redirectTo(url: string) {

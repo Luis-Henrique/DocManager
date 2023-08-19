@@ -17,6 +17,8 @@ import { DocumentPartnersFilter } from '../../document-partners/models/document-
 import { DocumentPartnersService } from 'src/app/services/document-partners-service';
 import { DocumentPartnersView } from '../../document-partners/models/document-partners-view';
 import { DatePipe } from '@angular/common';
+import { GroupAutorizationView } from '../../group-autorization/models/group-autorization-view';
+import { GroupAutorizationService } from 'src/app/services/group-autorization-service';
 
 @Component({
   selector: 'app-document-maintenance',
@@ -47,7 +49,8 @@ export class DocumentMaintenanceComponent implements OnInit {
 
   listDocumentType: DocumentTypeView[] = [];
   listDocumentPartners: DocumentPartnersView[] = [];
-
+  listGroupAutorization: GroupAutorizationView[] = [];
+  
   action = 'Inserir';
 
   formDocument = new FormGroup({
@@ -56,6 +59,7 @@ export class DocumentMaintenanceComponent implements OnInit {
     description: this.formBuilder.control(this.document.description),
     documentTypeId: this.formBuilder.control(this.document.documentTypeId),
     documentPartnersId: this.formBuilder.control(this.document.documentPartnersId),
+    userGroupAutorization: this.formBuilder.control(this.document.userGroupAutorization),
     validity: this.formBuilder.control(this.datePipe.transform(this.document.validity, 'yyyy-MM-dd')),
     url: this.formBuilder.control(this.document.url),
     active: this.formBuilder.control(this.document.active)
@@ -66,6 +70,7 @@ export class DocumentMaintenanceComponent implements OnInit {
     private activedRouter: ActivatedRoute,
     private documentPartnersService: DocumentPartnersService,
     private documentTypeService: DocumentTypeService,
+    private groupAutorizationService: GroupAutorizationService,
     private documentService: DocumentService,
     private datePipe: DatePipe,
     private utils: Utils) { }
@@ -89,6 +94,7 @@ export class DocumentMaintenanceComponent implements OnInit {
   InitializeDependecies() {
     this.getDocumentTypes();
     this.getDocumentPartners();
+    this.getGroupAutorization();
   }
 
   getById(id: string) {
@@ -179,6 +185,7 @@ export class DocumentMaintenanceComponent implements OnInit {
       description: this.formBuilder.control(this.document.description),
       documentTypeId: this.formBuilder.control(this.document.documentTypeId),
       documentPartnersId: this.formBuilder.control(this.document.documentPartnersId),
+      userGroupAutorization: this.formBuilder.control(this.document.userGroupAutorization),
       validity: this.formBuilder.control(this.datePipe.transform(_validity.setDate(_validity.getDate() + 1), 'yyyy-MM-dd')),
       url: this.formBuilder.control(this.document.url),
       active: this.formBuilder.control(this.document.active)
@@ -216,6 +223,22 @@ export class DocumentMaintenanceComponent implements OnInit {
       });
   }
 
+  getGroupAutorization() {
+    this.spinner.show();
+    this.groupAutorizationService.getAll()
+      .subscribe(typesview => {
+        this.spinner.hide();
+        var view = new GroupAutorizationView();
+        typesview.items.unshift(view);
+        this.listGroupAutorization = typesview.items;
+        this.listGroupAutorization.shift();
+      }, error => {
+        this.utils.showErrorMessage(error, 'Tipo de produto');
+        this.spinner.hide();
+        console.log(error);
+      });
+  }
+
   prepareDelete() {
     this.modalTitle = 'Exclusão de Produto'
     this.modalBodyDetail = 'Deseja realmente excluir o registro (' + this.document.title + ') ?';
@@ -223,20 +246,25 @@ export class DocumentMaintenanceComponent implements OnInit {
   }
 
   confirmdelete() {
-
-    if (this.document.id !== undefined && this.document.id != '') {
-      this.spinner.show();
-      this.documentTypeService.delete(this.document.id).subscribe((response: any) => {
-        this.spinner.hide();
-        this.utils.showSuccessMessage(response.message, this.action)
-      }, error => {
-        this.spinner.hide();
-        this.utils.showErrorMessage(error, this.action);
-      });
-      this.setModalVisible = false;
-      this.utils.navigateTo(this.urlReturn, '');
+    var userAutorization = parseInt(this.utils.getUserAutorization((localStorage.getItem('currentUser') || "")).toString());
+    if(userAutorization == 1 || userAutorization == 3){
+      if (this.document.id !== undefined && this.document.id != '') {
+        this.spinner.show();
+        this.documentService.delete(this.document.id).subscribe((response: any) => {
+          this.spinner.hide();
+          this.utils.showSuccessMessage(response.message, this.action)
+        }, error => {
+          this.spinner.hide();
+          this.utils.showErrorMessage(error, this.action);
+        });
+        this.utils.navigateTo(this.urlReturn, '');
+      }
     }
-
+    else
+    {
+      this.setModalVisible = false;
+      this.utils.showErrorMessage("Seu usuário não permite essa ação...", 'Usuário não autorizado');
+    }  
   }
 
   canceldelete() {
@@ -249,41 +277,62 @@ export class DocumentMaintenanceComponent implements OnInit {
   }
 
   insertDocument(document: DocumentView) {
-    this.spinner.show();
-    const documentPost = new DocumentPost(document);
-    this.documentService.insert(documentPost).subscribe((response: any) => {
-      this.spinner.hide();
-      this.utils.showSuccessMessage(response.message, this.action);
-      this.redirect(this.urlReturn);
-    }, error => {
-      this.utils.showErrorMessage(error, this.action);
-      this.spinner.hide();
-    });
+    var userAutorization = parseInt(this.utils.getUserAutorization((localStorage.getItem('currentUser') || "")).toString());
+    if(userAutorization == 1 || userAutorization == 3){
+      this.spinner.show();
+      const documentPost = new DocumentPost(document);
+      this.documentService.insert(documentPost).subscribe((response: any) => {
+        this.spinner.hide();
+        this.utils.showSuccessMessage(response.message, this.action);
+        this.redirect(this.urlReturn);
+      }, error => {
+        this.utils.showErrorMessage(error, this.action);
+        this.spinner.hide();
+      });
+    }
+    else
+    {
+      this.utils.showErrorMessage("Seu usuário não permite essa ação...", 'Usuário não autorizado');
+    }  
   }
 
   updateDocument(document: DocumentView) {
-    this.spinner.show();
-    const documentPut = new DocumentPut(document);
-    this.documentService.update(documentPut).subscribe((response: any) => {
-      this.spinner.hide();
-      this.utils.showSuccessMessage(response.message, this.action);
-      this.redirect(this.urlReturn);
-    }, error => {
-      this.utils.showErrorMessage(error, this.action);
-      this.spinner.hide();
-    });
+    var userAutorization = parseInt(this.utils.getUserAutorization((localStorage.getItem('currentUser') || "")).toString());
+    if(userAutorization == 1 || userAutorization == 3){
+      this.spinner.show();
+      const documentPut = new DocumentPut(document);
+      this.documentService.update(documentPut).subscribe((response: any) => {
+        this.spinner.hide();
+        this.utils.showSuccessMessage(response.message, this.action);
+        this.redirect(this.urlReturn);
+      }, error => {
+        this.utils.showErrorMessage(error, this.action);
+        this.spinner.hide();
+      });
+    }
+    else
+    {
+      this.utils.showErrorMessage("Seu usuário não permite essa ação...", 'Usuário não autorizado');
+    }  
   }
 
   deleteDocument(document: DocumentView) {
-    this.spinner.show();
-    this.documentService.delete(document.id).subscribe((response: any) => {
-      this.spinner.hide();
-      this.utils.showSuccessMessage(response.message, this.action);
-    }, error => {
-      this.utils.showErrorMessage(error, this.action);
-      this.spinner.hide();
-    });
+    var userAutorization = parseInt(this.utils.getUserAutorization((localStorage.getItem('currentUser') || "")).toString());
+    if(userAutorization == 1 || userAutorization == 3){
+      this.spinner.show();
+      this.documentService.delete(document.id).subscribe((response: any) => {
+        this.spinner.hide();
+        this.utils.showSuccessMessage(response.message, this.action);
+      }, error => {
+        this.utils.showErrorMessage(error, this.action);
+        this.spinner.hide();
+      });
     this.redirect(this.urlReturn);
+    }
+    else
+    {
+      this.utils.showErrorMessage("Seu usuário não permite essa ação...", 'Usuário não autorizado');
+    }   
   }
 
   showMessage(value: string) {

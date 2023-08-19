@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
-namespace DocManager.Application.Data.MySql.Repositories
+namespace DocManager.Application.Data.MySql.Entities
 {
     [Table("documentPartners")]
     public class DocumentPartnersEntity

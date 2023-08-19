@@ -6,7 +6,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "sysmanager-ui": {
+    "docmanager-ui": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/sysmanager-ui",
+            "outputPath": "dist/docmanager-ui",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -73,7 +73,7 @@
               "optimization": false,
               "vendorChunk": true,
               "extractLicenses": false,
-              "sourceMap": true,
+              "sourceMap":true,
               "namedChunks": true
             }
           },
@@ -81,12 +81,15 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "ssl": false
+          },
           "configurations": {
             "production": {
-              "browserTarget": "sysmanager-ui:build:production"
+              "browserTarget": "docmanager-ui:build:production"
             },
             "development": {
-              "browserTarget": "sysmanager-ui:build:development"
+              "browserTarget": "docmanager-ui:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -94,7 +97,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "sysmanager-ui:build"
+            "browserTarget": "docmanager-ui:build"
           }
         },
         "test": {
@@ -118,5 +121,5 @@
       }
     }
   },
-  "defaultProject": "sysmanager-ui"
+  "defaultProject": "docmanager-ui"
 }

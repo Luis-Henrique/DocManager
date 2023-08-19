@@ -50,10 +50,15 @@ export class LoginComponent implements OnInit {
 
         this.accountService.login(user).subscribe(
             (response:any) => {
-                const userToken = new AccountToken(user.email,user.password, response.token);
-                localStorage.setItem('currentUser', JSON.stringify(userToken));
-                console.log(`Login efetuado com sucesso: ${JSON.stringify(response)}`);
+                if(response.id == null){
+                    this.showMessage(response.message);
+                }
+                else
+                {
+                const userToken = new AccountToken(user.email,user.password, response.token, response.userAutorization, response.userGroupAutorization);
+                localStorage.setItem('currentUser', JSON.stringify(userToken));        
                 this.router.navigateByUrl('/dashboard');
+                }
             }, error => {
                 console.log(`erro ao efetuar login ${error}`);
                 this.showMessage('Login ou senha inválidos, verifique...');

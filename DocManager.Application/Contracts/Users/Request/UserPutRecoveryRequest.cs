@@ -14,6 +14,7 @@ namespace DocManager.Application.Contracts.Users.Request
         public string ForgetPasswordToken { get; set; }
         public string ForgetPasswordExpiration { get; set; }
 
+        public string UserAutorizationGroupId { get; set; }
     }
 
 }

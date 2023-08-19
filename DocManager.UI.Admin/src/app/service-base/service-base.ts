@@ -54,6 +54,16 @@ export abstract class ServiceBase<TResultResponse> {
         );
     }
 
+    getAll(): Observable<ViewResult<TResultResponse>> {
+        this.headers = this.getHeaderToken();
+        let endpoint = this.servicesConfig.endpoint + `/getAll`;
+        
+        return this.http.get(endpoint, {headers: this.headers }).pipe(
+            map(this.extractData),
+            catchError(this.serviceError.bind(this))
+        );
+    }
+
     getByID(id: any): Observable<TResultResponse> {
         this.headers = this.getHeaderToken();
         let endpoint = this.servicesConfig.endpoint + `/id/${id}`;
@@ -94,11 +104,8 @@ export abstract class ServiceBase<TResultResponse> {
     }    
 
     login(post: object): Observable<string> {
-        let endpoint = `${this.servicesConfig.endpoint}/login`;
-        this.headers = new HttpHeaders()
-        .set('Content-Type', 'application/json') 
-
-        return this.http.post(endpoint,
+        this.headers = this.getHeaderToken();
+        return this.http.post(`${this.servicesConfig.endpoint}/login`,
         JSON.stringify(post), {
             headers: this.headers,
             observe: 'response'
@@ -142,6 +149,18 @@ export abstract class ServiceBase<TResultResponse> {
         this.headers = this.getHeaderToken();
         return this.http.post(`${this.servicesConfig.endpoint}/create-account`,
         JSON.stringify(post), {
+            headers: this.headers,
+            observe: 'response'
+        }).pipe(
+            map(this.extractData),
+            catchError(this.serviceError.bind(this))
+        );
+    }
+    
+    updateAccount(put: object): Observable<string> {
+        this.headers = this.getHeaderToken();
+        return this.http.put(`${this.servicesConfig.endpoint}/autorize-user`,
+        JSON.stringify(put), {
             headers: this.headers,
             observe: 'response'
         }).pipe(

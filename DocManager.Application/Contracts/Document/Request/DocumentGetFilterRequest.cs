@@ -7,6 +7,7 @@ namespace DocManager.Application.Contracts.Document.Request
         public string Description { get; set; }
         public string DocumentTypeId { get; set; }
         public string DocumentPartnersId { get; set; }
+        public string UserGroupAutorization { get; set; }
 
         public string Active { get; set; }
 

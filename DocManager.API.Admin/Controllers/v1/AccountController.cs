@@ -36,10 +36,24 @@ namespace DocManager.API.Admin.Controllers.v1
             return Utils.Convert(response);
         }
 
+        [HttpGet("getAll")]
+        public async Task<IActionResult> GetAll()
+        {
+            var response = await _userService.GetAllAsync();
+            return Utils.Convert(response);
+        }
+
         [HttpPost("login")]
         public async Task<IActionResult> PostLogin([FromBody] UserPostLoginRequest request)
         {
             var response = await _userService.PostLoginAsync(request);
+            return Utils.Convert(response);
+        }
+
+        [HttpPut("autorize-user")]
+        public async Task<IActionResult> Put([FromBody] UserPutRequest request)
+        {
+            var response = await _userService.PutAsync(request);
             return Utils.Convert(response);
         }
 
@@ -60,7 +74,7 @@ namespace DocManager.API.Admin.Controllers.v1
             string from = _configuration["EmailSettings:From"];
             var emailEntity = new EmailEntity(email, "reset password", EmailBody.EmailStringBody(email, emailToken));
             _emailService.SendEmail(emailEntity);
-            _userService.PutAsync(user);
+            _userService.PutTokenAsync(user);
             return Utils.Convert(new ResultData(user, true));
         }
 
@@ -88,6 +102,13 @@ namespace DocManager.API.Admin.Controllers.v1
             _userService.PutPasswordAsync(user);
             _userService.ClearUserAsync(user);
             return Utils.Convert(new ResultData(request, true));
+        }
+
+        [HttpGet("id/{id}")]
+        public async Task<IActionResult> GetById([FromRoute] Guid id)
+        {
+            var response = await _userService.GetByIdAsync(id);
+            return Utils.Convert(response);
         }
     }
 }

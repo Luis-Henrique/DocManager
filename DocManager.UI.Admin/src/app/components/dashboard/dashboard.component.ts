@@ -76,7 +76,7 @@ export class DashboardComponent implements OnInit {
     }
   ];
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.getDocumentTypes();
     this.getDocumentPartners();
     this.filterView(this.formFilter.value, 1);
@@ -112,7 +112,7 @@ export class DashboardComponent implements OnInit {
 
   filterView(filter: DocumentFilter, page: number) {
     this.spinner.show();
-    let eventFilter = new DocumentFilter(filter.title, filter.description, filter.documentTypeId, filter.documentPartnersId, filter.active, page, this.itemsByPage);
+    let eventFilter = new DocumentFilter(filter.title, filter.description, filter.documentTypeId, filter.documentPartnersId, "Todos", filter.active, page, this.itemsByPage);
     this.DocumentService.getByFilter(eventFilter).subscribe(view => {
       this.allItems = view.items;
       this.totalItem = view._total;

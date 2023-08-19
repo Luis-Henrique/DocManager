@@ -10,5 +10,7 @@ namespace DocManager.Application.Contracts
         public string Id { get; set; }
         public string Message { get; set; }
         public string Token { get; set; }
+        public int UserAutorization { get; set; }
+        public string UserGroupAutorization { get; set; }
     }
 }

@@ -48,18 +48,25 @@ export class DocumentTypeComponent implements OnInit {
     }
 
     confirmdelete() {
-        if (this.deleteId !== undefined && this.deleteId != '') {
-            this.spinner.show();
-            this.documentTypeService.delete(this.deleteId).subscribe((response: any) => {
-                this.spinner.hide();
-                this.utils.showSuccessMessage(response.message, 'Categoria')
-            }, error => {
-                this.spinner.hide();
-                this.utils.showErrorMessage(error, 'Exclusão de Categoria');
-            });
-            this.deleteId == '';
+        var userAutorization = parseInt(this.utils.getUserAutorization((localStorage.getItem('currentUser') || "")).toString());
+        if (userAutorization == 1 || userAutorization == 3) {
+            if (this.deleteId !== undefined && this.deleteId != '') {
+                this.spinner.show();
+                this.documentTypeService.delete(this.deleteId).subscribe((response: any) => {
+                    this.spinner.hide();
+                    this.utils.showSuccessMessage(response.message, 'Categoria')
+                }, error => {
+                    this.spinner.hide();
+                    this.utils.showErrorMessage(error, 'Exclusão de Categoria');
+                });
+                this.deleteId == '';
+                this.setModalVisible = false;
+                this.filterView(this.formFilter.value, 1);
+            }
+        }
+        else {
             this.setModalVisible = false;
-            this.filterView(this.formFilter.value, 1);
+            this.utils.showErrorMessage("Seu usuário não permite essa ação...", 'Usuário não autorizado');
         }
     }
 

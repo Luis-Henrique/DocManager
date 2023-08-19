@@ -1,4 +1,5 @@
 {
+  "start": "ng serve --host=127.0.0.1",
   "name": "coreui-free-angular-admin-template",
   "version": "4.0.1",
   "config": {

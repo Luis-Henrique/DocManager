@@ -68,7 +68,12 @@ export class DocumentComponent implements OnInit {
 
   filterView(filter: DocumentFilter, page: number) {
     this.spinner.show();
-    let eventFilter = new DocumentFilter(filter.title, filter.description, filter.documentTypeId, filter.documentPartnersId, filter.active, page, this.itemsByPage);
+    var userGroupAutorization = this.utils.getUserGroupAutorization((localStorage.getItem('currentUser') || "")).toString();
+    if(userGroupAutorization == '0e1250d0-328f-4c93-b9d9-ddf5484bd037'){
+      userGroupAutorization = "Todos";
+    }
+    if(!(userGroupAutorization == '')){
+    let eventFilter = new DocumentFilter(filter.title, filter.description, filter.documentTypeId, filter.documentPartnersId, userGroupAutorization, filter.active, page, this.itemsByPage);
     this.DocumentService.getByFilter(eventFilter).subscribe(view => {
       this.allItems = view.items;
       this.totalItem = view._total;
@@ -81,6 +86,9 @@ export class DocumentComponent implements OnInit {
       console.log(error);
       this.spinner.hide();
     });
+    }else{
+      this.utils.showErrorMessage('Usuário não pertence a nenhum grupo', 'Erro! fale com o administrador');
+    }
   }
 
   redirectTo(url: string) {
@@ -96,7 +104,8 @@ export class DocumentComponent implements OnInit {
   }
 
   confirmdelete() {
-
+    var userAutorization = parseInt(this.utils.getUserAutorization((localStorage.getItem('currentUser') || "")).toString());
+    if(userAutorization == 1 || userAutorization == 3){
     if (this.deleteId !== undefined && this.deleteId != '') {
 
       this.spinner.show();
@@ -111,7 +120,12 @@ export class DocumentComponent implements OnInit {
       this.deleteId = '';
       this.filterView(this.formFilter.value, 1);
     }
-
+    }
+    else
+    {
+      this.utils.showErrorMessage("Seu usuário não permite essa ação...", 'Usuário não autorizado');
+      this.setModalVisible = false;
+    }
   }
 
   canceldelete() {

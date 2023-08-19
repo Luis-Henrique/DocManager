@@ -77,17 +77,24 @@ export class DocumentPartnersMaintenanceComponent implements OnInit {
   }
 
   confirmdelete() {
-    if (this.documentPartners.id !== undefined && this.documentPartners.id != '') {
-      this.spinner.show();
-      this.documentPartnersService.delete(this.documentPartners.id).subscribe((response: any) => {
-        this.spinner.hide();
-        this.utils.showSuccessMessage(response.message, this.action)
-      }, error => {
-        this.spinner.hide();
-        this.utils.showErrorMessage(error, this.action);
-      });
+    var userAutorization = parseInt(this.utils.getUserAutorization((localStorage.getItem('currentUser') || "")).toString());
+    if (userAutorization == 1 || userAutorization == 3) {
+      if (this.documentPartners.id !== undefined && this.documentPartners.id != '') {
+        this.spinner.show();
+        this.documentPartnersService.delete(this.documentPartners.id).subscribe((response: any) => {
+          this.spinner.hide();
+          this.utils.showSuccessMessage(response.message, this.action)
+        }, error => {
+          this.spinner.hide();
+          this.utils.showErrorMessage(error, this.action);
+        });
+        this.setModalVisible = false;
+        this.utils.navigateTo(this.returnUrl, '');
+      }
+    }
+    else {
       this.setModalVisible = false;
-      this.utils.navigateTo(this.returnUrl, '');
+      this.utils.showErrorMessage("Seu usuário não permite essa ação...", 'Usuário não autorizado');
     }
   }
 
@@ -110,29 +117,42 @@ export class DocumentPartnersMaintenanceComponent implements OnInit {
   }
 
   insertDocumentPartners(documentPartners: DocumentPartnersView) {
-    const documentPartnersPost = new DocumentPartnersPost(documentPartners);
-    this.spinner.show();
-    this.documentPartnersService.insert(documentPartnersPost).subscribe((response: any) => {
-      this.spinner.hide();
-      this.utils.showSuccessMessage(response.message, this.action)
-      this.redirect(this.returnUrl);
-    }, error => {
-      this.spinner.hide();
-      this.utils.showErrorMessage(error, this.action);
-    });
+    var userAutorization = parseInt(this.utils.getUserAutorization((localStorage.getItem('currentUser') || "")).toString());
+    if (userAutorization == 1 || userAutorization == 3) {
+      const documentPartnersPost = new DocumentPartnersPost(documentPartners);
+      this.spinner.show();
+      this.documentPartnersService.insert(documentPartnersPost).subscribe((response: any) => {
+        this.spinner.hide();
+        this.utils.showSuccessMessage(response.message, this.action)
+        this.redirect(this.returnUrl);
+      }, error => {
+        this.spinner.hide();
+        this.utils.showErrorMessage(error, this.action);
+      });
+    }
+    else {
+      this.utils.showErrorMessage("Seu usuário não permite essa ação...", 'Usuário não autorizado');
+    }
+
   }
 
   updateDocumentPartners(documentPartners: DocumentPartnersView) {
-    const documentPartnersPut = new DocumentPartnersPut(documentPartners);
-    this.spinner.show();
-    this.documentPartnersService.update(documentPartnersPut).subscribe((response: any) => {
-      this.spinner.hide();
-      this.utils.showSuccessMessage(response.message, this.action)
-      this.redirect(this.returnUrl);
-    }, error => {
-      this.spinner.hide();
-      this.utils.showErrorMessage(error, this.action);
-    });
+    var userAutorization = parseInt(this.utils.getUserAutorization((localStorage.getItem('currentUser') || "")).toString());
+    if (userAutorization == 1 || userAutorization == 3) {
+      const documentPartnersPut = new DocumentPartnersPut(documentPartners);
+      this.spinner.show();
+      this.documentPartnersService.update(documentPartnersPut).subscribe((response: any) => {
+        this.spinner.hide();
+        this.utils.showSuccessMessage(response.message, this.action)
+        this.redirect(this.returnUrl);
+      }, error => {
+        this.spinner.hide();
+        this.utils.showErrorMessage(error, this.action);
+      });
+    }
+    else {
+      this.utils.showErrorMessage("Seu usuário não permite essa ação...", 'Usuário não autorizado');
+    }
   }
 }
 

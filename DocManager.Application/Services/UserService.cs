@@ -32,9 +32,22 @@ namespace DocManager.Application.Services
             return Utils.SuccessData(response);
         }
 
-        public async Task<ResultData> PutAsync(UserEntity request)
+        public async Task<ResultData> PutTokenAsync(UserEntity request)
         {
-            var response = await _userRepository.UpdateUser(request);
+            var response = await _userRepository.UpdateUserToken(request);
+            return Utils.SuccessData(response);
+        }
+
+        public async Task<ResultData> PutAsync(UserPutRequest request)
+        {
+            var entity = new UserEntity(request);
+            var response = await _userRepository.UpdateUser(entity);
+            return Utils.SuccessData(response);
+        }
+
+        public async Task<ResultData> GetAllAsync()
+        {
+            var response = await _userRepository.GetAll();
             return Utils.SuccessData(response);
         }
 
@@ -60,19 +73,30 @@ namespace DocManager.Application.Services
         {
             var openData = user.Email + ":" + user.Password + ":" + Utils.GetDateExpired(10);
             var dataBytes = Utils.ToBase64Encode(openData);
-            var getuser = await _userRepository.GetUserByCredentialsAsync(user.Email, user.Password);
+            var getuser = new UserEntity();
 
-            if (getuser != null)
-            {
-                var response = new AccountResponse
-                {
-                    Id = getuser.Id.ToString(),
-                    Message = "Token successful",
-                    Token = dataBytes
-                };
-                return Utils.SuccessData(response);
+            
+            getuser = await _userRepository.GetUserByCredentialsAsync(user.Email, user.Password);
+            
+            if(getuser == null){
+                return Utils.SuccessData(new AccountResponse { Message = "Usuário inexistente ou ainda não foi ativado" });
             }
 
+            if (getuser.Active == true)
+            {
+                if (getuser != null)
+                {
+                    var response = new AccountResponse
+                    {
+                        Id = getuser.Id.ToString(),
+                        Message = "Token successful",
+                        Token = dataBytes,
+                        UserAutorization = getuser.UserAutorization,
+                        UserGroupAutorization = getuser.UserGroupAutorization,
+                    };
+                    return Utils.SuccessData(response);
+                }
+            }
             return Utils.ErrorData(new AccountResponse { Message = "Token Fail" });
         }
 
@@ -82,5 +106,10 @@ namespace DocManager.Application.Services
             return response;
         }
 
+        public async Task<ResultData> GetByIdAsync(Guid id)
+        {
+            var response = await _userRepository.GetByIdAsync(id);
+            return Utils.SuccessData(response);
+        }
     }
 }

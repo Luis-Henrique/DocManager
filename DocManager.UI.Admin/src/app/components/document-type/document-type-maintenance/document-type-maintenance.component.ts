@@ -73,17 +73,24 @@ export class DocumentTypeMaintenanceComponent implements OnInit {
   }
 
   confirmdelete() {
-    if (this.documentType.id !== undefined && this.documentType.id != '') {
-      this.spinner.show();
-      this.documentTypeService.delete(this.documentType.id).subscribe((response: any) => {
-        this.spinner.hide();
-        this.utils.showSuccessMessage(response.message, this.action)
-      }, error => {
-        this.spinner.hide();
-        this.utils.showErrorMessage(error, this.action);
-      });
+    var userAutorization = parseInt(this.utils.getUserAutorization((localStorage.getItem('currentUser') || "")).toString());
+    if (userAutorization == 1 || userAutorization == 3) {
+      if (this.documentType.id !== undefined && this.documentType.id != '') {
+        this.spinner.show();
+        this.documentTypeService.delete(this.documentType.id).subscribe((response: any) => {
+          this.spinner.hide();
+          this.utils.showSuccessMessage(response.message, this.action)
+        }, error => {
+          this.spinner.hide();
+          this.utils.showErrorMessage(error, this.action);
+        });
+        this.setModalVisible = false;
+        this.redirect(this.urlReturn);
+      }
+    }
+    else {
       this.setModalVisible = false;
-      this.redirect(this.urlReturn);
+      this.utils.showErrorMessage("Seu usuário não permite essa ação...", 'Usuário não autorizado');
     }
   }
 
@@ -106,29 +113,42 @@ export class DocumentTypeMaintenanceComponent implements OnInit {
   }
 
   insertDocumentType(documentType: DocumentTypeView) {
-    const documentTypePost = new DocumentTypePost(documentType);
-    this.spinner.show();
-    this.documentTypeService.insert(documentTypePost).subscribe((response: any) => {
-      this.spinner.hide();
-      this.utils.showSuccessMessage(response.message, this.action)
-      this.redirect(this.urlReturn);
-    }, error => {
-      this.spinner.hide();
-      this.utils.showErrorMessage(error, this.action);
-    });
+    var userAutorization = parseInt(this.utils.getUserAutorization((localStorage.getItem('currentUser') || "")).toString());
+    if (userAutorization == 1 || userAutorization == 3) {
+      const documentTypePost = new DocumentTypePost(documentType);
+      this.spinner.show();
+      this.documentTypeService.insert(documentTypePost).subscribe((response: any) => {
+        this.spinner.hide();
+        this.utils.showSuccessMessage(response.message, this.action)
+        this.redirect(this.urlReturn);
+      }, error => {
+        this.spinner.hide();
+        this.utils.showErrorMessage(error, this.action);
+      });
+    }
+    else {
+      this.utils.showErrorMessage("Seu usuário não permite essa ação...", 'Usuário não autorizado');
+    }
+
   }
 
   updateDocumentType(documentType: DocumentTypeView) {
-    const documentTypePut = new DocumentTypePut(documentType);
-    this.spinner.show();
-    this.documentTypeService.update(documentTypePut).subscribe((response: any) => {
-      this.spinner.hide();
-      this.utils.showSuccessMessage(response.message, this.action)
-      this.redirect(this.urlReturn);
-    }, error => {
-      this.spinner.hide();
-      this.utils.showErrorMessage(error, this.action);
-    });
+    var userAutorization = parseInt(this.utils.getUserAutorization((localStorage.getItem('currentUser') || "")).toString());
+    if (userAutorization == 1 || userAutorization == 3) {
+      const documentTypePut = new DocumentTypePut(documentType);
+      this.spinner.show();
+      this.documentTypeService.update(documentTypePut).subscribe((response: any) => {
+        this.spinner.hide();
+        this.utils.showSuccessMessage(response.message, this.action)
+        this.redirect(this.urlReturn);
+      }, error => {
+        this.spinner.hide();
+        this.utils.showErrorMessage(error, this.action);
+      });
+    }
+    else {
+      this.utils.showErrorMessage("Seu usuário não permite essa ação...", 'Usuário não autorizado');
+    }
   }
 
   redirect(url: string) {

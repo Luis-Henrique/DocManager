@@ -1,8 +1,11 @@
 ﻿using Dapper;
 using DocManager.Application.Contracts;
 using DocManager.Application.Data.MySql.Entities;
+using DocManager.Application.Helpers;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
+using static Dapper.SqlMapper;
 
 namespace DocManager.Application.Data.MySql.Repositories
 {
@@ -20,8 +23,8 @@ namespace DocManager.Application.Data.MySql.Repositories
         }
         public async Task<DefaultResponse> CreateUser(UserEntity entity) 
         {
-            var _sql = @$"INSERT INTO user(id, userName, email, password, active)
-                                     VALUE(@id, @userName, @email, @password, @active)";
+            var _sql = @$"INSERT INTO user(id, userName, email, password, active, userAutorization)
+                                     VALUE(@id, @userName, @email, @password, @active, @userAutorization)";
 
             using (var cnx = _context.Connection()) 
             {
@@ -31,7 +34,8 @@ namespace DocManager.Application.Data.MySql.Repositories
                     userName = entity.UserName,
                     email = entity.Email,
                     password = entity.Password,
-                    active = entity.Active
+                    active = entity.Active,
+                    userAutorization = entity.UserAutorization
                 };
                 var result = await cnx.ExecuteAsync(_sql, mapper);
 
@@ -41,7 +45,27 @@ namespace DocManager.Application.Data.MySql.Repositories
             return new DefaultResponse("", "Erro ao tentar criar uma conta", true);
         }
 
-        public async Task<DefaultResponse> UpdateUser(UserEntity user)
+        public async Task<PaginationResponse<UserEntity>> GetAll()
+        {
+            var _sql = @$"SELECT * FROM user;";
+
+            using (var cnx = _context.Connection())
+            {
+                var result = await cnx.QueryAsync<UserEntity>(_sql.ToString());
+                var result2 = await cnx.QueryAsync<int>("select count(*) as count from user");
+                var totalRows = result2.FirstOrDefault();
+
+                return new PaginationResponse<UserEntity>
+                {
+                    Items = result.ToArray(),
+                    _pageSize = 10,
+                    _page = 1,
+                    _total = totalRows
+                };
+            }
+        }
+
+        public async Task<DefaultResponse> UpdateUserToken(UserEntity user)
         {
             var _sql = @$"UPDATE user set forgetPasswordToken = '{user.ForgetPasswordToken}', forgetPasswordExpiration = '{user.ForgetPasswordExpiration}' where id = '{user.Id}'";
             using (var cnx = _context.Connection())
@@ -96,15 +120,44 @@ namespace DocManager.Application.Data.MySql.Repositories
             }
         }
 
-        public async Task<UserEntity> InactiveUser(Guid id)
+        public async Task<DefaultResponse> UpdateUser(UserEntity user)
         {
-            var _sql = @$"UPDATE user set active = false where id = '{id}'";
-            return new UserEntity();
+            int active;
+
+            if (user.Active == true)
+            {
+                active = 1;
+            }
+            else
+            {
+                active = 0;
+            }
+
+            var _sql = @$"UPDATE user set active = {active}, userAutorization = {user.UserAutorization}, userGroupAutorization = '{user.UserGroupAutorization}' where id = '{user.Id}'";
+            
+            using (var cnx = _context.Connection())
+            {
+                var result = await cnx.ExecuteAsync(_sql);
+                if (result > 0)
+                    return new DefaultResponse(user.Id.ToString(), "Usuário alterado com sucesso", false);
+            }
+
+            return new DefaultResponse(user.Id.ToString(), "Erro ao tentar alterar o usuário", true);
+        }
+
+        public async Task<UserEntity> GetByIdAsync(Guid id)
+        {
+            string strQuery = $"select id, active, userAutorization, userGroupAutorization from user where id = '{id}'";
+            using (var cnx = _context.Connection())
+            {
+                var result = await cnx.QueryFirstOrDefaultAsync<UserEntity>(strQuery);
+                return result;
+            }
         }
 
         public async Task<UserEntity> GetUserByCredentialsAsync(string email, string password)
         {
-            string strQuery = @$"select id, userName, email, password, active from user where email = '{email}' and password = '{password}' and active = 1 limit 1";
+            string strQuery = @$"select * from user where email = '{email}' and password = '{password}' and active = 1 limit 1";
             using (var cnx = _context.Connection())
             {
                 var result = await cnx.QueryFirstOrDefaultAsync<UserEntity>(strQuery);

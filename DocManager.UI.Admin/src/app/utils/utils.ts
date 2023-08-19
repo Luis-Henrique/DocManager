@@ -22,7 +22,24 @@ export class Utils{
        }
       }
 
+    getUserAutorization(currentUser?: string){
+      var message = currentUser?.split('userAutorization":');
+      if(message == null){
+        return ""
+      }else{
+        return message[1].split(',')
+      }
+    }
 
+    getUserGroupAutorization(currentUser?: string){
+      var message = currentUser?.split('userGroupAutorization":"');
+      if(message == null){
+        return ""
+      }else{
+        var response = message[1].split('"}');
+        return response[0]
+      }
+    }
 
     navigateTo(url:string, param:string){
         if (param !='' && param != undefined && param != null)

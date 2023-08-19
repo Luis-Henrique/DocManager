@@ -9,7 +9,7 @@ import { ResetComponent } from './components/account/reset/reset.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'dashboard',
     pathMatch: 'full'
   },
   {
@@ -48,6 +48,16 @@ const routes: Routes = [
                 path:'document',
                 loadChildren: () =>
                 import('./components/document/document.module').then((m) => m.DocumentModule)
+              },
+              {
+                path:'user',
+                loadChildren: () =>
+                import('./components/user/user.module').then((m) => m.UserModule)
+              },
+              {
+                path:'groupautorization',
+                loadChildren: () =>
+                import('./components/group-autorization/group-autorization.module').then((m) => m.GroupAutorizationModule)
               }                  
     ]
   },
