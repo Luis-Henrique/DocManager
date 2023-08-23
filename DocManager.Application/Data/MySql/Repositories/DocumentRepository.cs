@@ -34,7 +34,7 @@ namespace DocManager.Application.Data.MySql.Repositories
                 active = 0;
             }
 
-            string strQuery = @$"insert into documents(id, title, description, documentTypeId, documentPartnersId, userGroupAutorization, validity, active, url)
+            string strQuery = @$"insert into documents(id, title, description, documentTypeId, documentPartnersId, userAutorizationGroupId, validity, active, url)
                                           Values('{entity.Id}', '{entity.Title}', '{entity.Description}', '{entity.DocumentTypeId}', '{entity.DocumentPartnersId}', '{entity.UserGroupAutorization}', '{entity.Validity}', {active}, '{entity.Url}')";
 
             using (var cnx = _context.Connection())
@@ -61,7 +61,7 @@ namespace DocManager.Application.Data.MySql.Repositories
                                                     description = '{entity.Description}', 
                                                     documentTypeId = '{entity.DocumentTypeId}',
                                                     documentPartnersId = '{entity.DocumentPartnersId}',
-                                                    userGroupAutorization = '{entity.UserGroupAutorization}',
+                                                    userAutorizationGroupId = '{entity.UserGroupAutorization}',
                                                     validity = '{entity.Validity}', 
                                                     active = {active},
                                                     url = '{entity.Url}'
@@ -120,7 +120,7 @@ namespace DocManager.Application.Data.MySql.Repositories
                     where.Append(" AND documentPartnersId = '" + filter.DocumentPartnersId + "'");
 
                 if (filter.UserGroupAutorization != "Todos")
-                    where.Append(" AND userGroupAutorization = '" + filter.UserGroupAutorization + "'");
+                    where.Append(" AND userAutorizationGroupId = '" + filter.UserGroupAutorization + "'");
 
                 if (filter.Active.ToLower() != "todos")
                 {

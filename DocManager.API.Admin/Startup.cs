@@ -1,30 +1,22 @@
 ﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using DocManager.Application.Data.MySql;
 using DocManager.Application.Data.MySql.Repositories;
 using DocManager.Application.Helpers;
 using DocManager.Application.Services;
 using System.Globalization;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
-using Google.Protobuf.WellKnownTypes;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Newtonsoft.Json.Linq;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using System.Net;
-using System.Security.Cryptography;
-using System;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DocManager.API.Admin
 {
     public class Startup
     {
         public IConfiguration Configuration { get; set; }
-        readonly string CorsPolicy = "_corsPolicy";
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public void BeforeConfigureServices(IServiceCollection services)
         {
 
@@ -40,12 +32,13 @@ namespace DocManager.API.Admin
 
             services.AddCors(options =>
             {
-                options.AddPolicy(name: CorsPolicy,
-                builder =>
-                {
-                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-                });
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  policy =>
+                                  {
+                                      policy.WithOrigins("https://mango-plant-0ce961a0f.3.azurestaticapps.net").AllowAnyHeader().AllowAnyMethod();
+                                  });
             });
+
             BeforeConfigureServices(services);
             services.AddApiVersioning();
             services.AddScoped<EmailService>();
@@ -85,8 +78,8 @@ namespace DocManager.API.Admin
                 SupportedCultures = supportedCultures,
                 SupportedUICultures = supportedCultures
             });
-            
-            app.UseCors(CorsPolicy);
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthentication();
             app.UseAuthorization();
