@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'docmanager-api'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_271D783D4EB4460FB94682CE04A0EFDA }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9E656FFBDEB043D68437D078F05049FE }}
           package: .
