@@ -1,7 +1,6 @@
 import { Component, OnInit, OnChanges, EventEmitter, Output, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ValidatorFn } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Guid } from 'guid-typescript';
@@ -26,7 +25,7 @@ import { GroupAutorizationService } from 'src/app/services/group-autorization-se
 })
 export class DocumentMaintenanceComponent implements OnInit {
   public modalVisible = false;
-  formChanges!: Observable<any>;
+ // formChanges!: Observable<any>;
 
   @Input() disableForm = true;
   @Input() urlReturn = '/document/document';
