@@ -35,7 +35,7 @@ namespace DocManager.Application.Data.MySql.Repositories
             }
 
             string strQuery = @$"insert into documents(id, title, description, documentTypeId, documentPartnersId, userAutorizationGroupId, validity, active, url)
-                                          Values('{entity.Id}', '{entity.Title}', '{entity.Description}', '{entity.DocumentTypeId}', '{entity.DocumentPartnersId}', '{entity.UserGroupAutorization}', '{entity.Validity}', {active}, '{entity.Url}')";
+                                          Values('{entity.Id}', '{entity.Title}', '{entity.Description}', '{entity.DocumentTypeId}', '{entity.DocumentPartnersId}', '{entity.UserAutorizationGroupId}', '{entity.Validity}', {active}, '{entity.Url}')";
 
             using (var cnx = _context.Connection())
             {
@@ -61,7 +61,7 @@ namespace DocManager.Application.Data.MySql.Repositories
                                                     description = '{entity.Description}', 
                                                     documentTypeId = '{entity.DocumentTypeId}',
                                                     documentPartnersId = '{entity.DocumentPartnersId}',
-                                                    userAutorizationGroupId = '{entity.UserGroupAutorization}',
+                                                    userAutorizationGroupId = '{entity.UserAutorizationGroupId}',
                                                     validity = '{entity.Validity}', 
                                                     active = {active},
                                                     url = '{entity.Url}'
@@ -119,8 +119,8 @@ namespace DocManager.Application.Data.MySql.Repositories
                 if (!string.IsNullOrEmpty(filter.DocumentPartnersId))
                     where.Append(" AND documentPartnersId = '" + filter.DocumentPartnersId + "'");
 
-                if (filter.UserGroupAutorization != "Todos")
-                    where.Append(" AND userAutorizationGroupId = '" + filter.UserGroupAutorization + "'");
+                if (filter.UserAutorizationGroupId != "Todos")
+                    where.Append(" AND userAutorizationGroupId = '" + filter.UserAutorizationGroupId + "'");
 
                 if (filter.Active.ToLower() != "todos")
                 {

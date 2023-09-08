@@ -14,6 +14,7 @@ import { DashBoardGroupView } from "./models/dashboard-view";
 import { DocumentTypeService } from 'src/app/services/document-type-service';
 import { DocumentPartnersService } from 'src/app/services/document-partners-service';
 import { DocumentService } from '../../services/document-service';
+import { DatePipe } from "@angular/common";
 
 @Component({
   templateUrl: './dashboard.component.html',
@@ -27,8 +28,8 @@ export class DashboardComponent implements OnInit {
     private DocumentTypeService: DocumentTypeService,
     private pagerService: PagerService,
     private spinner: NgxSpinnerService,
+    private datePipe: DatePipe,
     private utils: Utils
-
   ) {
 
   }
@@ -44,11 +45,10 @@ export class DashboardComponent implements OnInit {
       backgroundColor: ["#FF4500", "#FF8C00", "#FFA500", "#FFD700", "#FF0000"]
     }];
   public lineChartData: Array<any> = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' },
-    { data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C' }
+    { data: [], label: 'Documentos Ativos' },
+    { data: [], label: 'Documentos Encerrados' },
   ];
-  public lineChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public lineChartLabels: Array<any> = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
   public lineChartColors: Array<any> = [
     { // grey
       backgroundColor: 'rgba(148,159,177,0.2)',
@@ -66,14 +66,6 @@ export class DashboardComponent implements OnInit {
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(77,83,96,1)'
     },
-    { // grey
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgba(148,159,177,1)',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    }
   ];
 
   ngOnInit() {
@@ -132,12 +124,96 @@ export class DashboardComponent implements OnInit {
   }
 
   setLineChart() {
-    /*
-    for(let document of this.allItems){
-      var data = new Date(document.validity);
-      if(data ==){
+    var count = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    var count2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    for (let document of this.allItems) {
+      var date = new Date(document.validity);
+      if (document.active == true) {
+        switch(date.getMonth()){
+          case 1:
+            count[0]++;
+            break;
+          case 2:
+            count[1]++;
+            break;
+          case 3:
+            count[2]++;
+            break;
+          case 4:
+            count[3]++;
+            break;
+          case 5:
+            count[4]++;
+            break;
+          case 6:
+            count[5]++;
+            break;
+          case 7:
+            count[6]++;
+            break;
+          case 8:
+            count[7]++;
+            break;
+          case 9:
+            count[8]++;
+            break;
+          case 10:
+            count[9]++;
+            break;
+          case 11:
+            count[10]++;
+            break;
+          case 12:
+            count[11]++;
+            break;
+        }
       }
-    }*/
+      else
+      {
+        switch(date.getMonth()){
+          case 1:
+            count2[0]++;
+            break;
+          case 2:
+            count2[1]++;
+            break;
+          case 3:
+            count2[2]++;
+            break;
+          case 4:
+            count2[3]++;
+            break;
+          case 5:
+            count2[4]++;
+            break;
+          case 6:
+            count2[5]++;
+            break;
+          case 7:
+            count2[6]++;
+            break;
+          case 8:
+            count2[7]++;
+            break;
+          case 9:
+            count2[8]++;
+            break;
+          case 10:
+            count2[9]++;
+            break;
+          case 11:
+            count2[10]++;
+            break;
+          case 12:
+            count2[11]++;
+            break;
+        }
+      }
+    }
+    this.lineChartData = [
+      { data: count, label: 'Documentos Ativos' },
+      { data: count2, label: 'Documentos Encerrados' },
+    ];
   }
 
   setAmountOfActiveChart() {

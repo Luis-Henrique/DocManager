@@ -64,7 +64,7 @@ export class ReportComponent implements OnInit {
 
     filterView(filter: DocumentFilter, page: number) {
         this.spinner.show();
-        var userGroupAutorization = this.utils.getUserGroupAutorization((localStorage.getItem('currentUser') || "")).toString();
+        var userGroupAutorization = "Todos";
         if(!(userGroupAutorization == '')){
         let eventFilter = new DocumentFilter('', '', filter.documentTypeId, filter.documentPartnersId, userGroupAutorization, filter.active, 1, 50);
         this.DocumentService.getByFilter(eventFilter).subscribe(view => {
@@ -72,6 +72,9 @@ export class ReportComponent implements OnInit {
             this.totalItem = view._total;
             this.pager = this.pagerService.getPager(this.totalItem, page, view._pageSize);
             this.pagedItems = this.allItems;
+            for(var i=0; i<this.pagedItems.length; i++){
+                this.pagedItems[i].validity = this.pagedItems[i].validity.toString().split(' ')[0];
+            }
             this.currentPage = page;
             this.spinner.hide();
         }, error => {

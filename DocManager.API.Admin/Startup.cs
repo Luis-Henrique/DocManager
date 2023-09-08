@@ -35,7 +35,8 @@ namespace DocManager.API.Admin
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   policy =>
                                   {
-                                      policy.WithOrigins("https://mango-plant-0ce961a0f.3.azurestaticapps.net").AllowAnyHeader().AllowAnyMethod();
+                                      policy.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
+                                      //policy.WithOrigins("https://mango-plant-0ce961a0f.3.azurestaticapps.net").AllowAnyHeader().AllowAnyMethod();
                                   });
             });
 

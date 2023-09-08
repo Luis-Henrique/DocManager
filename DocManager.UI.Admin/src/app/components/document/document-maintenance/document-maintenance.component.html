@@ -40,7 +40,7 @@
               </c-col>
               <c-col [md]="3" style="padding-top: 15px;">
                 <label cLabel for="groupAutorization">Grupo do usuário</label>
-                <select class="full-select" id="userGroupAutorization" formControlName="userGroupAutorization" type="text">
+                <select class="full-select" id="userAutorizationGroupId" formControlName="userAutorizationGroupId" type="text">
                   <option value="" selected disabled hidden>Selecione</option>
                   <option *ngFor="let groupAutorization of listGroupAutorization" value={{groupAutorization.id}}>
                     {{groupAutorization.name}}
@@ -51,10 +51,28 @@
                 <label cLabel for="validity">Data de expiração</label>
                 <input id="validity" class="full-control" type="date" formControlName="validity" />
               </c-col>
-              <c-col [md]="5" style="padding-top: 15px;">
+              <!--
+              <c-col [md]="8" *ngIf="formDocument.value.option" style="padding-top: 15px;">
+                <label cLabel for="url">URL</label>
+                <input id="url"  class="full-control" placeholder="url" type="file" formControlName="url" />
+              </c-col>
+              -->
+              <c-col [md]="8" style="padding-top: 15px;">
                 <label cLabel for="url">URL</label>
                 <input id="url" class="full-control" placeholder="URL" type="text" formControlName="url" />
               </c-col>
+              <!--<c-col [md]="2" style="padding-top: 15px;">
+                <c-row>
+                  <label cLabel for="option">interno/externo</label>
+                </c-row>
+                <c-row>
+                  <label class="switch">
+                    <input type="checkbox" formControlName="option" id="option" checked>
+                    <span class="slider round"></span>
+                  </label>
+                </c-row>
+              </c-col>
+              -->
               <c-col [md]="2" style="padding-top: 15px;">
                 <c-row>
                   <label cLabel for="active">Inativo/Ativo</label>
@@ -71,10 +89,10 @@
         </div>
 
         <div class="card-footer">
-          <button type="submit" size="sm" active="active" class="me-1" style="background-color:rgba(255, 127, 22, 0.78); border-color: rgba(255, 127, 22, 0.78);" cButton
+          <button type="submit" size="sm" active="active" class="me-1" style="background-color:rgba(0, 0, 0, 0.78); border-color: rgba(0, 0, 0, 0.78);" cButton
             (click)="saveChanges(formDocument.value)" [disabled]="!formDocument.valid"><svg cIcon class="me-1"
               name="cil-save"></svg>Gravar</button>
-          <button type="submit" size="sm" active="active" class="me-1" style="background-color: rgba(227, 98, 0, 0.829); border-color: rgba(227, 98, 0, 0.829);" cButton
+          <button type="submit" size="sm" active="active" class="me-1" style="background-color: rgba(212, 71, 2, 1); border-color: rgba(227, 98, 0, 0.829);" cButton
             (click)="prepareDelete()"><svg cIcon class="me-1" name="cil-trash"></svg>Excluir</button>
         </div>
       </div>

@@ -85,15 +85,20 @@
                   <label cFormCheckLabel *ngIf="!item.active">Inativo</label>
                 </c-form-check>
               </td>
-              <td style=" display: flex;
+
+              <td style="display: flex;
                               flex-direction: column;
                               flex-wrap: wrap;
-                              align-content: center;">
-                <button size="sm" active="active" class="me-1" style="background-color:rgba(255, 127, 22, 0.78);  border-color: rgba(255, 127, 22, 0.78);"
-                  cButton (click)="redirectUpdate('/documentpartners/maintenance', item.id)"><svg cIcon class="me-1"
-                    name="cil-Pen"></svg></button>
-                <button size="sm" active="active" class="me-1" style="background-color: rgba(227, 98, 0, 0.829); border-color:  rgba(227, 98, 0, 0.829);"  cButton
-                  (click)="prepareDelete(item.id, item.name)"><svg cIcon class="me-1" name="cil-Trash"></svg></button>
+                              padding-left: 11px;">
+                <div>
+                  <button size="sm" active="active" class="me-1" style="background-color:rgba(255, 210, 1, 1); border-color: rgba(255, 210, 1, 1);"
+                    cButton (click)="redirectUpdate('/documentpartners/maintenance', item.id)"><svg cIcon class="me-1"
+                      name="cil-Pen"></svg></button>
+                </div>
+                <div style="padding-top: 5px;">
+                  <button size="sm" active="active" class="me-1" style="background-color: rgba(212, 71, 2, 1); border-color: rgba(212, 71, 2, 1);"  cButton
+                    (click)="prepareDelete(item.id, item.name)"><svg cIcon class="me-1" name="cil-Trash"></svg></button>
+                </div>
               </td>
             </tr>
           </tbody>

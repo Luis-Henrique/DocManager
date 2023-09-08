@@ -38,8 +38,9 @@ namespace DocManager.Application.Services
             emailMessage.Subject = emailEntity.Subject;
             emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
             {
-                Text = string.Format(emailEntity.Content)
-            };
+                Text = emailEntity.Content
+                //Text = string.Format(emailEntity.Content)
+             };
 
             var smtp = _configuration.GetSection("EmailSettings").GetSection("SmtpServer").Value;
             var Password = _configuration.GetSection("EmailSettings").GetSection("Password").Value;

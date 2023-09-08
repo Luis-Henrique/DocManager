@@ -17,7 +17,7 @@ namespace DocManager.Application.Data.MySql.Entities
             this.Description = document.Description;
             this.DocumentTypeId = document.DocumentTypeId;
             this.DocumentPartnersId = document.DocumentPartnersId;
-            this.UserGroupAutorization = document.UserGroupAutorization;
+            this.UserAutorizationGroupId = document.UserAutorizationGroupId;
             this.Validity = document.Validity;
             this.Active = document.Active;
             this.Url = document.Url;
@@ -31,7 +31,7 @@ namespace DocManager.Application.Data.MySql.Entities
             this.Description = document.Description;
             this.DocumentTypeId = document.DocumentTypeId;
             this.DocumentPartnersId = document.DocumentPartnersId;
-            this.UserGroupAutorization = document.UserGroupAutorization;
+            this.UserAutorizationGroupId = document.UserAutorizationGroupId;
             this.Validity = document.Validity;
             this.Active = document.Active;
             this.Url = document.Url;
@@ -73,8 +73,8 @@ namespace DocManager.Application.Data.MySql.Entities
 
         [Column("uptadedDate")]
         public DateTime UpdatedDate { get; set; }
-        [Column("userGroupAutorization")]
-        public string UserGroupAutorization { get; set; }
+        [Column("UserAutorizationGroupId")]
+        public string UserAutorizationGroupId { get; set; }
 
     }
 }

@@ -78,7 +78,10 @@ export class DocumentComponent implements OnInit {
       this.allItems = view.items;
       this.totalItem = view._total;
       this.pager = this.pagerService.getPager(this.totalItem, page, view._pageSize);
-      this.pagedItems = this.allItems;
+      this.pagedItems = this.allItems; 
+      for(var i=0; i<this.pagedItems.length; i++){
+        this.pagedItems[i].validity = this.pagedItems[i].validity.toString().split(' ')[0];
+      }
       this.currentPage = page;
       this.spinner.hide();
     }, error => {
@@ -136,7 +139,7 @@ export class DocumentComponent implements OnInit {
   prepareDelete(id: string, name: string) {
 
     this.deleteId = id;
-    this.modalTitle = 'Excluir tipo de produto';
+    this.modalTitle = 'Exclusão';
     this.modalBodyDetail = 'Deseja realmente excluir o registro (' + name + ') ?';
     this.setModalVisible = true;
   }

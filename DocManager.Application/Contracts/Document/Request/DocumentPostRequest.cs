@@ -10,7 +10,7 @@ namespace DocManager.Application.Contracts.Document.Request
         public string Description { get; set; }
         public string DocumentTypeId { get; set; }
         public string DocumentPartnersId { get; set; }
-        public string UserGroupAutorization { get; set; }
+        public string UserAutorizationGroupId { get; set; }
         public string Validity { get; set; }
         public bool Active { get; set; }
         public string Url { get; set; }

@@ -71,7 +71,7 @@ namespace DocManager.Application.Services
 
         public async Task<ResultData> PostLoginAsync(UserPostLoginRequest user)
         {
-            var openData = user.Email + ":" + user.Password + ":" + Utils.GetDateExpired(10);
+            var openData = user.Email + ":" + user.Password + ":" + Utils.GetDateExpired(30);
             var dataBytes = Utils.ToBase64Encode(openData);
             var getuser = new UserEntity();
 

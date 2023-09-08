@@ -18,8 +18,8 @@
             </thead>
             <tbody>
               <tr scope="row" *ngFor="let item of pagedItems">
-                <td>{{item.name}}</td>
-                <td>
+                <td style="width: 600px;">{{item.name}}</td>
+                <td style="width: 250px;">
                   <c-form-check sizing="lg" switch>
                     <input cFormCheckInput type="checkbox" checked *ngIf="item.active" />
                     <input cFormCheckInput type="checkbox" *ngIf="!item.active" />
@@ -27,16 +27,22 @@
                     <label cFormCheckLabel *ngIf="!item.active">Inativo</label>
                   </c-form-check>
                 </td>
-                <td style=" display: flex;
-                                flex-direction: column;
-                                flex-wrap: wrap;
-                                align-content: center;">
-                  <button size="sm" active="active" class="me-1" style="background-color:rgba(255, 127, 22, 0.78); border-color: rgba(255, 127, 22, 0.78);"
+                
+                
+                <td style="display: flex;
+                              flex-direction: column;
+                              flex-wrap: wrap;
+                              padding-left: 11px;">
+                <div>
+                  <button size="sm" active="active" class="me-1" style="background-color:rgba(255, 210, 1, 1); border-color: rgba(255, 210, 1, 1);"
                     cButton (click)="redirectUpdate('/groupautorization/maintenance', item.id)"><svg cIcon class="me-1"
                       name="cil-Pen"></svg></button>
-                  <button size="sm" active="active" class="me-1" style="background-color: rgba(227, 98, 0, 0.829); border-color: rgba(227, 98, 0, 0.829);"  cButton
+                </div>
+                <div style="padding-top: 5px;">
+                  <button size="sm" active="active" class="me-1" style="background-color: rgba(212, 71, 2, 1); border-color: rgba(212, 71, 2, 1);"  cButton
                     (click)="prepareDelete(item.id, item.name)"><svg cIcon class="me-1" name="cil-Trash"></svg></button>
-                </td>
+                </div>
+              </td>
               </tr>
             </tbody>
             <tfoot>

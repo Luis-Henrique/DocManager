@@ -40,11 +40,6 @@ export class LoginComponent implements OnInit {
             this.showMessage('É necessário informar um e-mail valido, verifique...');
             return;
         }
-        if (!(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/.test(iPassword))){
-            this.showMessage('A senha deve conter 8 caracteres entre maiúsculas, números e especiais, verifique...');
-            return;
-        }
-
 
         const user = new AccountLoginView(iUsername,iPassword);        
 

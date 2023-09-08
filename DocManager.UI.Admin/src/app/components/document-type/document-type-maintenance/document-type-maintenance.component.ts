@@ -99,8 +99,13 @@ export class DocumentTypeMaintenanceComponent implements OnInit {
   }
 
   prepareDelete() {
-    this.modalTitle = 'Excluir tipo de produto';
+    if(this.id == undefined){
+      this.utils.showErrorMessage("Não foi possível excluir o item", 'Erro');
+    }else{
+    this.modalTitle = 'Exclusão'
     this.modalBodyDetail = 'Deseja realmente excluir o registro (' + this.documentType.name + ') ?';
+    this.setModalVisible = true;
+    }
   }
 
 

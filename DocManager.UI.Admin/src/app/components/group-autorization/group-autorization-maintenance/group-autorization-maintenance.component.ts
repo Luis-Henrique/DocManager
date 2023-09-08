@@ -19,6 +19,8 @@ import { GroupAutorizationView } from '../models/group-autorization-view';
 export class GroupAutorizationMaintenanceComponent implements OnInit {
   urlReturn = '/groupautorization/groupautorization';
   @Input() modalTitle = ''
+  public modalVisible = false;
+  setToDeleteDocument = '';
   @Input() modalBodyDetail = ''
   action = 'Inserir';
   @Input() id: any = '';
@@ -101,14 +103,20 @@ export class GroupAutorizationMaintenanceComponent implements OnInit {
   }
 
   canceldelete() {
+    this.setToDeleteDocument = '';
+    this.modalVisible = false;
     this.setModalVisible = false;
   }
 
   prepareDelete() {
-    this.modalTitle = 'Excluir tipo de produto';
+    if(this.id == undefined){
+      this.utils.showErrorMessage("Não foi possível excluir o item", 'Erro');
+    }else{
+    this.modalTitle = 'Exclusão'
     this.modalBodyDetail = 'Deseja realmente excluir o registro (' + this.groupAutorization.name + ') ?';
+    this.setModalVisible = true;
+    }
   }
-
 
   saveChanges(groupAutorization: any) {
     if (this.groupAutorization.id === undefined || this.groupAutorization.id === '') {

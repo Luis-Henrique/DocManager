@@ -58,8 +58,9 @@ export class DocumentMaintenanceComponent implements OnInit {
     description: this.formBuilder.control(this.document.description),
     documentTypeId: this.formBuilder.control(this.document.documentTypeId),
     documentPartnersId: this.formBuilder.control(this.document.documentPartnersId),
-    userGroupAutorization: this.formBuilder.control(this.document.userGroupAutorization),
+    userAutorizationGroupId: this.formBuilder.control(this.document.userAutorizationGroupId),
     validity: this.formBuilder.control(this.datePipe.transform(this.document.validity, 'yyyy-MM-dd')),
+    //option: this.formBuilder.control(true),
     url: this.formBuilder.control(this.document.url),
     active: this.formBuilder.control(this.document.active)
   });
@@ -184,7 +185,7 @@ export class DocumentMaintenanceComponent implements OnInit {
       description: this.formBuilder.control(this.document.description),
       documentTypeId: this.formBuilder.control(this.document.documentTypeId),
       documentPartnersId: this.formBuilder.control(this.document.documentPartnersId),
-      userGroupAutorization: this.formBuilder.control(this.document.userGroupAutorization),
+      userAutorizationGroupId: this.formBuilder.control(this.document.userAutorizationGroupId),
       validity: this.formBuilder.control(this.datePipe.transform(_validity.setDate(_validity.getDate() + 1), 'yyyy-MM-dd')),
       url: this.formBuilder.control(this.document.url),
       active: this.formBuilder.control(this.document.active)
@@ -239,9 +240,13 @@ export class DocumentMaintenanceComponent implements OnInit {
   }
 
   prepareDelete() {
-    this.modalTitle = 'Exclusão de Produto'
+    if(this.id == undefined){
+      this.utils.showErrorMessage("Não foi possível excluir o item", 'Erro');
+    }else{
+    this.modalTitle = 'Exclusão'
     this.modalBodyDetail = 'Deseja realmente excluir o registro (' + this.document.title + ') ?';
     this.setModalVisible = true;
+    }
   }
 
   confirmdelete() {
@@ -276,7 +281,7 @@ export class DocumentMaintenanceComponent implements OnInit {
   }
 
   insertDocument(document: DocumentView) {
-    var userAutorization = parseInt(this.utils.getUserAutorization((localStorage.getItem('currentUser') || "")).toString());
+    var userAutorization = parseInt(this.utils.getUserAutorization((localStorage.getItem('currentUser') || "")).toString());   
     if(userAutorization == 1 || userAutorization == 3){
       this.spinner.show();
       const documentPost = new DocumentPost(document);
@@ -346,6 +351,17 @@ export class DocumentMaintenanceComponent implements OnInit {
     var idvAlert = (<HTMLDivElement>document.getElementById("dvAlert"));
     idvAlert.innerHTML = '';
     colErrors.style.display = 'none';
+  }
+
+  prepareDocumentObj(document: DocumentView) {
+    /*var url = document.url;
+    var baseUrl = "C:\\01 - minha rede\\";
+    if(document.url.match("fakepath")){
+      var splitUrl = url.split("C:\\fakepath\\");
+      document.url = baseUrl.concat(splitUrl[1]);
+      return document
+    }*/
+    return document;
   }
 }
 

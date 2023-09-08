@@ -7,7 +7,7 @@ export class DocumentPut {
     description: string;
     documentTypeId: string;
     documentPartnersId: string;
-    userGroupAutorization: string;
+    userAutorizationGroupId: string;
     validity: string;
     url: string;
     active: boolean;
@@ -18,7 +18,7 @@ export class DocumentPut {
     this.description = documentView.description;
     this.documentTypeId = documentView.documentTypeId;
     this.documentPartnersId = documentView.documentPartnersId;
-    this.userGroupAutorization = documentView.userGroupAutorization;
+    this.userAutorizationGroupId = documentView.userAutorizationGroupId;
     this.validity = documentView.validity;
     this.url = documentView.url
     this.active = documentView.active;
