@@ -232,6 +232,7 @@ export class DocumentMaintenanceComponent implements OnInit {
         typesview.items.unshift(view);
         this.listGroupAutorization = typesview.items;
         this.listGroupAutorization.shift();
+        this.listGroupAutorization.shift();
       }, error => {
         this.utils.showErrorMessage(error, 'Tipo de produto');
         this.spinner.hide();

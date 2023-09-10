@@ -75,11 +75,17 @@ namespace DocManager.Application.Services
             var dataBytes = Utils.ToBase64Encode(openData);
             var getuser = new UserEntity();
 
-            
+            var exist = await _userRepository.GetUserByEmail(user.Email);
+
+            if (exist == null)
+            {
+                return Utils.SuccessData(new AccountResponse { Message = "Usuário inexistente ou ainda não foi ativado" });
+            }
+
             getuser = await _userRepository.GetUserByCredentialsAsync(user.Email, user.Password);
             
             if(getuser == null){
-                return Utils.SuccessData(new AccountResponse { Message = "Usuário inexistente ou ainda não foi ativado" });
+                return Utils.SuccessData(new AccountResponse { Message = "Usuário ou senha incorreta" });
             }
 
             if (getuser.Active == true)

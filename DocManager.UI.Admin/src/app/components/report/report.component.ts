@@ -64,7 +64,10 @@ export class ReportComponent implements OnInit {
 
     filterView(filter: DocumentFilter, page: number) {
         this.spinner.show();
-        var userGroupAutorization = "Todos";
+        var userGroupAutorization = this.utils.getUserGroupAutorization((localStorage.getItem('currentUser') || "")).toString();
+        if(userGroupAutorization == '0e1250d0-328f-4c93-b9d9-ddf5484bd037'){
+        userGroupAutorization = "Todos";
+        }
         if(!(userGroupAutorization == '')){
         let eventFilter = new DocumentFilter('', '', filter.documentTypeId, filter.documentPartnersId, userGroupAutorization, filter.active, 1, 50);
         this.DocumentService.getByFilter(eventFilter).subscribe(view => {

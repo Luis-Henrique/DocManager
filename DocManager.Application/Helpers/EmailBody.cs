@@ -465,7 +465,7 @@ namespace DocManager.Application.Helpers
                             </td>
                           </tr>
                         </table>
-                        <p>Se você não solicitou a alteração da sua senha iguinore essa mensagem ou entre em contrato conosco atráves do seguinte endereço de e-mail <a>equipefnx.dev@gmail.com</a> </p>
+                        <p>Se você não solicitou a alteração da sua senha ignore essa mensagem ou entre em contrato conosco atráves do seguinte endereço de e-mail <a>equipefnx.dev@gmail.com</a> </p>
                         <p>Obrigado(a),
                           <br>Time DocManager</p>
                         <!-- Sub copy -->
